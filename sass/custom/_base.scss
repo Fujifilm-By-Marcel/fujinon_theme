@@ -1,0 +1,95 @@
+html{
+	font-size:14px;
+}
+
+h1,h2,h3,h4,h5{
+	font-weight: 900;
+}
+h1{
+	font-size:2.5rem;
+}
+h2{
+	font-size: 1.875rem;
+}
+h3{
+	font-size: 1.375rem;
+}
+h4{
+	font-size: 1.125rem;
+}
+h5{
+	font-size: 1rem;
+}
+
+.button{
+	background: $color__accent;
+	border: 1px solid $color__accent;
+	padding: .5em 2.5em;
+	font-weight:900;
+	text-decoration: none;
+	color:white;
+	font-size:1.125rem;
+}
+.button:hover{
+	background: white;
+	color:black;
+	border: 1px solid #000;	
+}
+
+a.cta{
+	font-size:1.125rem;
+	border-bottom:2px solid $color__accent;
+	text-decoration:none;
+	color: inherit;	
+	font-weight:900;
+}
+a.cta:hover{
+	border-bottom:4px solid $color__accent;
+}
+a.cta:hover, a.cta:focus, a.cta:active{
+	color:inherit;
+}
+
+
+@media(min-width:50em){
+	html{
+		font-size:16px;
+	}
+}
+
+.container{
+	width: 90%;
+	margin:auto;
+}
+
+.underline{
+	border-bottom:3px solid $color__accent;
+}
+
+.black-bg{
+	background:black;
+	color:white;
+}
+
+.offblack-bg{
+	background: $color__offblack;
+	color: white;
+}
+
+.split{
+	display: flex;
+	flex-direction: column;
+
+}
+@media (min-width:50em) {
+	.split{
+		flex-direction:row;
+	}	
+	.split > *{
+		flex-basis: 100%;
+	}
+	
+	.home-tiles .home-tile:nth-child(even){
+		text-align: right;
+	}
+}
