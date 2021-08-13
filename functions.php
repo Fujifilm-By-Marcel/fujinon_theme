@@ -134,6 +134,28 @@ function fujinon_theme_widgets_init() {
 			'after_title'   => '</h2>',
 		)
 	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Column 1', 'fujinon_theme' ),
+			'id'            => 'footer-col-1',
+			'description'   => esc_html__( 'Add widgets here.', 'fujinon_theme' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer Column 2', 'fujinon_theme' ),
+			'id'            => 'footer-col-2',
+			'description'   => esc_html__( 'Add widgets here.', 'fujinon_theme' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h4 class="widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
 }
 add_action( 'widgets_init', 'fujinon_theme_widgets_init' );
 
@@ -145,6 +167,8 @@ function fujinon_theme_scripts() {
 	wp_style_add_data( 'fujinon_theme-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'fujinon_theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+
+	wp_enqueue_script( 'FontAwesome', 'https://kit.fontawesome.com/f9d70c0850.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -205,3 +229,15 @@ if( function_exists('acf_add_options_page') ) {
 	));
 	
 }
+
+//social shortcode
+function my_social() { ?>
+    <?php if( have_rows('social', 'option') ) { ?>        
+        <div class="social">
+            <?php while( have_rows('social' , 'option') ) : the_row(); ?>
+            	<a href="<?php the_sub_field('link') ?>" target="_blank"><?php the_sub_field('fa_icon') ?></a>
+            <?php endwhile; ?>
+        </div>
+    <?php } 
+}
+add_shortcode( 'my_social', 'my_social' );
