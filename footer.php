@@ -10,21 +10,44 @@
  */
 
 ?>
+	<footer id="colophon" class="site-footer offblack-bg">
+		<div class="container">
+			<div class="footer-widgets">
+			
+				<aside class="widget-area">
+					<?php dynamic_sidebar( 'footer-col-1' ); ?>
+				</aside><!-- #secondary -->
+				<aside class="widget-area">
+					<?php dynamic_sidebar( 'footer-col-2' ); ?>
+				</aside><!-- #secondary -->
+			
+			</div>
+		</div>
+		<div class="black-bg">
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'fujinon_theme' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'fujinon_theme' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'fujinon_theme' ), 'fujinon_theme', '<a href="http://underscores.me/">Marcel Munevar</a>' );
-				?>
-		</div><!-- .site-info -->
+			<div class="container">
+				<div class="site-info">
+					<!-- LOGO AND TEXT -->
+					<?php $logo = get_field('logo', 'option'); ?>
+					<div>
+						<img class="logo" src="<?php echo $logo['url']; ?>" alt="" width="<?php echo $logo['width']; ?>" height="<?php echo $logo['height']; ?>">				
+						<span><?php the_field('footer_text', 'option'); ?></span>
+					</div>
+					<!-- MENU -->
+					<div>
+						<?php
+						wp_nav_menu(
+							array(
+								'theme_location' => 'menu-2',
+								'menu_id'        => 'footer-menu',
+							)
+						);
+						?>
+					</div>
+				</div><!-- .site-info -->
+			</div>
+		</div>
+
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
