@@ -33,14 +33,16 @@ get_header();
 	}
 }
 
+
+
 </style>
 
 <?php the_field('hero_embed'); ?>
-<section class="home-tiles grid-split" style="color:white;margin-bottom:5rem;">
+<section class="home-tiles grid-split" style="color:white;">
 	<?php
 	if( have_rows('tiles') ):
 	    while( have_rows('tiles') ) : the_row();?>
-        	<div class="home-tile" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;">
+        	<div class="home-tile" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;<?php the_sub_field('custom_style') ?>">
         		<div class="container" style="height:100%;min-height:70vh" >
 	        		<h1><?php the_sub_field('title'); ?></h1>
 	        		<?php if(get_sub_field('image')){ ?>
@@ -56,7 +58,7 @@ get_header();
 	endif;
 	?>
 </section>
-<section class="teasers" style="margin-bottom:5rem;">
+<section class="teasers">
 	<div class="container" style="max-width:80em;">
 		<?php
 		if( have_rows('teasers') ):
