@@ -682,7 +682,7 @@ textarea {
 	display: block;
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1060px) {
 	.menu-toggle {
 		display: none;
 	}
@@ -983,6 +983,7 @@ h5 {
 
 a.cta {
 	font-size: 1.125rem;
+	padding-bottom: 4px;
 	border-bottom: 2px solid #01916d;
 	text-decoration: none;
 	color: inherit;
@@ -997,12 +998,6 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	color: inherit;
 }
 
-@media (min-width: 50em) {
-	html {
-		font-size: 16px;
-	}
-}
-
 .container {
 	width: 90%;
 	margin: auto;
@@ -1010,6 +1005,10 @@ a.cta:hover, a.cta:focus, a.cta:active {
 
 .underline {
 	border-bottom: 3px solid #01916d;
+}
+
+span.underline {
+	padding-bottom: 4px;
 }
 
 .black-bg {
@@ -1028,6 +1027,9 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 @media (min-width: 50em) {
+	html {
+		font-size: 16px;
+	}
 	.split {
 		flex-direction: row;
 	}
@@ -1037,6 +1039,10 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	.home-tiles .home-tile:nth-child(even) {
 		text-align: right;
 	}
+}
+
+#page section {
+	margin-bottom: 5rem;
 }
 
 .widget .social i {
@@ -1053,6 +1059,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 #masthead {
+	background: rgba(255, 255, 255, 0.8);
 	/* center logo */
 	/* container */
 	/* remove ul styles */
@@ -1062,13 +1069,18 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	/* desktop styles*/
 }
 
+#masthead.sticky {
+	position: fixed;
+	width: 100%;
+}
+
 #masthead .site-branding .custom-logo-link {
 	display: flex;
 }
 
 #masthead .container {
 	display: flex;
-	padding: 1.875rem 0;
+	padding: 1rem 0;
 	font-size: 0.875rem;
 	font-weight: 900;
 	align-items: center;
@@ -1090,6 +1102,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	background: none;
 	border: none;
 	float: right;
+	padding: 0;
 }
 
 #masthead .last-navigation-item {
@@ -1104,9 +1117,13 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	position: absolute;
 	width: 100%;
 	left: 0;
-	top: 100px;
+	top: calc( 2rem + 39px);
 	text-align: center;
-	background: white;
+	background: rgba(255, 255, 255, 0.8);
+}
+
+#masthead #site-navigation #primary-menu li {
+	margin: 1rem .5rem;
 }
 
 #masthead #site-navigation.toggled #primary-menu {
@@ -1114,20 +1131,26 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	max-height: 300px;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1060px) {
 	#masthead {
-		/* add padding to menu items */
+		/* hide last menu item in primary navigation */
+		/* hide all menu items but last item in top right menu */
+		/* show top right menu */
+	}
+	#masthead #site-navigation #primary-menu {
 		/* center primary navigation */
-		/* hide last menu */
-		/* hide all menu items but last menu item */
-		/* show last menu item */
-		/* unset menu styles for desktop */
-	}
-	#masthead #site-navigation li {
-		padding: 0 1.75rem;
-	}
-	#masthead #primary-menu {
 		justify-content: center;
+		align-items: center;
+		background: none;
+		/* unset menu styles from mobile */
+		max-height: none;
+		position: static;
+		display: flex;
+		/* adjust padding and margin */
+	}
+	#masthead #site-navigation #primary-menu li {
+		padding: 0 1.75rem;
+		margin: 0;
 	}
 	#masthead #site-navigation li:last-child {
 		display: none;
@@ -1137,11 +1160,6 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	}
 	#masthead .last-navigation-item {
 		display: block;
-	}
-	#masthead #site-navigation #primary-menu {
-		max-height: none;
-		position: static;
-		display: flex;
 	}
 }
 
@@ -1312,6 +1330,16 @@ a.cta:hover, a.cta:focus, a.cta:active {
 		flex-direction: row;
 		text-align: left;
 	}
+}
+
+.discover-block {
+	background-size: cover;
+	color: white;
+	overflow: hidden;
+	padding: 1rem;
+	width: 90%;
+	max-width: 90em;
+	margin: auto;
 }
 
 /*# sourceMappingURL=style.css.map */
