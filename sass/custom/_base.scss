@@ -38,6 +38,7 @@ h5{
 
 a.cta{
 	font-size:1.125rem;
+	padding-bottom:4px;
 	border-bottom:2px solid $color__accent;
 	text-decoration:none;
 	color: inherit;	
@@ -50,13 +51,6 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	color:inherit;
 }
 
-
-@media(min-width:50em){
-	html{
-		font-size:16px;
-	}
-}
-
 .container{
 	width: 90%;
 	margin:auto;
@@ -64,6 +58,9 @@ a.cta:hover, a.cta:focus, a.cta:active{
 
 .underline{
 	border-bottom:3px solid $color__accent;
+}
+span.underline{
+	padding-bottom:4px;
 }
 
 .black-bg{
@@ -81,7 +78,12 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	flex-direction: column;
 
 }
-@media (min-width:50em) {
+
+
+@media (min-width:$breakpoint_mobile) {
+	html{
+		font-size:16px;
+	}
 	.split{
 		flex-direction:row;
 	}	
@@ -92,4 +94,8 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	.home-tiles .home-tile:nth-child(even){
 		text-align: right;
 	}
+}
+
+#page section{
+	margin-bottom:5rem;
 }
