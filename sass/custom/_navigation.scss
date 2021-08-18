@@ -1,4 +1,14 @@
+$menu_bg: rgba(255,255,255,.8);
+$menu_padding: 1rem;
+
 #masthead {
+
+	background: $menu_bg;
+	&.sticky{
+		position: fixed;
+    	width: 100%;
+    	
+	}
 
 	/* center logo */
 	.site-branding .custom-logo-link{
@@ -8,7 +18,7 @@
 	/* container */
 	.container{
 		display:flex;
-		padding: 1.875rem 0;
+		padding:  $menu_padding 0;
 		font-size:0.875rem;
 		font-weight:900;
 		align-items: center;
@@ -31,6 +41,7 @@
 		background: none;
 		border:none;
 		float:right;
+		padding:0;
 	}
 
 	/* hide last menu item in mobile */
@@ -43,13 +54,16 @@
 		max-height: 0;
 		overflow:hidden;	
 		transition: max-height .25s ease-in;
-
 		position: absolute;
 		width: 100%;
 		left: 0;
-		top: 100px;
+		//padding plus hamburger menu height
+		top: calc( #{$menu_padding * 2} + 39px);
 		text-align: center;
-		background: white;	 
+		background: $menu_bg;
+		li{
+			margin:1rem .5rem;
+		}
 	}
 
 	/* animate menu */
@@ -63,37 +77,41 @@
 	/* desktop styles*/	
 	@media(min-width:$breakpoint_menu){
 		
-		/* add padding to menu items */
-		#site-navigation li{
-			padding: 0 1.75rem;
-		}
-
-		/* center primary navigation */
-		#primary-menu{
+		#site-navigation #primary-menu{				
+			
+			/* center primary navigation */
 			justify-content: center;
+			align-items:center;
+			background:none;
+
+			/* unset menu styles from mobile */
+			max-height: none;
+			position:static;
+			display:flex;
+
+			/* adjust padding and margin */
+			li{
+				padding: 0 1.75rem;
+				margin:0;
+			}					
 		}
 
-		/* hide last menu */
+		/* hide last menu item in primary navigation */
 		#site-navigation li:last-child{
 			display:none;
 		}
 
-		/* hide all menu items but last menu item */
+		/* hide all menu items but last item in top right menu */
 		.last-navigation-item li:not(:last-child){
 			display:none;
 		}
 
-		/* show last menu item */
+		/* show top right menu */
 		.last-navigation-item{
 			display:block;
 		}
 
-		/* unset menu styles for desktop */
-		#site-navigation #primary-menu{
-			max-height: none;
-			position:static;
-			display:flex;
-		}
+		
 	}
 	
 }
