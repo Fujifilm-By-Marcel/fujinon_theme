@@ -10,6 +10,15 @@
  */
 
 ?>
+	
+	<?php if( get_field("content", "option") != "" ){ ?>
+	<section class="discover-block" style="background:#acacac;background:<?php the_field("background", "option") ?>;">
+		<div style="max-width:<?php the_field('max_width', "option"); ?>;margin:auto;">
+			<?php the_field("content", "option") ?>
+		</div>
+	</section>
+	<?php } ?>
+
 	<footer id="colophon" class="site-footer offblack-bg">
 		<div class="container">
 			<div class="footer-widgets">
