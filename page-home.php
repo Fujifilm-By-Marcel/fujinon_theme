@@ -2,63 +2,50 @@
 get_header();
 ?>
 <style>
-/* equal height rows */
-.grid-split{
-	display: grid;
-	grid-auto-rows: 1fr;
-}
-
-/* add space between elements */
-.home-tile .container{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 1rem;
-}
-@media(min-width: 50em){
-	.teasers .split:nth-child(odd){
-		flex-direction: row-reverse;
-
-	}
-	.teasers .split > *{
-		width: 50%;
-	}
-	.teasers .split > *:first-child > div{
-		max-width:40ch; 
-		margin:auto;
-		padding: 0 1rem;
-	}
-	.grid-split{
-		grid-template-columns: 1fr 1fr;
-	}
-}
 
 
 
 </style>
-
-<?php the_field('hero_embed'); ?>
-<section class="home-tiles grid-split" style="color:white;">
+<section class="video">
+	<div class="video-container">
+		<?php the_field('hero_video'); ?>
+	</div>
+	<div class="hero-overlay">
+		<div class="container">
+			<div><img src="<?php echo get_field('hero_logo')['url']; ?>" alt="" width="<?php echo get_field('hero_logo')['width']; ?>" height="<?php echo get_field('hero_logo')['height']; ?>"></div>
+			<div>
+				<p style="text-align:right;margin:0;"><?php the_field('hero_credit'); ?></p>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="home-tiles standard-spacing" style="color:white;">
 	<?php
 	if( have_rows('tiles') ):
 	    while( have_rows('tiles') ) : the_row();?>
-        	<div class="home-tile" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;<?php the_sub_field('custom_style') ?>">
-        		<div class="container" style="height:100%;min-height:70vh" >
-	        		<h1><?php the_sub_field('title'); ?></h1>
+        	<div class="home-tile" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;background-position: center;<?php the_sub_field('custom_style') ?>">
+        		<!--<div class="container" >-->
+	        		
+	        		<div class="container">
+	        			<h1><?php the_sub_field('title'); ?></h1>
+	        		</div>
+	        		
+	        		<div class="container">
 	        		<?php if(get_sub_field('image')){ ?>
-	        			<img src="<?php echo get_sub_field('image')['url']; ?>" width="<?php echo get_sub_field('image')['width']; ?>" height="<?php echo get_sub_field('image')['height']; ?>" style="margin:auto;">
+	        			<img src="<?php echo get_sub_field('image')['url']; ?>" width="<?php echo get_sub_field('image')['width']; ?>" height="<?php echo get_sub_field('image')['height']; ?>">
 	        		<?php } ?>
-	        		<div style="margin-top:auto;">
+	        		</div>
+	        		<div class="container">
 	        			<?php the_sub_field('text'); ?>
 	        		</div>
-	        	</div>
+	        	<!--</div>-->
 	        </div>
 	    <?php
 	    endwhile;	
 	endif;
 	?>
 </section>
-<section class="teasers">
+<section class="teasers standard-spacing">
 	<div class="container" style="max-width:80em;">
 		<?php
 		if( have_rows('teasers') ):
@@ -69,7 +56,9 @@ get_header();
 		    				<?php the_sub_field('text'); ?>
 		    			</div>
 		    		</div>
-		    		<img src="<?php echo get_sub_field('image')['url']; ?>" width="<?php echo get_sub_field('image')['width']; ?>" height="<?php echo get_sub_field('image')['height']; ?>" style="margin:auto;">
+		    		<div>
+		    			<img src="<?php echo get_sub_field('image')['url']; ?>" width="<?php echo get_sub_field('image')['width']; ?>" height="<?php echo get_sub_field('image')['height']; ?>" style="margin:auto;">
+		    		</div>
 		    	</div>
 		    <?php
 		    endwhile;
@@ -77,6 +66,13 @@ get_header();
 		?>
 	</div>
 </section>
+<?php if( get_field("content", "option") != "" ){ ?>
+<section class="discover-block standard-spacing" style="background:#acacac;background:<?php the_field("background", "option") ?>;">
+	<div style="max-width:<?php the_field('max_width', "option"); ?>;margin:auto;">
+		<?php the_field("content", "option") ?>
+	</div>
+</section>
+<?php } ?>
 <script>
 
 </script>
