@@ -3,6 +3,7 @@ html{
 }
 
 h1,h2,h3,h4,h5{
+	font-family: 'Urbanist', sans-serif;
 	font-weight: 900;
 }
 h1{
@@ -59,9 +60,6 @@ a.cta:hover, a.cta:focus, a.cta:active{
 .underline{
 	border-bottom:3px solid $color__accent;
 }
-span.underline{
-	padding-bottom:4px;
-}
 
 .black-bg{
 	background:black;
@@ -76,7 +74,6 @@ span.underline{
 .split{
 	display: flex;
 	flex-direction: column;
-
 }
 
 
@@ -86,16 +83,12 @@ span.underline{
 	}
 	.split{
 		flex-direction:row;
-	}	
-	.split > *{
-		flex-basis: 100%;
 	}
-	
-	.home-tiles .home-tile:nth-child(even){
-		text-align: right;
+	.split > *{
+		flex-basis:100%;
 	}
 }
 
-#page section{
+#page section.standard-spacing{
 	margin-bottom:5rem;
 }
