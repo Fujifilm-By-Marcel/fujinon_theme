@@ -2,7 +2,7 @@ $menu_bg: rgba(255,255,255,.8);
 $menu_padding: 1rem;
 
 #masthead {
-
+	z-index:100;
 	background: $menu_bg;
 	&.sticky{
 		position: fixed;
@@ -57,13 +57,20 @@ $menu_padding: 1rem;
 		position: absolute;
 		width: 100%;
 		left: 0;
+		text-align: center;
+		background: white;
+		z-index: 100;
+
 		//padding plus hamburger menu height
 		top: calc( #{$menu_padding * 2} + 39px);
-		text-align: center;
-		background: $menu_bg;
+
 		li{
 			margin:1rem .5rem;
 		}
+	}
+
+	&.sticky #site-navigation #primary-menu{
+		background: $menu_bg;
 	}
 
 	/* animate menu */
@@ -76,18 +83,22 @@ $menu_padding: 1rem;
 
 	/* desktop styles*/	
 	@media(min-width:$breakpoint_menu){
-		
+			
+		/* remove background from menu */
+		&.sticky #site-navigation #primary-menu{
+			background:none;
+		}
+
 		#site-navigation #primary-menu{				
 			
 			/* center primary navigation */
 			justify-content: center;
 			align-items:center;
-			background:none;
 
 			/* unset menu styles from mobile */
 			max-height: none;
 			position:static;
-			display:flex;
+			display:flex;		
 
 			/* adjust padding and margin */
 			li{
