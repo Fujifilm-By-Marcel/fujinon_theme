@@ -942,6 +942,7 @@ html {
 }
 
 h1, h2, h3, h4, h5 {
+	font-family: 'Urbanist', sans-serif;
 	font-weight: 900;
 }
 
@@ -1007,10 +1008,6 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	border-bottom: 3px solid #01916d;
 }
 
-span.underline {
-	padding-bottom: 4px;
-}
-
 .black-bg {
 	background: black;
 	color: white;
@@ -1036,12 +1033,9 @@ span.underline {
 	.split > * {
 		flex-basis: 100%;
 	}
-	.home-tiles .home-tile:nth-child(even) {
-		text-align: right;
-	}
 }
 
-#page section {
+#page section.standard-spacing {
 	margin-bottom: 5rem;
 }
 
@@ -1059,6 +1053,7 @@ span.underline {
 }
 
 #masthead {
+	z-index: 100;
 	background: rgba(255, 255, 255, 0.8);
 	/* center logo */
 	/* container */
@@ -1117,13 +1112,18 @@ span.underline {
 	position: absolute;
 	width: 100%;
 	left: 0;
-	top: calc( 2rem + 39px);
 	text-align: center;
-	background: rgba(255, 255, 255, 0.8);
+	background: white;
+	z-index: 100;
+	top: calc( 2rem + 39px);
 }
 
 #masthead #site-navigation #primary-menu li {
 	margin: 1rem .5rem;
+}
+
+#masthead.sticky #site-navigation #primary-menu {
+	background: rgba(255, 255, 255, 0.8);
 }
 
 #masthead #site-navigation.toggled #primary-menu {
@@ -1133,15 +1133,18 @@ span.underline {
 
 @media (min-width: 1060px) {
 	#masthead {
+		/* remove background from menu */
 		/* hide last menu item in primary navigation */
 		/* hide all menu items but last item in top right menu */
 		/* show top right menu */
+	}
+	#masthead.sticky #site-navigation #primary-menu {
+		background: none;
 	}
 	#masthead #site-navigation #primary-menu {
 		/* center primary navigation */
 		justify-content: center;
 		align-items: center;
-		background: none;
 		/* unset menu styles from mobile */
 		max-height: none;
 		position: static;
@@ -1340,6 +1343,95 @@ span.underline {
 	width: 90%;
 	max-width: 90em;
 	margin: auto;
+}
+
+/* equal height rows */
+.home-tiles {
+	display: grid;
+	grid-auto-rows: 1fr;
+	text-align: center;
+}
+
+.home-tile {
+	/* add space between elements */
+	display: grid;
+	justify-content: space-between;
+	gap: 1em;
+	grid-template-rows: auto 1fr 15em;
+	/* remove default container margin */
+	/* restore auto margin on last item */
+}
+
+.home-tile .container {
+	margin: 0 auto;
+}
+
+.home-tile .container:last-child {
+	margin: auto;
+}
+
+/* style video section */
+.video {
+	position: relative;
+	color: white;
+}
+
+/* center and crop video */
+.video-container {
+	max-height: 88vh;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+/* style overlay */
+.hero-overlay {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	margin-bottom: 2em;
+	/* center and space items */
+	/* center items vertically */
+}
+
+.hero-overlay .container {
+	display: flex;
+	justify-content: space-between;
+	gap: 1em;
+}
+
+.hero-overlay .container > * {
+	display: flex;
+	align-items: center;
+}
+
+/* desktop styles */
+@media (min-width: 50em) {
+	/* switch tiles to equal width columns */
+	.home-tiles {
+		grid-template-columns: 1fr 1fr;
+	}
+	/* align text on tiles */
+	.home-tile:nth-child(odd) :first-child {
+		text-align: left;
+	}
+	.home-tile:nth-child(even) :first-child {
+		text-align: right;
+	}
+	/* reverse rows on each odd teaser */
+	.teasers .split:nth-child(odd) {
+		flex-direction: row-reverse;
+	}
+	.teasers .split > * {
+		/* spacing on text container*/
+	}
+	.teasers .split > *:first-child > div {
+		max-width: 40ch;
+		margin: auto;
+		padding: 0 1rem;
+	}
 }
 
 /*# sourceMappingURL=style.css.map */
