@@ -1041,10 +1041,6 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	}
 }
 
-#page section.standard-spacing {
-	margin-bottom: 5rem;
-}
-
 .widget .social i {
 	font-size: 1.75rem;
 	margin-bottom: 6px;
@@ -1341,12 +1337,17 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	}
 }
 
-.discover-block {
-	background-size: cover;
-	color: white;
+/* section spacing */
+#page section {
 	overflow: hidden;
-	padding: 1rem;
-	margin: auto;
+}
+
+#page section.standard-spacing-margin {
+	margin-bottom: 5rem;
+}
+
+#page section.standard-spacing-padding {
+	padding-bottom: 5rem;
 }
 
 /* equal height rows */
@@ -1390,7 +1391,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	position: relative;
 }
 
-/* style overlay */
+/* position overlay on bottom */
 .hero-overlay {
 	position: absolute;
 	bottom: 0px;
@@ -1404,6 +1405,12 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	display: flex;
 	justify-content: space-between;
 	gap: 1em;
+	/* add green line to left of text */
+}
+
+.hero-overlay .container > *:first-child {
+	padding-left: 1em;
+	border-left: 3px solid #01916d;
 }
 
 .hero-overlay .container > * {
@@ -1414,6 +1421,84 @@ a.cta:hover, a.cta:focus, a.cta:active {
 
 .hero-overlay .container > * > * {
 	margin: 0;
+}
+
+/* discover block */
+.discover-block .container-inner {
+	background-size: cover;
+	color: white;
+	overflow: hidden;
+	padding: 1rem;
+	margin: auto;
+}
+
+/* style header block */
+.header-block {
+	max-width: 55ch;
+	margin: auto;
+	text-align: center;
+}
+
+.header-block h1 {
+	margin-bottom: .25em;
+}
+
+.header-block p {
+	margin-top: 0;
+}
+
+/* timeline carousel */
+.timeline-carousel {
+	overflow: hidden;
+}
+
+.timeline-carousel .owl-theme .owl-dots {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1em;
+	position: relative;
+	transition: left .25s;
+}
+
+.timeline-carousel .owl-theme .owl-dots:after {
+	position: absolute;
+	left: -150%;
+	top: 13px;
+	height: 1px;
+	background: #000;
+	content: "";
+	width: 400%;
+	display: block;
+	z-index: -1;
+}
+
+.timeline-carousel .owl-theme .owl-dots .owl-dot {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	flex-basis: 100%;
+}
+
+.timeline-carousel .owl-theme .owl-dots .owl-dot span {
+	width: 16px;
+	height: 16px;
+	background: white;
+	border: 1px solid #000;
+	transition: transform .25s;
+}
+
+.timeline-carousel .owl-theme .owl-dots .owl-dot.active span {
+	transform: scale(1.5);
+	background: #01916d;
+}
+
+.timeline-carousel .owl-theme .owl-dots .owl-dot:hover span {
+	background: #01916d;
+}
+
+.brand-teasers .split {
+	flex-direction: column-reverse;
 }
 
 /* desktop styles */
@@ -1436,10 +1521,15 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	.teasers .split > * {
 		/* spacing on text container*/
 	}
+	.teasers .split > *:first-child {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	.teasers .split > *:first-child > div {
 		max-width: 40ch;
 		margin: auto;
-		padding: 0 1rem;
+		width: 90%;
 	}
 }
 
