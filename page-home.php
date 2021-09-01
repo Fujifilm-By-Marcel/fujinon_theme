@@ -19,7 +19,7 @@ get_header();
 		</div>
 	</div>
 </section>
-<section class="home-tiles standard-spacing" style="color:white;">
+<section class="home-tiles standard-spacing-margin" style="color:white;">
 	<?php
 	if( have_rows('tiles') ):
 	    while( have_rows('tiles') ) : the_row();?>
@@ -45,13 +45,13 @@ get_header();
 	endif;
 	?>
 </section>
-<section class="teasers standard-spacing">
+<section class="teasers standard-spacing-margin">
 	<div class="container" style="max-width:80em;">
 		<?php
 		if( have_rows('teasers') ):
 		    while( have_rows('teasers') ) : the_row(); ?>
 		    	<div class="split">
-		    		<div style="display:flex;align-items:center;justify-content: center;">
+		    		<div>
 		    			<div>
 		    				<?php the_sub_field('text'); ?>
 		    			</div>
