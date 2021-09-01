@@ -162,7 +162,7 @@ section{
 }
 
 
-.brand-teasers .split{
+.split.mobile-reverse{
 	flex-direction:column-reverse;
 }
 
@@ -186,13 +186,17 @@ section{
 	}
 
 	/* reverse rows on each odd teaser */
-	.teasers .split:nth-child(odd){
-		flex-direction: row-reverse;
-
+	.teasers .split{
+		flex-direction:row;
+		&:nth-child(odd){
+			flex-direction: row-reverse;
+		}
 	}
 
 	.teasers .split > *{
 		
+	
+
 		/* spacing on text container*/
 		&:first-child {
 			display:flex;

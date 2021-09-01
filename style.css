@@ -1501,7 +1501,7 @@ section.widget {
 	background: #01916d;
 }
 
-.brand-teasers .split {
+.split.mobile-reverse {
 	flex-direction: column-reverse;
 }
 
@@ -1519,6 +1519,9 @@ section.widget {
 		text-align: right;
 	}
 	/* reverse rows on each odd teaser */
+	.teasers .split {
+		flex-direction: row;
+	}
 	.teasers .split:nth-child(odd) {
 		flex-direction: row-reverse;
 	}

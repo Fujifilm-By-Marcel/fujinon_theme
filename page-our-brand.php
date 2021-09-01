@@ -69,7 +69,7 @@ get_header();
 	    while( have_rows('products') ) : the_row(); $image = get_sub_field('image'); ?>
 
 	        
-	        <div class="split">
+	        <div class="split mobile-reverse">
 	        	<div>
 	        		<div class="container">
 	        			<?php the_sub_field('text'); ?>		
