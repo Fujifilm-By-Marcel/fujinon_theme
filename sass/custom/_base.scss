@@ -57,6 +57,12 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	margin:auto;
 }
 
+.container-inner{
+	width: 90%;
+	max-width: 90em;
+	margin:auto;
+}
+
 .underline{
 	border-bottom:3px solid $color__accent;
 }
