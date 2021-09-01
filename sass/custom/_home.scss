@@ -56,12 +56,16 @@
 	/* center items vertically */
 	.container > *{
 		display:flex;
-		align-items: center;
+		flex-direction: column;
+    	justify-content: center;
+    	> *{
+    		margin:0;
+    	}
 	}
 }
 
 /* desktop styles */
-@media(min-width: 50em){
+@media(min-width:$breakpoint_mobile){
 
 	/* switch tiles to equal width columns */
 	.home-tiles{
