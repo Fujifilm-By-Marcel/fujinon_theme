@@ -1338,16 +1338,20 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 /* section spacing */
-#page section {
+section {
 	overflow: hidden;
 }
 
-#page section.standard-spacing-margin {
+section.standard-spacing-margin {
 	margin-bottom: 5rem;
 }
 
-#page section.standard-spacing-padding {
+section.standard-spacing-padding {
 	padding-bottom: 5rem;
+}
+
+section.widget {
+	overflow: visible;
 }
 
 /* equal height rows */

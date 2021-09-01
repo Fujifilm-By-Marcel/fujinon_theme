@@ -1,5 +1,5 @@
 /* section spacing */
-#page section{
+section{
 	overflow:hidden;
 
 	&.standard-spacing-margin{
@@ -8,6 +8,10 @@
 	}
 	&.standard-spacing-padding{
 		padding-bottom:5rem;
+	}
+
+	&.widget{
+		overflow: visible;
 	}
 
 }
