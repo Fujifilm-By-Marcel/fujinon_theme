@@ -66,13 +66,9 @@ get_header();
 		?>
 	</div>
 </section>
-<?php if( get_field("content", "option") != "" ){ ?>
-<section class="discover-block standard-spacing" style="background:#acacac;background:<?php the_field("background", "option") ?>;">
-	<div style="max-width:<?php the_field('max_width', "option"); ?>;margin:auto;">
-		<?php the_field("content", "option") ?>
-	</div>
-</section>
-<?php } ?>
+
+<?php do_shortcode('[my_discover_block]'); ?>
+
 <script>
 
 </script>

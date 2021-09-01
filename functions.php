@@ -241,3 +241,15 @@ function my_social() { ?>
     <?php } 
 }
 add_shortcode( 'my_social', 'my_social' );
+
+//discover block shortcode
+function my_discover_block() { ?>
+	<?php if( get_field("discover_block", "option")['content'] != "" ){ ?>
+	<section class="discover-block container-inner standard-spacing" style="background:#acacac;background:<?php echo get_field("discover_block", "option")['background'] ?>;">
+		<div style="max-width:<?php echo get_field('discover_block', "option")['max_width']; ?>;margin:auto;">
+			<?php echo get_field("discover_block", "option")['content'] ?>
+		</div>
+	</section>
+	<?php }
+}
+add_shortcode( 'my_discover_block', 'my_discover_block' );
