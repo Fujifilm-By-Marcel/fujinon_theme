@@ -1004,6 +1004,12 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	margin: auto;
 }
 
+.container-inner {
+	width: 90%;
+	max-width: 90em;
+	margin: auto;
+}
+
 .underline {
 	border-bottom: 3px solid #01916d;
 }
@@ -1340,8 +1346,6 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	color: white;
 	overflow: hidden;
 	padding: 1rem;
-	width: 90%;
-	max-width: 90em;
 	margin: auto;
 }
 
@@ -1404,7 +1408,12 @@ a.cta:hover, a.cta:focus, a.cta:active {
 
 .hero-overlay .container > * {
 	display: flex;
-	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.hero-overlay .container > * > * {
+	margin: 0;
 }
 
 /* desktop styles */
