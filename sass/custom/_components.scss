@@ -9,7 +9,6 @@ section{
 	&.standard-spacing-padding{
 		padding-bottom:5rem;
 	}
-
 	&.widget{
 		overflow: visible;
 	}
@@ -118,7 +117,60 @@ section{
 .timeline-carousel {
 	overflow: hidden;
 
+	/* full height items */
+	.owl-stage {
+	    display: flex;
+	    .owl-item {
+			display: flex;
+			flex: 1 0 auto;			
+			.owl-content{
+				display: flex;
+				width:100%;
+				.split{
+					width:100%;				
+				}
+			}
+	    }
+	}
+
+	.owl-carousel .owl-item .split{
+		
+		/* add spacing */
+		gap:2em;
+		> *{
+			/* center vertically */
+			display:flex;			
+			justify-content: center;
+			flex-direction: column;
+
+			/* keep content from exceeding width and height restraints */
+			> div {
+				max-width:504px;
+				max-height:294px;
+				width:100%;
+			}
+
+			/* constrain image size */
+			img{
+				width:auto;
+				height:auto;
+				max-width:504px;
+				max-height:294px;
+				margin:auto;
+			}
+		}
+
+		/* center image horizontally */
+		> *:last-child{
+			align-items:center;
+		}
+
+	}
+
+
 	.owl-theme .owl-dots {
+
+
 		display:flex;
 		align-items:center;
 		justify-content: center;
@@ -126,6 +178,7 @@ section{
 		position: relative;
 		transition: left .25s;
 
+		/* line behind dots */
 		&:after {
 		  position: absolute;
 		  left: -150%;
@@ -142,6 +195,7 @@ section{
 			align-items:center;
 			flex-direction: column;
 			flex-basis:100%;
+			font-weight:900;
 			span{
 				width:16px;
 				height:16px;
@@ -161,10 +215,27 @@ section{
 	}
 }
 
-
-.split.mobile-reverse{
+/* reverse column order */
+.split.column-reverse{
 	flex-direction:column-reverse;
 }
+
+.embedded-video {
+	position: relative;
+	padding-bottom: 56.25%; 
+	width:100%;
+
+	iframe{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+
+
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
@@ -190,24 +261,37 @@ section{
 		flex-direction:row;
 		&:nth-child(odd){
 			flex-direction: row-reverse;
+			> div:last-child{
+				display:flex;
+				> img{
+					margin-right:auto;
+				}
+			}
 		}
-	}
-
-	.teasers .split > *{
-		
+		&:nth-child(even){
+			
+			> div:last-child{
+				display:flex;
+				> img{
+					margin-left:auto;
+				}
+			}
+		}
 	
+		> *{		
 
-		/* spacing on text container*/
-		&:first-child {
-			display:flex;
-			align-items:center;
-			justify-content: center;
+			/* spacing on text container*/
+			&:first-child {
+				display:flex;
+				align-items:center;
+				justify-content: center;
 
-			> div{
-				max-width:40ch; 
-				margin:auto;
-				width:90%;
-			}		
+				> div{
+					max-width:40ch; 
+					margin:auto;
+					width:90%;
+				}		
+			}
 		}
 	}
 }
