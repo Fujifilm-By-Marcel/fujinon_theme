@@ -1,0 +1,144 @@
+/* change color and font */
+#mapsvg-map-1 *{
+  color:white; 
+  font-family: 'Urbanist', sans-serif;
+}
+
+/* labels */
+#mapsvg-map-1 .mapsvg-filter-label{
+  text-transform:none; 
+  color:#01916D;
+  font-weight:900;
+  margin-bottom:1em;
+}
+
+/* directory items */
+#mapsvg-map-1 .mapsvg-directory-item{
+ text-transform:uppercase; 
+  font-weight:900;
+}
+
+/* form wrap */
+#mapsvg-map-1 .mapsvg-form-builder{
+  border-bottom:4px solid #01916D;
+  padding:0;
+}
+
+/* form group */
+#mapsvg-map-1 .form-group{
+  margin-bottom:2em;
+}
+
+/* sidebar */
+#mapsvg-map-1 .mapsvg-wrap > .mapsvg-sidebar{
+ flex-basis: min(35%, 400px) !important;
+}
+#mapsvg-map-1 .mapsvg-wrap > .mapsvg-sidebar > *:first-child{
+  margin:auto;
+  width:90%;
+  padding: 1.5em 0;
+}
+
+/* fix mobile filters height constraint */
+#mapsvg-map-1 .mapsvg-header .mapsvg-filters-wrap .mapsvg-data-form-view > .form-group, .mapsvg-footer .mapsvg-filters-wrap .mapsvg-data-form-view > .form-group{
+  max-height:none;
+}
+
+/* checkboxes */
+#mapsvg-map-1 .mapsvg-checkbox-group > div {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1em;
+  
+}
+#mapsvg-map-1 .mapsvg-checkbox-group > div > p {
+ display:none; 
+}
+
+/* distance fields*/
+#mapsvg-map-1 .mapsvg-distance-fields{
+ display:flex; 
+}
+#mapsvg-map-1 .mapsvg-distance-fields > div:first-child{
+	flex-basis: 100%;
+    padding-right: 1em;
+}
+#mapsvg-map-1 .mapsvg-distance-fields > div:nth-child(2){
+ 	margin:0
+}
+
+/* directory wrap */
+#mapsvg-map-1 .mapsvg-controller-view-wrap.nano{
+  margin-top:1em; 
+}
+
+/* select text color */
+#mapsvg-map-1 .select2-selection__rendered{
+  color: #404040;
+}
+
+/* MODAL WINDOW */
+#mapsvg-map-1 .mapsvg-details-container {
+      background: transparent !important;
+}
+#mapsvg-map-1 .mapsvg-controller-view-content{
+ padding:0; 
+}
+
+/* center and size */
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view{
+  display: flex;
+  align-items: center;
+  height: 400px;
+  width: 640px;    
+  margin: auto;
+}
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view > div{
+ width:100%; 
+}
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-auto-height, #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
+	height:100%;
+}
+/* two columns */
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:1em;
+}
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content >div{
+  background:black;
+  padding: 1em;
+}
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content >div > *:first-child{
+ margin-top:0; 
+}
+
+/* mobile */
+@media (max-width:75em){
+  #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
+    grid-template-columns: 1fr;
+    gap:0;
+  }
+  #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view{
+    width:80%;
+    height:80%;
+  }
+}
+
+/* line up close button */
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-wrap.nano{
+ top:0 !important; 
+}
+
+
+/* MODAL CLOSE */
+#mapsvg-map-1 .mapsvg-popover-close::before, #mapsvg-map-1 .mapsvg-popover-close::after{
+  background:white;
+  height: 8px;
+}
+
+/* remove top margin from nano controller*/
+#mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-wrap.nano{
+  margin-top:0;
+}
+
