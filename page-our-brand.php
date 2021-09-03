@@ -39,14 +39,17 @@ get_header();
 			    <?php while( have_rows('carousel') ): the_row(); 
 			        $image = get_sub_field('image');
 			        ?>
-			        <div data-dot='<span></span><p><?php the_sub_field('year'); ?></p>'>
+			        <div class="owl-content" data-dot='<span></span><p><?php the_sub_field('year'); ?></p>'>
 			            <div class="split" style="max-width:70em;margin:auto;">			         
 				            <div>
 					            <h3 class="underline"><?php the_sub_field('year'); ?></h3>
 					            <p><?php the_sub_field('text'); ?></p>
 					        </div>
 					        <div>
-					            <?php echo wp_get_attachment_image( $image, 'full' ); ?>
+					        	<div>
+						            <?php echo wp_get_attachment_image( $image, 'full' ); ?>
+						            <?php the_sub_field('embed'); ?>
+						        </div>
 					        </div>
 					    </div>
 			        </div>
@@ -69,13 +72,15 @@ get_header();
 	    while( have_rows('products') ) : the_row(); $image = get_sub_field('image'); ?>
 
 	        
-	        <div class="split mobile-reverse">
+	        <div class="split column-reverse">
 	        	<div>
 	        		<div class="container">
 	        			<?php the_sub_field('text'); ?>		
 	        		</div>	        			
 	        	</div>	        	
-	        	<div><img src="<?php echo $image['url'] ?>" alt="" width="<?php echo $image['width'] ?>" height="<?php echo $image['height'] ?>"></div>
+	        	<div>
+	        		<img src="<?php echo $image['url'] ?>" alt="" width="<?php echo $image['width'] ?>" height="<?php echo $image['height'] ?>">	        		
+	        	</div>
 	        </div>
 	    
 	    <?php
@@ -101,7 +106,7 @@ get_header();
 		owl.owlCarousel({
 			items:1,
 			dotsData: true,
-			autoplay:true,
+			autoplay:false,
 			autoplayHoverPause:true,
 			loop:true,
 		});
