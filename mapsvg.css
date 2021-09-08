@@ -1,5 +1,5 @@
 /* change color and font */
-#mapsvg-map-1 *{
+#mapsvg-map-1 *, .mapsvg-details-container *{
   color:white; 
   font-family: 'Urbanist', sans-serif;
 }
@@ -8,14 +8,14 @@
 #mapsvg-map-1 .mapsvg-filter-label{
   text-transform:none; 
   color:#01916D;
-  font-weight:900;
+  font-weight:700;
   margin-bottom:1em;
 }
 
 /* directory items */
 #mapsvg-map-1 .mapsvg-directory-item{
  text-transform:uppercase; 
-  font-weight:900;
+  font-weight:700;
 }
 
 /* form wrap */
@@ -27,6 +27,9 @@
 /* form group */
 #mapsvg-map-1 .form-group{
   margin-bottom:2em;
+}
+#mapsvg-map-1 .form-group p {
+ display:none; 
 }
 
 /* sidebar */
@@ -48,11 +51,7 @@
 #mapsvg-map-1 .mapsvg-checkbox-group > div {
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:1em;
-  
-}
-#mapsvg-map-1 .mapsvg-checkbox-group > div > p {
- display:none; 
+  gap:1em;  
 }
 
 /* distance fields*/
@@ -60,11 +59,11 @@
  display:flex; 
 }
 #mapsvg-map-1 .mapsvg-distance-fields > div:first-child{
-	flex-basis: 100%;
+  flex-basis: 100%;
     padding-right: 1em;
 }
 #mapsvg-map-1 .mapsvg-distance-fields > div:nth-child(2){
- 	margin:0
+  margin:0
 }
 
 /* directory wrap */
@@ -77,6 +76,14 @@
   color: #404040;
 }
 
+/* multi select text color */
+#mapsvg-map-1  .select2-container--default .select2-selection--multiple .select2-selection__choice{
+ color: #404040;
+}
+#mapsvg-map-1 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+ color:#999;
+}
+
 /* MODAL WINDOW */
 #mapsvg-map-1 .mapsvg-details-container {
       background: transparent !important;
@@ -87,8 +94,6 @@
 
 /* center and size */
 #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view{
-  display: flex;
-  align-items: center;
   height: 400px;
   width: 640px;    
   margin: auto;
@@ -97,8 +102,9 @@
  width:100%; 
 }
 #mapsvg-map-1 .mapsvg-details-container .mapsvg-auto-height, #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
-	height:100%;
+  height:100%;
 }
+
 /* two columns */
 #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
   display:grid;
@@ -113,18 +119,6 @@
  margin-top:0; 
 }
 
-/* mobile */
-@media (max-width:75em){
-  #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
-    grid-template-columns: 1fr;
-    gap:0;
-  }
-  #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view{
-    width:80%;
-    height:80%;
-  }
-}
-
 /* line up close button */
 #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-wrap.nano{
  top:0 !important; 
@@ -137,8 +131,123 @@
   height: 8px;
 }
 
-/* remove top margin from nano controller*/
+/* remove top margin from nano controller to show close button */
 #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-wrap.nano{
   margin-top:0;
 }
 
+/* style scroll bar */
+/* fix spacing in details container */
+#mapsvg-map-1 .mapsvg-details-container .nano > .nano-pane {
+  margin:21px 4px 4px 0;
+}
+#mapsvg-map-1 .nano > .nano-pane > .nano-slider {
+ background: #01916D; 
+  border-radius:0;
+}
+
+
+/* always show scroll bar and add border */
+#mapsvg-map-1 .nano > .nano-pane, .nano-pane.active, #mapsvg-map-1 .nano-pane.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99 ;
+  border-radius: 0;
+  padding: 1px;
+  outline: #fff solid 1px !important;
+  margin:1px;
+}
+
+/* mobile buttons */
+#mapsvg-map-1  .mapsvg-mobile-buttons > div{
+  background: #868585;
+  border:none;
+  text-transform:uppercase;
+  font-weight:700;
+}
+#mapsvg-map-1  .mapsvg-mobile-buttons > div.active{
+  background: black;
+}
+#mapsvg-map-1  .mapsvg-mobile-buttons i{
+ display:none;
+}
+
+
+
+/* modal window breakpoint */
+@media (max-width:75em){
+  
+  /* change modal windows to 1 column */
+  #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view-content{
+    grid-template-columns: 1fr;
+    gap:0;
+  }
+  
+  /* constrain to 80% of space */
+  #mapsvg-map-1 .mapsvg-details-container .mapsvg-controller-view{
+    width:auto;
+    height:auto;
+  }
+  
+  /* change flex behavior for sidebar and top bar on mobile */
+  #mapsvg-map-1 .mapsvg-header .mapsvg-filters-wrap .mapsvg-data-form-view, #mapsvg-map-1 .mapsvg-footer .mapsvg-filters-wrap .mapsvg-data-form-view{
+    flex-direction:column;
+    
+    /* fix margins */
+    margin:auto;
+    width:90%;
+    padding: 1.5em 0;
+  }
+  
+
+}
+
+/* mobile breakpoint */
+@media (max-width: 812px){
+  
+  #mapsvg-map-1 .mapsvg-popover-close{
+    transform: scale(0.25);
+  }
+  /* remove border below filters */
+  #mapsvg-map-1 .mapsvg-form-builder{
+    border:none;
+  }  
+  
+  /* DETAILS CONTAINER */
+  .mapsvg-details-container .mapsvg-controller-view-content >div{
+    padding:2em 0;  
+  }
+  .mapsvg-details-container .mapsvg-controller-view-content >div:first-child{
+    border-bottom:4px solid #01916D;
+  }
+  .mapsvg-details-container .mapsvg-controller-view-content >div > *:last-child{
+    margin-bottom:0;
+  }
+  
+  
+}
+
+/* DETAILS CONTAINER */
+/* split portrait and headers */
+.mapsvg-details-container .split{
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:flex-end;
+}
+
+/* style headers */
+.mapsvg-details-container h5{
+ line-height:1; 
+}
+.mapsvg-details-container h3, .mapsvg-details-container h5 {
+  text-transform:uppercase;  
+  margin:0;
+  margin-bottom:.25em;
+}
+.mapsvg-details-container p{
+  margin-top:0
+}
+
+/* spacing below first element */
+.mapsvg-details-container .mapsvg-controller-view-content > div > *:first-child {
+  margin-bottom:1em;
+}
