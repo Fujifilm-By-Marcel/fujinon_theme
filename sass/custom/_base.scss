@@ -51,6 +51,8 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	color:inherit;
 }
 
+
+/* helpers */
 .container{
 	width: 90%;
 	margin:auto;
@@ -80,6 +82,10 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	display: flex;
 	flex-direction: column;
 }
+.full-width{
+	width:100%;
+}
+
 
 
 @media (min-width:$breakpoint_mobile) {
