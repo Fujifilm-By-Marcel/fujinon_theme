@@ -973,11 +973,17 @@ h5 {
 	text-decoration: none;
 	color: white;
 	font-size: 1.125rem;
+	display: inline-block;
+	text-align: center;
+}
+
+.button.reduced-padding {
+	padding: 0.25em .75em;
 }
 
 .button:hover {
 	background: white;
-	color: black;
+	color: black !important;
 	border: 1px solid #000;
 }
 
@@ -998,14 +1004,9 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	color: inherit;
 }
 
+/* helpers */
 .container {
 	width: 90%;
-	margin: auto;
-}
-
-.container-inner {
-	width: 90%;
-	max-width: 90em;
 	margin: auto;
 }
 
@@ -1026,6 +1027,10 @@ a.cta:hover, a.cta:focus, a.cta:active {
 .split {
 	display: flex;
 	flex-direction: column;
+}
+
+.full-width {
+	width: 100%;
 }
 
 @media (min-width: 50em) {
@@ -1068,6 +1073,11 @@ a.cta:hover, a.cta:focus, a.cta:active {
 #masthead.sticky {
 	position: fixed;
 	width: 100%;
+	/* prevent site from jumping on scroll */
+}
+
+#masthead.sticky + * {
+	padding-top: 71px;
 }
 
 #masthead .site-branding .custom-logo-link {
@@ -1134,10 +1144,14 @@ a.cta:hover, a.cta:focus, a.cta:active {
 
 @media (min-width: 1060px) {
 	#masthead {
+		/* prevent site from jumping on scroll */
 		/* remove background from menu */
 		/* hide last menu item in primary navigation */
 		/* hide all menu items but last item in top right menu */
 		/* show top right menu */
+	}
+	#masthead.sticky + * {
+		padding-top: 53px;
 	}
 	#masthead.sticky #site-navigation #primary-menu {
 		background: none;
@@ -1427,7 +1441,7 @@ section.widget {
 }
 
 /* discover block */
-.discover-block .container-inner {
+.discover-block .container {
 	background-size: cover;
 	color: white;
 	overflow: hidden;
@@ -1440,14 +1454,15 @@ section.widget {
 	max-width: 55ch;
 	margin: auto;
 	text-align: center;
+	margin-bottom: 3rem;
 }
 
-.header-block h1 {
+.header-block > * {
+	margin: 0;
+}
+
+.header-block h1, .header-block h2, .header-block h3 {
 	margin-bottom: .25em;
-}
-
-.header-block p {
-	margin-top: 0;
 }
 
 /* timeline carousel */
@@ -1492,7 +1507,7 @@ section.widget {
 .timeline-carousel .owl-carousel .owl-item .split > * > div {
 	max-width: 504px;
 	max-height: 294px;
-	width: 100%;
+	width: 99%;
 }
 
 .timeline-carousel .owl-carousel .owl-item .split > * img {
@@ -1573,8 +1588,122 @@ section.widget {
 	height: 100%;
 }
 
+/* basic hero */
+.basic-hero .hero-bg {
+	/* set background styles */
+	background-position: center;
+	background-size: cover;
+}
+
+.basic-hero .hero-text {
+	/* set a minimum height */
+	min-height: 180px;
+	/* center vertically */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.basic-hero .hero-text > * {
+	/* remove margins */
+	margin: 0;
+}
+
+/* icon descriptions */
+.icon-descriptions .split {
+	/* 2 columns */
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2em 1em;
+	/* wrapping div */
+}
+
+.icon-descriptions .split > * {
+	text-align: center;
+	/* inner div */
+}
+
+.icon-descriptions .split > * > div {
+	max-width: 28ch;
+	margin: auto;
+	/* increase font size of icon */
+	/* remove margins */
+}
+
+.icon-descriptions .split > * > div svg, .icon-descriptions .split > * > div i {
+	font-size: 3rem;
+}
+
+.icon-descriptions .split > * > div > * {
+	margin: 0;
+}
+
+.icon-descriptions .split > * > div h3 {
+	margin: .5em 0;
+}
+
+/* team members */
+.team-members {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 2em;
+}
+
+.team-members > * {
+	position: relative;
+}
+
+.team-members > * > img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.team-members > * .content {
+	margin: 2em 0 0 2em;
+	background: #ECECEC;
+	padding: 2em;
+	padding-top: 155px;
+	position: relative;
+}
+
+.team-members > * .content .button {
+	border: 1px solid #C6C6C6;
+	background: #C6C6C6;
+	color: black;
+}
+
+.team-members > * .content .location {
+	position: absolute;
+	right: 1em;
+	top: 1em;
+	margin: 0;
+	text-transform: uppercase;
+}
+
+.team-members > * .content .location * {
+	margin: 0;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
+	/* team members */
+	.team-members {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+	/* icon descriptions */
+	.icon-descriptions .split {
+		/* 4 columns */
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+	/* basic hero */
+	.basic-hero .hero-text {
+		/* set a minimum height */
+		min-height: 357px;
+	}
 	/* switch tiles to equal width columns */
 	.home-tiles {
 		grid-template-columns: 1fr 1fr;
