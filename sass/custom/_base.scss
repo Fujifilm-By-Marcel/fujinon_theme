@@ -30,10 +30,14 @@ h5{
 	color:white;
 	font-size:1.125rem;
 	display:inline-block;
+	text-align:center;
+}
+.button.reduced-padding{
+	padding: 0.25em .75em;
 }
 .button:hover{
 	background: white;
-	color:black;
+	color:black !important;
 	border: 1px solid #000;	
 }
 
