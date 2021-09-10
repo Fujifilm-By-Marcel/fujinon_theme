@@ -13,7 +13,7 @@ get_header();
 
 <section class="video standard-spacing-margin">	
 	<div class="video-container">
-		<img src="<?php the_field('hero_bg'); ?>" style="width:100%;">
+		<?php echo wp_get_attachment_image( get_field('hero_bg'), 'full', "", array( "class" => "full-width" ) );  ?>
 	</div>
 	<div class="hero-overlay">
 		<div class="container">
