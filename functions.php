@@ -168,7 +168,7 @@ function fujinon_theme_scripts() {
 
 	wp_enqueue_script( 'fujinon_theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
-	wp_enqueue_script( 'FontAwesome', 'https://kit.fontawesome.com/f9d70c0850.js', array(), _S_VERSION, true );
+	wp_enqueue_script( 'FontAwesome', 'https://kit.fontawesome.com/0782e052a8.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
