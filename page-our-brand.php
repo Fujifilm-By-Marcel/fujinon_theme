@@ -7,10 +7,6 @@ function enqueue_scripts(){
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 get_header();
 ?>
-<style>
-
-</style>
-
 <section class="video standard-spacing-margin">	
 	<div class="video-container">
 		<?php echo wp_get_attachment_image( get_field('hero_bg'), 'full', "", array( "class" => "full-width" ) );  ?>
@@ -88,8 +84,6 @@ get_header();
 	endif;
 	?>
 </section>
-
-
 <script>
 	jQuery(document).ready(function( $ ) {
 
