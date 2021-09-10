@@ -7,6 +7,11 @@ $menu_padding: 1rem;
 	&.sticky{
 		position: fixed;
     	width: 100%;
+
+    	/* prevent site from jumping on scroll */
+    	+ *{
+    		padding-top:71px;
+    	}
     	
 	}
 
@@ -84,9 +89,15 @@ $menu_padding: 1rem;
 	/* desktop styles*/	
 	@media(min-width:$breakpoint_menu){
 			
+		/* prevent site from jumping on scroll */
+    	&.sticky + *{
+    		padding-top:53px;
+    	}
+
 		/* remove background from menu */
 		&.sticky #site-navigation #primary-menu{
 			background:none;
+
 		}
 
 		#site-navigation #primary-menu{				

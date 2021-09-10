@@ -1,11 +1,6 @@
 <?php
 get_header();
 ?>
-<style>
-
-
-
-</style>
 <section class="video">
 	<div class="video-container">
 		<?php the_field('hero_video'); ?>
@@ -66,12 +61,7 @@ get_header();
 		?>
 	</div>
 </section>
-
-<?php do_shortcode('[my_discover_block]'); ?>
-
-<script>
-
-</script>
-<?php
+<?php 
+do_shortcode('[my_discover_block]');
 get_sidebar();
 get_footer();
