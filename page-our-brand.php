@@ -33,7 +33,7 @@ get_header();
 		<?php the_field('carousel_header_text') ?>
 	</div>
 	<div class="timeline-carousel">
-		<div class="container-inner">
+		<div class="container" style="max-width:90em;">
 			<?php if( have_rows('carousel') ): ?>
 			    <div class="owl-carousel owl-theme">
 			    <?php while( have_rows('carousel') ): the_row(); 

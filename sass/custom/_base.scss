@@ -57,27 +57,17 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	width: 90%;
 	margin:auto;
 }
-
-.container-inner{
-	width: 90%;
-	max-width: 90em;
-	margin:auto;
-}
-
 .underline{
 	border-bottom:3px solid $color__accent;
 }
-
 .black-bg{
 	background:black;
 	color:white;
 }
-
 .offblack-bg{
 	background: $color__offblack;
 	color: white;
 }
-
 .split{
 	display: flex;
 	flex-direction: column;
