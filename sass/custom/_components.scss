@@ -89,7 +89,7 @@ section{
 }
 
 /* discover block */
-.discover-block .container-inner{
+.discover-block .container{
 	background-size:cover;
 	color:white;
 	overflow:hidden;
@@ -102,14 +102,16 @@ section{
 	max-width:55ch;
 	margin:auto;
 	text-align:center;
+	margin-bottom:3rem;
 	
-	h1{
+	> * {
+		margin:0;
+	}
+
+	h1, h2, h3{
 		margin-bottom: .25em;
 	}
-	
-	p{
-		margin-top: 0;
-	}
+
 }
 
 
@@ -147,7 +149,7 @@ section{
 			> div {
 				max-width:504px;
 				max-height:294px;
-				width:100%;
+				width:99%;
 			}
 
 			/* constrain image size */
@@ -234,11 +236,134 @@ section{
 	}
 }
 
+/* basic hero */
+.basic-hero{
+	.hero-bg{
+		/* set background styles */
+		background-position:center;
+		background-size:cover;
+	}
+	.hero-text{
+
+		/* set a minimum height */
+		min-height:180px;
+
+		/* center vertically */
+		display:flex;
+		flex-direction: column;
+		justify-content: center; 
+	}
+
+	.hero-text > *{
+		/* remove margins */
+		margin:0;
+	}
+
+}
 
 
+/* icon descriptions */
+.icon-descriptions{	
+	.split{
+		/* 2 columns */
+		display:grid;
+		grid-template-columns:1fr 1fr;		
+		gap:2em 1em;
+
+		/* wrapping div */
+		> *{
+			text-align:center;
+
+			/* inner div */
+			> div{		
+				max-width: 28ch;
+			    margin: auto;			    
+
+			    /* increase font size of icon */
+			    svg,i{
+					font-size:3rem;
+				}
+
+				/* remove margins */
+				> *{
+					margin:0;
+				}
+				h3{
+					margin:.5em 0;
+				}
+			}
+			
+
+		}
+	}
+}
+
+
+/* team members */
+.team-members{
+	display:grid;
+	grid-template-columns:1fr;
+	gap:2em;
+	> *{
+		position:relative;
+		> img{
+			position:absolute;
+			left:0;
+			top:0;
+			z-index:1;
+		}
+		.content{
+			margin:2em 0 0 2em;			
+			background:$color__lightgrey;
+			padding:2em;
+			padding-top:155px;
+			position:relative;
+			.button{				
+				border: 1px solid $color__darkgrey;
+				background: $color__darkgrey;
+				color:black;
+			}
+			.location{
+				position:absolute;
+				right:1em;
+				top:1em;			
+				margin:0;
+				text-transform:uppercase;
+				*{
+					margin:0;
+				}
+			}
+		}
+	}
+}
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
+
+	/* team members */
+	.team-members{
+		display:grid;
+		grid-template-columns:1fr 1fr;	
+	}
+
+	/* icon descriptions */
+	.icon-descriptions{	
+		.split{
+			/* 4 columns */
+			display:grid;
+			grid-template-columns:1fr 1fr 1fr 1fr;		
+			
+		}
+	}
+
+
+	/* basic hero */
+	.basic-hero{
+		.hero-text{
+			/* set a minimum height */
+			min-height:357px;
+		}
+	}
 
 	/* switch tiles to equal width columns */
 	.home-tiles{
