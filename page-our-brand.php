@@ -79,7 +79,7 @@ get_header();
 	        		</div>	        			
 	        	</div>	        	
 	        	<div>
-	        		<img src="<?php echo $image['url'] ?>" alt="" width="<?php echo $image['width'] ?>" height="<?php echo $image['height'] ?>">	        		
+	        		<?php echo wp_get_attachment_image( $image, 'full' ); ?>	        		
 	        	</div>
 	        </div>
 	    
@@ -107,7 +107,7 @@ get_header();
 			items:1,
 			dotsData: true,
 			autoplay:false,
-			autoplayHoverPause:true,
+			autoplayHoverPause:false,
 			loop:true,
 		});
 
