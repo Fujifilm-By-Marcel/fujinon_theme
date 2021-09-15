@@ -7,15 +7,10 @@ function enqueue_scripts(){
 //add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 get_header();
 ?>
-<section class="basic-hero standard-spacing-margin">	
-	<div class="hero-bg	" style="background-image:url('<?php the_field('hero_bg') ?>')">
-		<div class="container">
-			<div class="hero-text header-block" style="margin-bottom:0;">
-				<?php the_field('hero_text'); ?>
-			</div>
-		</div>
-	</div>
-</section>
+<?php 
+set_query_var( 'hero-classes', 'standard-spacing-margin' );
+get_template_part( 'template-parts/content', 'hero-mini' ); 
+?>
 <section class="icon-descriptions standard-spacing-margin">
 	<div class="container">
 		<div class="split">

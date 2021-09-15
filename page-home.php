@@ -1,19 +1,12 @@
 <?php
 get_header();
 ?>
-<section class="video">
-	<div class="video-container">
-		<?php the_field('hero_video'); ?>
-	</div>
-	<div class="hero-overlay">
-		<div class="container">
-			<div><img src="<?php echo get_field('hero_logo')['url']; ?>" alt="" width="<?php echo get_field('hero_logo')['width']; ?>" height="<?php echo get_field('hero_logo')['height']; ?>"></div>
-			<div>
-				<p style="text-align:right;margin:0;"><?php the_field('hero_credit'); ?></p>
-			</div>
-		</div>
-	</div>
-</section>
+
+<?php 
+set_query_var( 'hero-classes', '' );
+get_template_part( 'template-parts/content', 'hero' ); 
+?>
+
 <section class="home-tiles standard-spacing-margin" style="color:white;">
 	<?php
 	if( have_rows('tiles') ):

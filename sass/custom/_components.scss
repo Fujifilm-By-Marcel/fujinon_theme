@@ -70,9 +70,14 @@ section{
 		gap: 1em;
 
 		/* add green line to left of text */
-		> *:first-child{
+		.left-half{
+			max-width:55ch;
 			padding-left: 1em;
 		    border-left: 3px solid #01916d;
+		}
+		.right-half p{
+			text-align:right;
+			margin:0;
 		}
 	}
 
@@ -236,28 +241,33 @@ section{
 	}
 }
 
-/* basic hero */
-.basic-hero{
-	.hero-bg{
-		/* set background styles */
-		background-position:center;
-		background-size:cover;
-	}
-	.hero-text{
-
+/* mini hero */
+.mini-hero{
+	.hero-container{
 		/* set a minimum height */
-		min-height:180px;
+		max-height:180px;		
+	}
+	.hero-overlay{
+		/* override margin-bottom and top position */
+		margin-bottom:0;
+		top:0;
 
-		/* center vertically */
-		display:flex;
-		flex-direction: column;
-		justify-content: center; 
+		/* make height 100% */		
+		height:100%;
+
+		/* make height 100% */
+		.container{
+			/* make height 100% */
+			height:100%;
+
+			.header-block {
+				/* override margins */
+				margin:auto;
+			}
+		}
 	}
 
-	.hero-text > *{
-		/* remove margins */
-		margin:0;
-	}
+	
 
 }
 
@@ -391,11 +401,11 @@ section{
 	}
 
 
-	/* basic hero */
-	.basic-hero{
-		.hero-text{
+	/* mini hero */
+	.mini-hero{
+		.hero-container{
 			/* set a minimum height */
-			min-height:357px;
+			max-height:357px;
 		}
 	}
 

@@ -7,22 +7,11 @@ function enqueue_scripts(){
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 get_header();
 ?>
-<section class="video standard-spacing-margin">	
-	<div class="video-container">
-		<?php echo wp_get_attachment_image( get_field('hero_bg'), 'full', "", array( "class" => "full-width" ) );  ?>
-	</div>
-	<div class="hero-overlay">
-		<div class="container">
-			<div style="max-width:55ch;">
-				<?php the_field('hero_overlay_text'); ?>
-			</div>
-			<div>
-				
-			</div>
-		</div>
-	</div>
-</section>
 
+<?php 
+set_query_var( 'hero-classes', 'standard-spacing-margin' );
+get_template_part( 'template-parts/content', 'hero' ); 
+?>
 
 <section class="history standard-spacing-margin">
 	<div class="container header-block" style="">
