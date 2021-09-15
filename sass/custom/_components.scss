@@ -40,14 +40,14 @@ section{
 	}
 }
 
-/* style video section */
-.video{
+/* style hero section */
+.hero{
 	position: relative;
 	color: white;
 }
 
-/* center and crop video */
-.video-container{
+/* center and crop hero */
+.hero-container{
 	max-height: 88vh;
 	overflow: hidden;
 	display: flex;
@@ -333,6 +333,40 @@ section{
 					margin:0;
 				}
 			}
+		}
+	}
+}
+
+/* product nav */
+.product-nav {
+	padding:5rem 0 2rem;
+	
+	.nav-item:not(.active){
+		border-bottom-color: $color__darkgrey;
+		h3{
+			color:$color__darkgrey;
+		}
+
+	}
+
+	h3{
+		margin:0 0 .25em 0;
+
+	}
+
+	a{
+		text-decoration:none;
+		color:black;
+	}
+
+	.split{
+		gap:2em;
+	}
+
+	.nav-item {
+		text-align: center;
+		span{
+			text-transform: uppercase;
 		}
 	}
 }
