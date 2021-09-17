@@ -357,6 +357,15 @@ section{
 	}
 }
 
+
+/* mapsvg container */
+.mapsvg-container{
+	background: $color__lightgrey;
+	padding-top:2rem;
+}
+
+
+
 /* product nav */
 .product-nav {
 	padding:5rem 0 2rem;
@@ -393,6 +402,17 @@ section{
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
+
+	/* mapsvg container */
+	.mapsvg-container{
+		padding:3rem 0 5rem 0;
+
+		.map-wrapper{
+			max-width:80em;
+			margin:auto;
+			max-width:90%;
+		}
+	}
 
 	/* team members */
 	.team-members{

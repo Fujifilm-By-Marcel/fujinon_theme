@@ -31,7 +31,14 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 	</div>
 </section>
 <section class="mapsvg-container standard-spacing-margin">
-	<?php echo do_shortcode(get_field('mapsvg')); ?>
+	<div class="map-wrapper">
+		<div class="container">
+			<div class="header-block">
+				<?php the_field('map_header'); ?>
+			</div>
+		</div>
+		<?php echo do_shortcode(get_field('mapsvg')); ?>
+	</div>
 </section>
 <section class="team-info standard-spacing-margin">
 	<div class="container">

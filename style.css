@@ -1046,13 +1046,16 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	}
 }
 
-.widget .social i {
+.widget .social {
 	font-size: 1.75rem;
+}
+
+.widget .social i {
 	margin-bottom: 6px;
 }
 
 .widget .social > * {
-	margin-right: 1.25em;
+	margin-right: 0.75em;
 }
 
 .widget .social > :last-child {
@@ -1701,6 +1704,12 @@ section.widget {
 	margin-top: auto;
 }
 
+/* mapsvg container */
+.mapsvg-container {
+	background: #ECECEC;
+	padding-top: 2rem;
+}
+
 /* product nav */
 .product-nav {
 	padding: 5rem 0 2rem;
@@ -1737,6 +1746,15 @@ section.widget {
 
 /* desktop styles */
 @media (min-width: 50em) {
+	/* mapsvg container */
+	.mapsvg-container {
+		padding: 3rem 0 5rem 0;
+	}
+	.mapsvg-container .map-wrapper {
+		max-width: 80em;
+		margin: auto;
+		max-width: 90%;
+	}
 	/* team members */
 	.team-members {
 		display: grid;
