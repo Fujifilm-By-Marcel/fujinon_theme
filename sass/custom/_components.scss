@@ -291,7 +291,7 @@ section{
 
 			    /* increase font size of icon */
 			    svg,i{
-					font-size:3rem;
+					font-size:2.5rem;
 				}
 
 				/* remove margins */
@@ -313,35 +313,45 @@ section{
 .team-members{
 	display:grid;
 	grid-template-columns:1fr;
-	gap:2em;
-	> *{
-		position:relative;
+	gap:4em 10vw;
+	> .content-wrap{		
+		position:relative;		
+		padding-top:3em;
+
 		> img{
 			position:absolute;
-			left:0;
+			left:50%;
 			top:0;
 			z-index:1;
+		    transform: translateX(-50%);
+
 		}
 		.content{
-			margin:2em 0 0 2em;			
+			
 			background:$color__lightgrey;
 			padding:2em;
-			padding-top:155px;
-			position:relative;
-			.button{				
-				border: 1px solid $color__darkgrey;
-				background: $color__darkgrey;
-				color:black;
+			padding-top:160px;
+			position:relative;		
+			height:100%;
+
+			p{
+				font-size:.875rem;
+				line-height:1;
 			}
-			.location{
-				position:absolute;
-				right:1em;
-				top:1em;			
+			h2,h3,h4{
 				margin:0;
-				text-transform:uppercase;
-				*{
-					margin:0;
+			}
+
+			.container {
+				display: flex;
+				flex-direction: column;
+				height:100%;
+
+				/*bottom align button*/
+				> *:last-child{
+					margin-top:auto;
 				}
+
 			}
 		}
 	}

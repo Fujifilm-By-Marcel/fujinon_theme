@@ -971,14 +971,15 @@ h5 {
 	padding: .5em 2.5em;
 	font-weight: 700;
 	text-decoration: none;
-	color: white;
+	color: white !important;
 	font-size: 1.125rem;
 	display: inline-block;
 	text-align: center;
 }
 
 .button.reduced-padding {
-	padding: 0.25em .75em;
+	padding: 0.5em 1.25em;
+	font-size: .75rem;
 }
 
 .button:hover {
@@ -1641,7 +1642,7 @@ section.widget {
 }
 
 .icon-descriptions .split > * > div svg, .icon-descriptions .split > * > div i {
-	font-size: 3rem;
+	font-size: 2.5rem;
 }
 
 .icon-descriptions .split > * > div > * {
@@ -1656,44 +1657,48 @@ section.widget {
 .team-members {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 2em;
+	gap: 4em 10vw;
 }
 
-.team-members > * {
+.team-members > .content-wrap {
 	position: relative;
+	padding-top: 3em;
 }
 
-.team-members > * > img {
+.team-members > .content-wrap > img {
 	position: absolute;
-	left: 0;
+	left: 50%;
 	top: 0;
 	z-index: 1;
+	transform: translateX(-50%);
 }
 
-.team-members > * .content {
-	margin: 2em 0 0 2em;
+.team-members > .content-wrap .content {
 	background: #ECECEC;
 	padding: 2em;
-	padding-top: 155px;
+	padding-top: 160px;
 	position: relative;
+	height: 100%;
 }
 
-.team-members > * .content .button {
-	border: 1px solid #C6C6C6;
-	background: #C6C6C6;
-	color: black;
+.team-members > .content-wrap .content p {
+	font-size: .875rem;
+	line-height: 1;
 }
 
-.team-members > * .content .location {
-	position: absolute;
-	right: 1em;
-	top: 1em;
+.team-members > .content-wrap .content h2, .team-members > .content-wrap .content h3, .team-members > .content-wrap .content h4 {
 	margin: 0;
-	text-transform: uppercase;
 }
 
-.team-members > * .content .location * {
-	margin: 0;
+.team-members > .content-wrap .content .container {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	/*bottom align button*/
+}
+
+.team-members > .content-wrap .content .container > *:last-child {
+	margin-top: auto;
 }
 
 /* product nav */

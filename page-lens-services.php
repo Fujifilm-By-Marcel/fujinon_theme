@@ -45,12 +45,9 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 			<?php
 			if( have_rows('team_members') ):
 			    while( have_rows('team_members') ) : the_row(); ?>			        
-			    	<div>
+			    	<div class="content-wrap">
 			    		<img src="<?php the_sub_field('portrait'); ?>" alt="">
-				        <div class="content">
-				        	<div class="location">					
-					        	<h4><?php the_sub_field('location') ?></h4>
-					        </div>
+				        <div class="content">				        	
 					        <div class="container">
 								<?php the_sub_field('content'); ?>
 							</div>
