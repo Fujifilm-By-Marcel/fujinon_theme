@@ -255,3 +255,12 @@ function my_discover_block() { ?>
 	<?php }
 }
 add_shortcode( 'my_discover_block', 'my_discover_block' );
+
+
+require_once('inc/inriver-func.php');
+
+//schedule daily inriver pull
+if ( ! wp_next_scheduled( 'expire_posts' ) ) {
+    wp_schedule_event( time(), 'daily', 'buildFile' );
+}
+add_action( 'buildFile', 'buildFile' );
