@@ -1,7 +1,7 @@
 <section class="hero <?php echo get_query_var('hero-classes'); ?>">	
 	<div class="hero-container">
 		<?php the_field('hero_video'); ?>
-		<?php echo wp_get_attachment_image( get_field('hero_bg'), 'full', "", array( "class" => "full-width" ) );  ?>
+		<?php echo wp_get_attachment_image( get_field('hero_bg'), 'full', "", array( "class" => "full-height" ) );  ?>
 	</div>
 	<div class="hero-overlay">
 		<div class="container">
