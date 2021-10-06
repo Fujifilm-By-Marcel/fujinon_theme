@@ -1,2 +1,4 @@
 node_modules/
 vendor/
+/data/logs.txt
+/data/product-data.json
