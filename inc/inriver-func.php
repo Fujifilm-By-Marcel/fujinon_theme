@@ -142,7 +142,7 @@ class Inriver {
 		$this->saveData($list);
 	}
 
-	private function getProductData(){
+	public function getProductData(){
 		$contents = file_get_contents(get_template_directory()."/data/product-data.json");
 		$list = json_decode($contents);
 		return $list;
