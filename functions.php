@@ -257,10 +257,15 @@ function my_discover_block() { ?>
 add_shortcode( 'my_discover_block', 'my_discover_block' );
 
 
+
+//create class for inriver functions
 require_once('inc/inriver-func.php');
+$inriver = new Inriver();
 
 //schedule daily inriver pull
-if ( ! wp_next_scheduled( 'expire_posts' ) ) {
-    wp_schedule_event( time(), 'daily', 'buildFile' );
+if ( ! wp_next_scheduled( 'buildProductData' ) ) {
+    wp_schedule_event( time(), 'daily', 'buildProductData' );
 }
-add_action( 'buildFile', 'buildFile' );
+
+//clear old cronjobs
+wp_clear_scheduled_hook('buildFile');
