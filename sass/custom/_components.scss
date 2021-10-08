@@ -364,42 +364,6 @@ section{
 	padding-top:2rem;
 }
 
-
-
-/* product nav */
-.product-nav {
-	padding:5rem 0 2rem;
-	
-	.nav-item:not(.active){
-		border-bottom-color: $color__darkgrey;
-		h3{
-			color:$color__darkgrey;
-		}
-
-	}
-
-	h3{
-		margin:0 0 .25em 0;
-
-	}
-
-	a{
-		text-decoration:none;
-		color:black;
-	}
-
-	.split{
-		gap:2em;
-	}
-
-	.nav-item {
-		text-align: center;
-		span{
-			text-transform: uppercase;
-		}
-	}
-}
-
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
 
