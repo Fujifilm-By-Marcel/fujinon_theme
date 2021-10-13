@@ -13,7 +13,7 @@ $product-nav-mobile-offset: 127px;
     	width: 100%;
 
     	/* prevent site from jumping on scroll */
-    	+ *:not(.product-nav){
+    	+ *:not(#product-nav){
     		padding-top:$primary-nav-mobile-offset;
     	}
     	
@@ -94,7 +94,7 @@ $product-nav-mobile-offset: 127px;
 	@media(min-width:$breakpoint_menu){
 			
 		/* prevent site from jumping on scroll */
-    	&.sticky + *:not(.product-nav){
+    	&.sticky + *:not(#product-nav){
     		padding-top:$primary-nav-desktop-offset;
     	}
 
@@ -225,7 +225,7 @@ $product-nav-mobile-offset: 127px;
 }
 
 /* product nav */
-.product-nav {
+#product-nav {
 	z-index:100;
 	background: $menu_bg;
 
