@@ -117,8 +117,7 @@ class Inriver {
 						);
 
 						// Does the attachment already exist ?
-						$postId = $this->queryEntityId( $imageobject->entityId );
-						echo "postId: ".$postId."<br>";
+						$postId = $this->queryEntityId( $imageobject->entityId );						
 						if( $postId ){
 						  	$attachment = get_page( $postId, OBJECT, 'attachment');
 						  if( !empty( $attachment ) ){
