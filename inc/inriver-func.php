@@ -65,9 +65,11 @@ class Inriver {
 					$var[$i]->longDescription = $this->findObjectById($data->fields, "ProductLongDescription");
 					$var[$i]->pageURL = $this->findObjectById($data->fields, "ProductProductPageURL");
 
-					$var[$i]->ItemMinimumFocusingDistanceIn = $this->findObjectById($data->outbound[0]->fields, "ItemMinimumFocusingDistanceIn");
-					$var[$i]->ItemCorrespondingImageSizeDiagonal = $this->findObjectById($data->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal");
-					$var[$i]->ItemLensWeightlb = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb");				
+					if ( isset($data->outbound[0]) ){
+						$var[$i]->ItemMinimumFocusingDistanceIn = $this->findObjectById($data->outbound[0]->fields, "ItemMinimumFocusingDistanceIn");
+						$var[$i]->ItemCorrespondingImageSizeDiagonal = $this->findObjectById($data->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal");
+						$var[$i]->ItemLensWeightlb = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb");				
+					}
 
 					$var[$i]->bullet1 = $this->findObjectById($data->fields, "ProductShortBulletPoint1");				
 					$var[$i]->bullet2 = $this->findObjectById($data->fields, "ProductShortBulletPoint2");				
@@ -92,8 +94,45 @@ class Inriver {
 						$imageobject->displayName = $imagedata->summary->displayName;
 						$imageobject->displayDescription = $imagedata->summary->displayDescription;
 						$imageobject->resourceUrl = $imagedata->summary->resourceUrl;
-						array_push( $images, $imageobject );
+						array_push( $images, $imageobject );				
+						
+						
+						//add image to media library
+						$upload_dir = wp_upload_dir();
+						$image_data = file_get_contents($imageobject->resourceUrl);
+						$filename = basename($imageobject->displayName);
+						$title = $imageobject->displayName;
+						if(wp_mkdir_p($upload_dir['path']))
+						    $file = $upload_dir['path'] . '/' . $filename;
+						else
+						    $file = $upload_dir['basedir'] . '/' . $filename;
+						
 
+						$wp_filetype = wp_check_filetype($filename, null );
+						$attachment_data = array(
+						    'post_mime_type' => $wp_filetype['type'],
+						    'post_title' => sanitize_file_name($filename),
+						    'post_content' => '',
+						    'post_status' => 'inherit'
+						);
+
+						// Does the attachment already exist ?
+						$postId = $this->queryEntityId( $imageobject->entityId );
+						echo "postId: ".$postId."<br>";
+						if( $postId ){
+						  	$attachment = get_page( $postId, OBJECT, 'attachment');
+						  if( !empty( $attachment ) ){
+						    $attachment_data['ID'] = $attachment->ID;
+						  }
+						} else {
+							file_put_contents($file, $image_data);
+						}
+
+						$attach_id = wp_insert_attachment( $attachment_data, $file );
+						require_once(ABSPATH . 'wp-admin/includes/image.php');
+						$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+						wp_update_attachment_metadata( $attach_id, $attach_data );
+						update_post_meta($attach_id, 'entity_id', $imageobject->entityId);
 					}				
 
 					$var[$i]->images = $images;	
@@ -104,6 +143,29 @@ class Inriver {
 	  	return $var;
 	}
 
+	private function queryEntityId($value){
+		$args = array(
+		    'post_type'   => 'attachment',
+		    'post_status' => 'inherit',
+		    'meta_query'  => array(
+		        array(
+		            'key'     => 'entity_id',
+		            'value'   => $value
+		        )
+		    )
+		);
+		$query = new WP_Query($args);
+		if ( $query->have_posts() ) {		    
+		    while ( $query->have_posts() ) {
+		    	$query->the_post();
+		        return get_the_ID();		        
+		    }		    
+		} else {
+		    return false;
+		}
+		/* Restore original Post Data */
+		wp_reset_postdata();
+	}
 
 	private function findObjectById($array, $id){
 		$elements = [];
