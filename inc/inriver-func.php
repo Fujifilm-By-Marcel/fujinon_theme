@@ -4,6 +4,7 @@ class Inriver {
 
 	public function __construct() {
         add_action( 'buildProductData', array( $this, 'buildProductData' ) );
+        add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 3 );
     }
 
 	private function curlInriver($isPost, $url, $postFields){
@@ -68,7 +69,7 @@ class Inriver {
 					if ( isset($data->outbound[0]) ){
 						$var[$i]->ItemMinimumFocusingDistanceIn = $this->findObjectById($data->outbound[0]->fields, "ItemMinimumFocusingDistanceIn");
 						$var[$i]->ItemCorrespondingImageSizeDiagonal = $this->findObjectById($data->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal");
-						$var[$i]->ItemLensWeightlb = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb");				
+						$var[$i]->ItemLensWeightlb = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb");
 					}
 
 					$var[$i]->bullet1 = $this->findObjectById($data->fields, "ProductShortBulletPoint1");				
@@ -97,41 +98,9 @@ class Inriver {
 						array_push( $images, $imageobject );				
 						
 						
-						//add image to media library
-						$upload_dir = wp_upload_dir();
-						$image_data = file_get_contents($imageobject->resourceUrl);
-						$filename = basename($imageobject->displayName);
-						$title = $imageobject->displayName;
-						if(wp_mkdir_p($upload_dir['path']))
-						    $file = $upload_dir['path'] . '/' . $filename;
-						else
-						    $file = $upload_dir['basedir'] . '/' . $filename;
-						
-
-						$wp_filetype = wp_check_filetype($filename, null );
-						$attachment_data = array(
-						    'post_mime_type' => $wp_filetype['type'],
-						    'post_title' => sanitize_file_name($filename),
-						    'post_content' => '',
-						    'post_status' => 'inherit'
-						);
-
-						// Does the attachment already exist ?
-						$postId = $this->queryEntityId( $imageobject->entityId );						
-						if( $postId ){
-						  	$attachment = get_page( $postId, OBJECT, 'attachment');
-						  if( !empty( $attachment ) ){
-						    $attachment_data['ID'] = $attachment->ID;
-						  }
-						} else {
-							file_put_contents($file, $image_data);
-						}
-
-						$attach_id = wp_insert_attachment( $attachment_data, $file );
-						require_once(ABSPATH . 'wp-admin/includes/image.php');
-						$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-						wp_update_attachment_metadata( $attach_id, $attach_data );
-						update_post_meta($attach_id, 'entity_id', $imageobject->entityId);
+						//add image to media library - add cron task to do it asynchronously
+						wp_schedule_single_event( time(), 'uploadImage', array( $imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId ) );
+						//$this->upload_image($imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId);
 					}				
 
 					$var[$i]->images = $images;	
@@ -140,6 +109,48 @@ class Inriver {
 			}
 		}
 	  	return $var;
+	}
+
+	public function addProduct(){
+		
+		
+	}
+
+	public function upload_image($resourceUrl, $displayName, $entityId){
+		$upload_dir = wp_upload_dir();
+		$image_data = file_get_contents($resourceUrl);
+		$filename = basename($displayName);
+		$title = $displayName;
+		if(wp_mkdir_p($upload_dir['path']))
+		    $file = $upload_dir['path'] . '/' . $filename;
+		else
+		    $file = $upload_dir['basedir'] . '/' . $filename;
+		
+
+		$wp_filetype = wp_check_filetype($filename, null );
+		$attachment_data = array(
+		    'post_mime_type' => $wp_filetype['type'],
+		    'post_title' => sanitize_file_name($filename),
+		    'post_content' => '',
+		    'post_status' => 'inherit'
+		);
+
+		// Does the attachment already exist ?
+		$postId = $this->queryEntityId( $entityId );						
+		if( $postId ){
+		  	$attachment = get_page( $postId, OBJECT, 'attachment');
+		  if( !empty( $attachment ) ){
+		    $attachment_data['ID'] = $attachment->ID;
+		  }
+		} else {
+			file_put_contents($file, $image_data);
+		}
+
+		$attach_id = wp_insert_attachment( $attachment_data, $file );
+		require_once(ABSPATH . 'wp-admin/includes/image.php');
+		$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+		wp_update_attachment_metadata( $attach_id, $attach_data );
+		update_post_meta($attach_id, 'entity_id', $entityId);
 	}
 
 	private function queryEntityId($value){
@@ -194,7 +205,6 @@ class Inriver {
 		fwrite($myfile, $txt);
 		fclose($myfile);
 	}
-
 
 	public function buildProductData(){
 		//echo "building...";
