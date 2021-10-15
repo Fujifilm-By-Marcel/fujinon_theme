@@ -5,6 +5,7 @@ class Inriver {
 	public function __construct() {
         add_action( 'buildProductData', array( $this, 'buildProductData' ) );
         add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 3 );
+        add_action( 'addProduct', array( $this, 'add_product' ), 10, 1 );
     }
 
 	private function curlInriver($isPost, $url, $postFields){
@@ -55,55 +56,7 @@ class Inriver {
 
 				//else - it is a product - assign product data
 				else{			
-					
-					//get links and fields
-					$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$value->entityId."/linksandfields";
-					$data = $this->curlInriver(0, $url, false);    	
-					//$var[$i]->displayDescription = $data->summary->displayDescription;
-					//$var[$i]->image = $data->summary->resourceUrl;
-
-					$var[$i]->oneLineDescription = $this->findObjectById($data->fields, "ProductOneLineDescription");
-					$var[$i]->longDescription = $this->findObjectById($data->fields, "ProductLongDescription");
-					$var[$i]->pageURL = $this->findObjectById($data->fields, "ProductProductPageURL");
-
-					if ( isset($data->outbound[0]) ){
-						$var[$i]->ItemMinimumFocusingDistanceIn = $this->findObjectById($data->outbound[0]->fields, "ItemMinimumFocusingDistanceIn");
-						$var[$i]->ItemCorrespondingImageSizeDiagonal = $this->findObjectById($data->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal");
-						$var[$i]->ItemLensWeightlb = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb");
-					}
-
-					$var[$i]->bullet1 = $this->findObjectById($data->fields, "ProductShortBulletPoint1");				
-					$var[$i]->bullet2 = $this->findObjectById($data->fields, "ProductShortBulletPoint2");				
-					$var[$i]->bullet3 = $this->findObjectById($data->fields, "ProductShortBulletPoint3");				
-					$var[$i]->bullet4 = $this->findObjectById($data->fields, "ProductShortBulletPoint4");				
-
-					$var[$i]->catCopy = $this->findObjectById($data->fields, "ProductCinemaBroadcastSubCategoryDescription");
-					$var[$i]->catHeader = $this->findObjectById($data->fields, "ProductCinemaBroadcastSubCategory1");
-
-					//get images
-					$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$value->entityId."/mediadetails";
-					$data = $this->curlInriver(0, $url, false);    	
-
-					$images = [];
-
-					foreach($data as $value){
-						
-						$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$value->entityId."/linksandfields";
-						$imagedata = $this->curlInriver(0, $url, false);  
-						$imageobject = new \stdClass;
-						$imageobject->entityId = $imagedata->summary->id;
-						$imageobject->displayName = $imagedata->summary->displayName;
-						$imageobject->displayDescription = $imagedata->summary->displayDescription;
-						$imageobject->resourceUrl = $imagedata->summary->resourceUrl;
-						array_push( $images, $imageobject );				
-						
-						
-						//add image to media library - add cron task to do it asynchronously
-						wp_schedule_single_event( time(), 'uploadImage', array( $imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId ) );
-						//$this->upload_image($imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId);
-					}				
-
-					$var[$i]->images = $images;	
+					wp_schedule_single_event( time(), 'addProduct', array( $var[$i] ) );					
 				}
 				$i++;
 			}
@@ -111,9 +64,84 @@ class Inriver {
 	  	return $var;
 	}
 
-	public function addProduct(){
+	public function add_product($var){		
 		
-		
+		//get links and fields
+		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$var->entityId."/linksandfields";
+		$data = $this->curlInriver(0, $url, false);    	
+		//$var[$i]->displayDescription = $data->summary->displayDescription;
+		//$var[$i]->image = $data->summary->resourceUrl;
+
+		$var->oneLineDescription = $this->findObjectById($data->fields, "ProductOneLineDescription")[0]->en;
+		$var->longDescription = $this->findObjectById($data->fields, "ProductLongDescription")[0]->en;
+		$var->pageURL = $this->findObjectById($data->fields, "ProductProductPageURL")[0];
+
+		$var->bullet1 = $this->findObjectById($data->fields, "ProductShortBulletPoint1")[0]->en;				
+		$var->bullet2 = $this->findObjectById($data->fields, "ProductShortBulletPoint2")[0]->en;				
+		$var->bullet3 = $this->findObjectById($data->fields, "ProductShortBulletPoint3")[0]->en;				
+
+		$var->catCopy = $this->findObjectById($data->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
+		$var->catHeader = $this->findObjectById($data->fields, "ProductCinemaBroadcastSubCategory1")[0];
+
+		//get images
+		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$var->entityId."/mediadetails";
+		$data = $this->curlInriver(0, $url, false);
+
+		$images = [];
+
+		foreach($data as $value){
+			
+			$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$value->entityId."/linksandfields";
+			$imagedata = $this->curlInriver(0, $url, false);  
+			$imageobject = new \stdClass;
+			$imageobject->entityId = $imagedata->summary->id;
+			$imageobject->displayName = $imagedata->summary->displayName;
+			$imageobject->displayDescription = $imagedata->summary->displayDescription;
+			$imageobject->resourceUrl = $imagedata->summary->resourceUrl;
+			array_push( $images, $imageobject );				
+			
+			
+			//add image to media library - add cron task to do it asynchronously
+			//wp_schedule_single_event( time(), 'uploadImage', array( $imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId ) );
+		}				
+
+		$var->images = $images;	
+
+		$postId = $this->queryEntityId( $var->entityId, 'inriver_products', 'publish' );
+
+		// Create post object
+		$my_post = array(
+		  'ID' => $postId ? $postId : '0',
+		  'post_title'    => $var->name,
+		  'post_type'=> 'inriver_products',
+		  'post_content'  => $var->longDescription,
+		  'post_excerpt' => $var->oneLineDescription,
+		  'post_status'   => 'publish',
+		  'meta_input'   => array(
+		  	'page_url' => $var->pageURL,
+		  	'one_line_description' => $var->oneLineDescription,
+		  	'bullet_1' => $var->bullet1,
+		  	'bullet_2' => $var->bullet2,
+		  	'bullet_3' => $var->bullet3,
+		  	'cat_copy' => $var->catCopy,
+		  	'cat_header' => $var->catHeader,
+		  	'entity_id' => $var->entityId,
+		   ),
+		  //'post_category' => array( 8,39 )
+		);
+
+		if ( isset($data->outbound[0]) ){
+			$my_post['meta_input']['item_minimum_focusing_distance_in'] = $this->findObjectById($data->outbound[0]->fields, "ItemMinimumFocusingDistanceIn")[0];
+			$my_post['meta_input']['item_corresponding_image_size_diagonal'] = $this->findObjectById($data->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal")[0];
+			$my_post['meta_input']['item_lens_weight_lb'] = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb")[0];
+		}
+
+
+		// Insert the post into the database
+		wp_insert_post( $my_post );
+
+
+				
 	}
 
 	public function upload_image($resourceUrl, $displayName, $entityId){
@@ -136,7 +164,7 @@ class Inriver {
 		);
 
 		// Does the attachment already exist ?
-		$postId = $this->queryEntityId( $entityId );						
+		$postId = $this->queryEntityId( $entityId, 'attachment', 'inherit' );						
 		if( $postId ){
 		  	$attachment = get_page( $postId, OBJECT, 'attachment');
 		  if( !empty( $attachment ) ){
@@ -153,10 +181,10 @@ class Inriver {
 		update_post_meta($attach_id, 'entity_id', $entityId);
 	}
 
-	private function queryEntityId($value){
+	private function queryEntityId($value,$post_type,$post_status){
 		$args = array(
-		    'post_type'   => 'attachment',
-		    'post_status' => 'inherit',
+		    'post_type'   => $post_type,
+		    'post_status' => $post_status,
 		    'meta_query'  => array(
 		        array(
 		            'key'     => 'entity_id',
@@ -192,7 +220,6 @@ class Inriver {
 	}
 
 	private function saveData($json){
-		//echo "saving...";
 		$myfile = fopen(get_template_directory()."/data/logs.txt", "a") or die("Unable to open file!");
 		$txt = "";
 		if ( file_put_contents( get_template_directory()."/data/product-data.json", json_encode($json) ) ){
