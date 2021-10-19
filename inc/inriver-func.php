@@ -28,7 +28,7 @@ class Inriver {
 	}
 
 
-	private function recursivelyBuild($url){
+	private function recursivelyBuild($url, $parent_entity_id = null){
 
 		$data = $this->curlInriver(0, $url, false);
 		$var = [];
@@ -46,17 +46,22 @@ class Inriver {
 				$var[$i]->name = $value->name;
 				$var[$i]->type = $value->entityTypeId;    
 				$var[$i]->path = $value->path;
-				$var[$i]->entityId = $value->entityId;			
+				$var[$i]->entityId = $value->entityId;	
+				$var[$i]->parentEntityId = $parent_entity_id;						
 
 				//if it's a channel - assign children
 				if( $value->entityTypeId == "ChannelNode"){
+
+					$this->add_term($var[$i]);
+
 					$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/channels/content/".urlencode($value->path);
-					$var[$i]->children = $this->recursivelyBuild($url);
+					$var[$i]->children = $this->recursivelyBuild($url, $var[$i]->entityId);
 				}	
 
 				//else - it is a product - assign product data
 				else{			
 					wp_schedule_single_event( time(), 'addProduct', array( $var[$i] ) );					
+					//$this->add_product($var[$i]);
 				}
 				$i++;
 			}
@@ -64,28 +69,63 @@ class Inriver {
 	  	return $var;
 	}
 
-	/*
-	public function add_term(){
-		//$parent_term = term_exists( 'fruits', 'product' ); // array is returned if taxonomy is given
-		$parent_term_id = $parent_term['term_id'];         // get numeric term id
-		wp_insert_term(
-		    'Apple',   // the term 
-		    'product', // the taxonomy
-		    array(
-		        'description' => 'A yummy apple.',
-		        'slug'        => 'apple',
-		        //'parent'      => $parent_term_id,
-		    )
-		);
+	
+	private function add_term($var){
 
-		add_term_meta( $term_id, $meta_key, $meta_value, $unique );
+
+		//echo 'post: '.$var->entityId;
+		//echo 'parent: '.$var->parentEntityId;
+
+		$postId = $this->get_term_id_from_entity_id( $var->entityId );;
+		$parentId = $this->get_term_id_from_entity_id( $var->parentEntityId );
+
+		
+		/*echo 'post: '.$var->entityId;
+		echo "<pre>";
+		print_r($postId);
+		echo "</pre>";
+		echo "<br>";
+		echo 'parent: '.$var->parentEntityId;
+		echo "<pre>";
+		print_r($parentId);
+		echo "</pre>";
+		echo "<br>";*/
+
+		//Define the category
+		$cat = array(
+			'cat_ID' => $postId ? $postId : '0',
+			'taxonomy' => 'inriver_categories',
+			'cat_name' => $var->name, 			
+			'category_nicename' => sanitize_title($var->name), 
+			'category_parent' => $parentId ? $parentId : '',
+		);
+		 
+		// Create the category
+		$cat_id = wp_insert_category($cat);
+
+		if($cat_id){
+			add_term_meta( $cat_id, 'entity_id', $var->entityId );
+		}
 
 		
 	}
-	*/
+	
+	private function get_term_id_from_entity_id($entity_id){
+		if($entity_id){
+			$results = get_terms( array(
+			    'taxonomy' => 'inriver_categories',
+			    'meta_key' => 'entity_id',
+			    'meta_value' => $entity_id,
+			    'hide_empty' => false
+			) );
+			return !empty( $results ) && !is_wp_error($results) ? $results[0]->term_id : false;
+		} else {
+			return false;
+		}
+	}	
 
-	public function add_product($var){		
-		
+	public function add_product($var){	
+
 		//get links and fields
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$var->entityId."/linksandfields";
 		$data = $this->curlInriver(0, $url, false);    	
@@ -158,10 +198,9 @@ class Inriver {
 
 
 		// Insert the post into the database
-		wp_insert_post( $my_post );
-
-
-				
+		$postId = wp_insert_post( $my_post );
+		$parentId = $this->get_term_id_from_entity_id( $var->parentEntityId );
+		wp_set_object_terms( $postId, $parentId, 'inriver_categories', false );				
 	}
 
 
@@ -203,7 +242,7 @@ class Inriver {
 		update_post_meta($attach_id, 'entity_id', $entityId);
 	}
 
-	private function queryEntityId($value,$post_type,$post_status){
+	private function queryEntityId($value,$post_type,$post_status = ''){
 		$args = array(
 		    'post_type'   => $post_type,
 		    'post_status' => $post_status,
