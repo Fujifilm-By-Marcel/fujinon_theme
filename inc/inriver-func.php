@@ -51,7 +51,7 @@ class Inriver {
 				//if it's a channel - assign children
 				if( $value->entityTypeId == "ChannelNode"){
 					$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/channels/content/".urlencode($value->path);
-					$var[$i]->children = $this->recursivelyBuild($url);				
+					$var[$i]->children = $this->recursivelyBuild($url);
 				}	
 
 				//else - it is a product - assign product data
@@ -63,6 +63,26 @@ class Inriver {
 		}
 	  	return $var;
 	}
+
+	/*
+	public function add_term(){
+		//$parent_term = term_exists( 'fruits', 'product' ); // array is returned if taxonomy is given
+		$parent_term_id = $parent_term['term_id'];         // get numeric term id
+		wp_insert_term(
+		    'Apple',   // the term 
+		    'product', // the taxonomy
+		    array(
+		        'description' => 'A yummy apple.',
+		        'slug'        => 'apple',
+		        //'parent'      => $parent_term_id,
+		    )
+		);
+
+		add_term_meta( $term_id, $meta_key, $meta_value, $unique );
+
+		
+	}
+	*/
 
 	public function add_product($var){		
 		
@@ -102,7 +122,7 @@ class Inriver {
 			
 			
 			//add image to media library - add cron task to do it asynchronously
-			//wp_schedule_single_event( time(), 'uploadImage', array( $imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId ) );
+			wp_schedule_single_event( time(), 'uploadImage', array( $imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId ) );
 		}				
 
 		$var->images = $images;	
@@ -143,6 +163,8 @@ class Inriver {
 
 				
 	}
+
+
 
 	public function upload_image($resourceUrl, $displayName, $entityId){
 		$upload_dir = wp_upload_dir();
