@@ -4,7 +4,7 @@ class Inriver {
 
 	public function __construct() {
         add_action( 'buildProductData', array( $this, 'buildProductData' ) );
-        add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 3 );
+        add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 1 );
         add_action( 'addProduct', array( $this, 'add_product' ), 10, 1 );
     }
 
@@ -158,11 +158,13 @@ class Inriver {
 			$imageobject->displayName = $imagedata->summary->displayName;
 			$imageobject->displayDescription = $imagedata->summary->displayDescription;
 			$imageobject->resourceUrl = $imagedata->summary->resourceUrl;
+			$imageobject->parentEntityId = $var->entityId;
 			array_push( $images, $imageobject );				
 			
 			
 			//add image to media library - add cron task to do it asynchronously
-			wp_schedule_single_event( time(), 'uploadImage', array( $imageobject->resourceUrl, $imageobject->displayName, $imageobject->entityId ) );
+			wp_schedule_single_event( time(), 'uploadImage', array( $imageobject ) );
+			//$this->upload_image( $imageobject );
 		}				
 
 		$var->images = $images;	
@@ -205,11 +207,11 @@ class Inriver {
 
 
 
-	public function upload_image($resourceUrl, $displayName, $entityId){
+	public function upload_image($imageobject){
 		$upload_dir = wp_upload_dir();
-		$image_data = file_get_contents($resourceUrl);
-		$filename = basename($displayName);
-		$title = $displayName;
+		$image_data = file_get_contents($imageobject->resourceUrl);
+		$filename = basename($imageobject->displayName);
+		$title = $imageobject->displayName;
 		if(wp_mkdir_p($upload_dir['path']))
 		    $file = $upload_dir['path'] . '/' . $filename;
 		else
@@ -225,7 +227,7 @@ class Inriver {
 		);
 
 		// Does the attachment already exist ?
-		$postId = $this->queryEntityId( $entityId, 'attachment', 'inherit' );						
+		$postId = $this->queryEntityId( $imageobject->entityId, 'attachment', 'inherit' );						
 		if( $postId ){
 		  	$attachment = get_page( $postId, OBJECT, 'attachment');
 		  if( !empty( $attachment ) ){
@@ -238,8 +240,10 @@ class Inriver {
 		$attach_id = wp_insert_attachment( $attachment_data, $file );
 		require_once(ABSPATH . 'wp-admin/includes/image.php');
 		$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-		wp_update_attachment_metadata( $attach_id, $attach_data );
-		update_post_meta($attach_id, 'entity_id', $entityId);
+		$parentPostId = $this->queryEntityId($imageobject->parentEntityId, 'inriver_products', 'publish');
+		wp_update_attachment_metadata( $attach_id, $attach_data, $parentPostId );
+		update_post_meta($attach_id, 'entity_id', $imageobject->entityId);
+		set_post_thumbnail( $parentPostId, $attach_id  );
 	}
 
 	private function queryEntityId($value,$post_type,$post_status = ''){
