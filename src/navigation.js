@@ -7,6 +7,10 @@
 ( function() {
 	const siteNavigation = document.getElementById( 'site-navigation' );
 
+	// Get the header
+	var header = document.getElementById("masthead");
+	var product_nav = document.getElementById("product-nav");
+
 	// Return early if the navigation don't exist.
 	if ( ! siteNavigation ) {
 		return;
@@ -37,8 +41,12 @@
 
 		if ( button.getAttribute( 'aria-expanded' ) === 'true' ) {
 			button.setAttribute( 'aria-expanded', 'false' );
+			if( product_nav !== null){setTimeout(function () {
+				product_nav.style.display = 'block';
+			}, 250);}
 		} else {
 			button.setAttribute( 'aria-expanded', 'true' );
+			if( product_nav !== null){product_nav.style.display = 'none';}
 		}
 	} );
 
@@ -49,6 +57,9 @@
 		if ( ! isClickInside ) {
 			siteNavigation.classList.remove( 'toggled' );
 			button.setAttribute( 'aria-expanded', 'false' );
+			if( product_nav !== null){setTimeout(function () {
+				product_nav.style.display = 'block';
+			}, 250);}
 		}
 	} );
 
@@ -100,10 +111,6 @@
 	// When the user scrolls the page, execute myFunction
 	window.onscroll = function() {stickyHeader()};
 
-	// Get the header
-	var header = document.getElementById("masthead");
-	var product_nav = document.getElementById("product-nav");
-
 	// Get the offset position of the navbar
 	var sticky = header.offsetTop;
 
@@ -111,7 +118,6 @@
 	function stickyHeader() {
 	  if (window.pageYOffset > sticky) {
 	    header.classList.add("sticky");
-	    console.log(product_nav);
 	    if( product_nav !== null){product_nav.classList.add("sticky");}
 	  } else {
 	    header.classList.remove("sticky");
