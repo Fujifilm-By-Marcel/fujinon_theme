@@ -1,20 +1,22 @@
 $menu_bg: rgba(255,255,255,.8);
 $menu_padding: 1rem;
-$primary-nav-desktop-offset: 53px;
-$primary-nav-mobile-offset: 71px;
-$product-nav-desktop-offset: 127px;
-$product-nav-mobile-offset: 127px;
+$primary_nav_desktop_height: 53px;
+$primary_nav_mobile_height: 71px;
+$product_nav_height: 73.5px;
+$product_nav_total_desktop_height: $primary_nav_desktop_height+$product_nav_height;
+$product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height;
 
 #masthead {
 	z-index:100;
 	background: $menu_bg;
+	height:$primary_nav_mobile_height;
 	&.sticky{
 		position: fixed;
     	width: 100%;
 
     	/* prevent site from jumping on scroll */
     	+ *:not(#product-nav){
-    		padding-top:$primary-nav-mobile-offset;
+    		padding-top:$primary_nav_mobile_height;
     	}
     	
 	}
@@ -69,9 +71,7 @@ $product-nav-mobile-offset: 127px;
 		text-align: center;
 		background: white;
 		z-index: 100;
-
-		//padding plus hamburger menu height
-		top: calc( #{$menu_padding * 2} + 39px);
+		top: $primary_nav_mobile_height;
 
 		li{
 			margin:1rem .5rem;
@@ -92,10 +92,11 @@ $product-nav-mobile-offset: 127px;
 
 	/* desktop styles*/	
 	@media(min-width:$breakpoint_menu){
+		height:$primary_nav_desktop_height;
 			
 		/* prevent site from jumping on scroll */
     	&.sticky + *:not(#product-nav){
-    		padding-top:$primary-nav-desktop-offset;
+    		padding-top:$primary_nav_desktop_height;
     	}
 
 		/* remove background from menu */
@@ -228,19 +229,41 @@ $product-nav-mobile-offset: 127px;
 #product-nav {
 	z-index:100;
 	background: $menu_bg;
+	padding:1em 0;
+	height:$product_nav_height;
 
 	&.sticky{
 		position: fixed;
     	width: 100%;
-    	margin-top:$primary-nav-desktop-offset;
+    	margin-top:$primary_nav_mobile_height;
 
     	/* prevent site from jumping on scroll */
     	+ *{
-    		padding-top:$product-nav-desktop-offset;
+    		padding-top:$product_nav_total_mobile_height;
     	}
+
+    	/* change space between menus on desktop */
+    	@media(min-width:$breakpoint_menu){			
+	    	
+	    	margin-top:$primary_nav_desktop_height;
+	    	
+	    	+ *{
+	    		padding-top:$product_nav_total_desktop_height;
+	    	}
+		}
+
 	}
 
-	padding:1em 0;
+	/* force columns on mobile */
+	.split{
+		flex-direction: row;
+		> *{
+			flex-basis:100%;
+		}
+	}
+	
+
+	
 	
 	.nav-item:not(.active){
 		border-bottom-color: $color__darkgrey;
