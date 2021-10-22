@@ -11,7 +11,7 @@ get_header();
 $args = array(
    'taxonomy' => 'inriver_categories',
    'orderby' => 'name',
-   'order'   => 'ASC',
+   'order'   => 'DESC',
    'parent' => '0',
 );
 
@@ -135,19 +135,6 @@ class products{
 
 }
 
-/*
-function echo_products($products){
-	$parent_id = "";
-
-
-	echo '<div class="product-category-content" data-index="',$parent_id,'">';
-	foreach($products as $value){						
-		echo '<a href="#" class="button" data-index="', $value->term_id, '">', $value->name, '</a>';
-	} 
-	echo '</div>';
-}
-*/
-
 ?>
 <section id="product-nav">
 	<div class="container">
@@ -158,19 +145,29 @@ function echo_products($products){
 		</div>
 	</div>
 </section>
+
 <?php 
-//echo hero
-set_query_var( 'hero-classes', 'reduced-spacing-margin' );
-get_template_part( 'template-parts/content', 'hero' );
+foreach($top_cats as $key => $value){ 
+	//echo hero
+	set_query_var( 'hero-classes', 'reduced-spacing-margin broadcast-hero' );
+	set_query_var('hero-id', "term_".$value->term_id );
+	$style = $key ? "display:none;":"";
+
+	echo "<div class='hero-toggle' data-index='",$value->term_id,"' style='",$style,"'>";
+	get_template_part( 'template-parts/content', 'hero' );
+	echo '<div class="container">';
+	echo '<div class="header-block">';
+	the_field( "header_block","term_".$value->term_id );
+	echo '</div>';
+	echo '</div>';	
+	echo "</div>";
+} 
 ?>
 
 
 <?php foreach($top_cats as $key => $value){ ?>
 	<section class="product-category standard-spacing-margin" data-index=<?php echo $value->term_id ?> style="<?php echo $key ? 'display:none;' : "" ?>">
 		<div class="container">
-			<div class="container header-block" style="">
-				<!-- todo:get field from victor -->
-			</div>
 			<div class="product-filters ">
 				<?php	
 				$products = new products();
@@ -190,6 +187,8 @@ get_template_part( 'template-parts/content', 'hero' );
 		$(this).parent().addClass('active');
 		$(".product-category").hide();
 		$(".product-category[data-index="+index+"]").show();
+		$(".hero-toggle").hide();
+		$(".hero-toggle[data-index="+index+"]").show();		
 		return false;
 	});
 
