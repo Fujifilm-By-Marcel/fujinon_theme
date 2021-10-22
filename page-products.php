@@ -177,6 +177,7 @@ foreach($top_cats as $key => $value){
 		</div>
 	</section>
 <?php } ?>
+<?php get_template_part( 'template-parts/content', 'discover-block' ); ?>
 <script>
 (function($) {
 	//onclick for category

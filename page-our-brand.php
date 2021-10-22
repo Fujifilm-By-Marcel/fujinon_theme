@@ -49,7 +49,7 @@ get_template_part( 'template-parts/content', 'hero' );
 </section>
 
 
-<?php do_shortcode('[my_discover_block]'); ?>
+<?php get_template_part( 'template-parts/content', 'discover-block' ); ?>
 
 <section class="teasers brand-teasers standard-spacing-padding black-bg">
 	<?php
