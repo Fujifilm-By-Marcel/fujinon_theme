@@ -55,6 +55,6 @@ get_template_part( 'template-parts/content', 'hero' );
 	</div>
 </section>
 <?php 
-do_shortcode('[my_discover_block]');
+get_template_part( 'template-parts/content', 'discover-block' ); 
 get_sidebar();
 get_footer();
