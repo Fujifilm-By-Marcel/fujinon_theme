@@ -83,8 +83,9 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	height:100%;
 	object-fit: cover;
 }
-
-
+.desktop-only{
+	display:none;
+}
 
 @media (min-width:$breakpoint_mobile) {
 	html{
@@ -95,5 +96,11 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	}
 	.split > *{
 		flex-basis:100%;
+	}
+	.mobile-only{
+		display:none;
+	}
+	.desktop-only{
+		display: block;
 	}
 }
