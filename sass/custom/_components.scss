@@ -53,7 +53,7 @@ section{
 
 /* center and crop hero */
 .hero-container{
-	height: 88vh;
+	height: 300px;
 	overflow: hidden;
 	display: flex;
     align-items: center;
@@ -459,6 +459,10 @@ section{
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
+
+	.hero-container{
+		height:88vh;
+	}
 
 	/* Products */
 	.product-category-filter {		
