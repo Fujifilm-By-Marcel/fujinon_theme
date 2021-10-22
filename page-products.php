@@ -117,8 +117,10 @@ class products{
 			//echo "<pre>";
 			//print_r($value);
 			//echo "</pre>";			
+			echo '<div class="info">';
 			echo "<h3 class='mobile-only'>",$category_name,"</h3>";
 			echo "<h3 class='mobile-only'>",$value->post_title,"</h3>";
+			echo "</div>";
 			echo get_the_post_thumbnail($value->ID, 'medium');
 			echo '<div class="info">';
 			echo "<h3 class='desktop-only'>",$category_name,"</h3>";
@@ -158,7 +160,7 @@ function echo_products($products){
 </section>
 <?php 
 //echo hero
-set_query_var( 'hero-classes', 'standard-spacing-margin' );
+set_query_var( 'hero-classes', 'reduced-spacing-margin' );
 get_template_part( 'template-parts/content', 'hero' );
 ?>
 
