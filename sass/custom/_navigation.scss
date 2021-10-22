@@ -1,5 +1,4 @@
 $menu_bg: rgba(255,255,255,.8);
-$menu_padding: 1rem;
 $primary_nav_desktop_height: 53px;
 $primary_nav_mobile_height: 71px;
 $product_nav_height: 73.5px;
@@ -29,7 +28,7 @@ $product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height
 	/* container */
 	.container{
 		display:flex;
-		padding:  $menu_padding 0;
+		padding:  1rem 0;
 		font-size:0.875rem;
 		font-weight:700;
 		align-items: center;
