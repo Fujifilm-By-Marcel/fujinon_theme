@@ -1493,7 +1493,7 @@ section.widget {
 
 /* center and crop hero */
 .hero-container {
-	height: 88vh;
+	height: 300px;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
@@ -1883,6 +1883,9 @@ section.widget {
 
 /* desktop styles */
 @media (min-width: 50em) {
+	.hero-container {
+		height: 88vh;
+	}
 	/* Products */
 	.product-category-filter .products .product-category-filter .product {
 		padding: 1.5em 2em;
