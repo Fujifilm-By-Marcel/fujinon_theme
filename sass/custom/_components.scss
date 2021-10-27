@@ -411,7 +411,7 @@ section{
 
 	}
 
-	.products .product-category-filter{
+	.products-container-inner{
 		display:grid;
 		grid-template-columns: 1fr 1fr;
 		gap:1.5em;
@@ -465,8 +465,20 @@ section{
 	}
 
 	/* Products */
-	.product-category-filter {		
-		.products .product-category-filter{
+	.product-category-filter {	
+		.header.split{
+			>:first-child{
+				flex-basis:65%;
+				display: flex;
+				align-items:center;
+				>:first-child{
+					max-width: 23em;
+					margin: auto;
+					padding: 0 2em;
+				}
+			}
+		}
+		.products-container-inner{
 			.product{
 				padding:1.5em 2em;
 				img{

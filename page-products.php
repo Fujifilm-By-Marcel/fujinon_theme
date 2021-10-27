@@ -58,7 +58,7 @@ class products{
 
 			//if the category filter contains products -- show the products
 			if($child_cats[0]->count > 0){
-				echo '<div class="products">';
+				echo '<div class="products-container-outer">';
 				foreach($child_cats as $key => $value){		
 					//save key for later use -- to determine first child
 					$value->key = $key;				
@@ -80,15 +80,8 @@ class products{
 	}
 
 	private function echo_products($value){
-
-		//echo "<pre>";
-		//print_r($value);
-		//echo "</pre>";
-
-
 		$category_name = $value->name;
 		$parent_id = $value->term_id;
-
 		$query_args = array (
 			//'category__in' => $value->term_id,
 			'post_type' => 'inriver_products',
@@ -104,14 +97,24 @@ class products{
          )
 		);
 		$products = get_posts($query_args);
-
-
 		$style = $value->key?"display:none;":"";
+		echo "<div class='product-category-filter' data-index='",$parent_id,"' style='",$style,"'>";
 
 		//echo "<pre>";
-		//print_r($products);
+		//print_r($value);
 		//echo "</pre>";
-		echo "<div class='product-category-filter' data-index='",$parent_id,"' style='",$style,"'>";
+
+		//todo echo category header 
+		echo "<div class='header split'>";
+		echo "<div>";
+		echo "<div>";
+		the_field("header_block", "term_".$value->term_id);
+		echo "</div>";
+		echo "</div>";
+		echo wp_get_attachment_image(get_field( 'header_image', "term_".$value->term_id), 'large');
+		echo '</div>';
+
+		echo "<div class='products-container-inner'>";
 		foreach($products as $key => $value){
 			echo '<div class="product">';
 			//echo "<pre>";
@@ -129,6 +132,7 @@ class products{
 			echo "</div>";
 			echo '</div>';
 		}
+		echo "</div>";
 		echo "</div>";
 
 	}
@@ -209,15 +213,8 @@ $products = new products();
 		var targetFilter = $(".product-category[data-index="+categoryindex+"] .product-category-filter[data-index="+index+"]");
 		$(this).addClass('active');
 		$(this).siblings().removeClass('active');
-		
-
-
-		//$(".product-category[data-index="+categoryindex+"] .product-category-filter").not(thisFilter).not(parentFilter).hide();
 		targetFilter.siblings().not(thisFilter).not(parentFilter).hide();
 		targetFilter.show();
-
-		
-
 		return false;
 	});
 
