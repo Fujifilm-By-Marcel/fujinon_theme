@@ -71,25 +71,9 @@ class Inriver {
 
 	
 	private function add_term($var){
-
-
-		//echo 'post: '.$var->entityId;
-		//echo 'parent: '.$var->parentEntityId;
-
-		$postId = $this->get_term_id_from_entity_id( $var->entityId );;
-		$parentId = $this->get_term_id_from_entity_id( $var->parentEntityId );
-
 		
-		/*echo 'post: '.$var->entityId;
-		echo "<pre>";
-		print_r($postId);
-		echo "</pre>";
-		echo "<br>";
-		echo 'parent: '.$var->parentEntityId;
-		echo "<pre>";
-		print_r($parentId);
-		echo "</pre>";
-		echo "<br>";*/
+		$postId = $this->get_term_id_from_entity_id( $var->entityId );;
+		$parentId = $this->get_term_id_from_entity_id( $var->parentEntityId );	
 
 		//Define the category
 		$cat = array(
@@ -159,10 +143,10 @@ class Inriver {
 			$imageobject->displayDescription = $imagedata->summary->displayDescription;
 			$imageobject->resourceUrl = $imagedata->summary->resourceUrl;
 			$imageobject->parentEntityId = $var->entityId;
-			array_push( $images, $imageobject );				
+			array_push( $images, $imageobject );
 			
-			
-			//add image to media library - add cron task to do it asynchronously
+			$imageobject->displayDescription == 'Web Category Header Image'? $imageobject->isCategoryImage = true : $imageobject->isCategoryImage = false;
+
 			wp_schedule_single_event( time(), 'uploadImage', array( $imageobject ) );
 			//$this->upload_image( $imageobject );
 		}				
@@ -189,7 +173,6 @@ class Inriver {
 		  	'cat_header' => $var->catHeader,
 		  	'entity_id' => $var->entityId,
 		   ),
-		  //'post_category' => array( 8,39 )
 		);
 
 		if ( isset($data->outbound[0]) ){
@@ -227,23 +210,64 @@ class Inriver {
 		);
 
 		// Does the attachment already exist ?
+		//get the post id of the attachment with the entity id
 		$postId = $this->queryEntityId( $imageobject->entityId, 'attachment', 'inherit' );						
 		if( $postId ){
+			//get the attachment data
 		  	$attachment = get_page( $postId, OBJECT, 'attachment');
-		  if( !empty( $attachment ) ){
+
+
+		  //check if the files are identical
+		  $md5image1 = md5($image_data);
+		  $md5image2 = md5(file_get_contents(wp_get_attachment_url($postId)));
+		  //flag if images are not identical
+		  $md5image1 == $md5image2 ? $issame = true : $issame = false;
+		  
+		  //if the attachment exists and images are the same
+		  if( !empty( $attachment ) && $issame ){		  	
+		  	//set the id on the attachment data so that a new attachment is not created
 		    $attachment_data['ID'] = $attachment->ID;
+		  } 
+		  
+		  //if the images are different
+		  if ( !$issame ){ 
+		  	//delete the old attachment
+		  	wp_delete_attachment( $postId, true);
+
+		  	//add the new attachment
+		  	file_put_contents($file, $image_data);
 		  }
+
 		} else {
+			//if the post id does not exist it means the file hasn't been uploaded - upload the file
 			file_put_contents($file, $image_data);
 		}
 
 		$attach_id = wp_insert_attachment( $attachment_data, $file );
 		require_once(ABSPATH . 'wp-admin/includes/image.php');
 		$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+		
+		//get the parent's post id
 		$parentPostId = $this->queryEntityId($imageobject->parentEntityId, 'inriver_products', 'publish');
-		wp_update_attachment_metadata( $attach_id, $attach_data, $parentPostId );
+
+		
+		if($imageobject->isCategoryImage){
+			//get the category 
+			$term_id = get_the_terms( $parentPostId, 'inriver_categories' )[0]->term_id;
+			//set metadata for category
+			update_term_meta($term_id, 'header_image', $attach_id );
+
+		} else {			
+
+			//attach to post
+			wp_update_attachment_metadata( $attach_id, $attach_data, $parentPostId );			
+
+			//set thumbnail for post
+			set_post_thumbnail( $parentPostId, $attach_id  );
+		}
+
+		//add entity id as metadata
 		update_post_meta($attach_id, 'entity_id', $imageobject->entityId);
-		set_post_thumbnail( $parentPostId, $attach_id  );
 	}
 
 	private function queryEntityId($value,$post_type,$post_status = ''){
@@ -299,7 +323,6 @@ class Inriver {
 	}
 
 	public function buildProductData(){
-		//echo "building...";
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/channels/content/6527";
 		$list = $this->recursivelyBuild($url);
 		$this->saveData($list);
