@@ -117,11 +117,11 @@ class products{
 			//echo "<pre>";
 			//print_r($value);
 			//echo "</pre>";			
-			echo '<div class="info">';
-			echo "<h3 class='mobile-only'>",$category_name,"</h3>";
-			echo "<h3 class='mobile-only'>",$value->post_title,"</h3>";
+			echo '<div class="info mobile-only">';
+			echo "<h3>",$category_name,"</h3>";
+			echo "<h3>",$value->post_title,"</h3>";
 			echo "</div>";
-			echo get_the_post_thumbnail($value->ID, 'medium');
+			echo get_the_post_thumbnail($value->ID, 'large');
 			echo '<div class="info">';
 			echo "<h3 class='desktop-only'>",$category_name,"</h3>";
 			echo "<h3 class='desktop-only'>",$value->post_title,"</h3>";
@@ -133,8 +133,26 @@ class products{
 
 	}
 
-}
+	public function echo_banners($value){
+		foreach($value as $key => $value){ 
+			//echo hero
+			set_query_var( 'hero-classes', 'reduced-spacing-margin broadcast-hero' );
+			set_query_var('hero-id', "term_".$value->term_id );
+			$style = $key ? "display:none;":"";
 
+			echo "<div class='hero-toggle' data-index='",$value->term_id,"' style='",$style,"'>";
+			get_template_part( 'template-parts/content', 'hero' );
+			echo '<div class="container">';
+			echo '<div class="header-block">';
+			the_field( "header_block","term_".$value->term_id );
+			echo '</div>';
+			echo '</div>';	
+			echo "</div>";
+		} 
+	}
+
+}
+$products = new products();
 ?>
 <section id="product-nav">
 	<div class="container">
@@ -146,31 +164,18 @@ class products{
 	</div>
 </section>
 
+<section class="banners">
 <?php 
-foreach($top_cats as $key => $value){ 
-	//echo hero
-	set_query_var( 'hero-classes', 'reduced-spacing-margin broadcast-hero' );
-	set_query_var('hero-id', "term_".$value->term_id );
-	$style = $key ? "display:none;":"";
-
-	echo "<div class='hero-toggle' data-index='",$value->term_id,"' style='",$style,"'>";
-	get_template_part( 'template-parts/content', 'hero' );
-	echo '<div class="container">';
-	echo '<div class="header-block">';
-	the_field( "header_block","term_".$value->term_id );
-	echo '</div>';
-	echo '</div>';	
-	echo "</div>";
-} 
+	$products->echo_banners($top_cats);
 ?>
-
+</section>
 
 <?php foreach($top_cats as $key => $value){ ?>
 	<section class="product-category standard-spacing-margin" data-index=<?php echo $value->term_id ?> style="<?php echo $key ? 'display:none;' : "" ?>">
 		<div class="container">
 			<div class="product-filters ">
 				<?php	
-				$products = new products();
+				
 				$products->echo_filters($value); 
 				?>
 			</div>			
