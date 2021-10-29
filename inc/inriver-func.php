@@ -85,7 +85,7 @@ class Inriver {
 		);
 		 
 		// Create the category
-		$cat_id = wp_insert_category($cat);
+		$cat_id = $this->wp_insert_category($cat);
 
 		if($cat_id){
 			add_term_meta( $cat_id, 'entity_id', $var->entityId );
@@ -94,6 +94,64 @@ class Inriver {
 		
 	}
 	
+	private function wp_insert_category( $catarr, $wp_error = false ) {
+	    $cat_defaults = array(
+	        'cat_ID'               => 0,
+	        'taxonomy'             => 'category',
+	        'cat_name'             => '',
+	        'category_description' => '',
+	        'category_nicename'    => '',
+	        'category_parent'      => '',
+	    );
+	    $catarr       = wp_parse_args( $catarr, $cat_defaults );
+	 
+	    if ( '' === trim( $catarr['cat_name'] ) ) {
+	        if ( ! $wp_error ) {
+	            return 0;
+	        } else {
+	            return new WP_Error( 'cat_name', __( 'You did not enter a category name.' ) );
+	        }
+	    }
+	 
+	    $catarr['cat_ID'] = (int) $catarr['cat_ID'];
+	 
+	    // Are we updating or creating?
+	    $update = ! empty( $catarr['cat_ID'] );
+	 
+	    $name        = $catarr['cat_name'];
+	    $description = $catarr['category_description'];
+	    $slug        = $catarr['category_nicename'];
+	    $parent      = (int) $catarr['category_parent'];
+	    if ( $parent < 0 ) {
+	        $parent = 0;
+	    }
+	 
+	    if ( empty( $parent )
+	        || ! term_exists( $parent, $catarr['taxonomy'] )
+	        || ( $catarr['cat_ID'] && term_is_ancestor_of( $catarr['cat_ID'], $parent, $catarr['taxonomy'] ) ) ) {
+	        $parent = 0;
+	    }
+	 
+	    $args = compact( 'name', 'slug', 'parent', 'description' );
+	 
+	    if ( $update ) {
+	        $catarr['cat_ID'] = wp_update_term( $catarr['cat_ID'], $catarr['taxonomy'], $args );
+	    } else {
+	        $catarr['cat_ID'] = wp_insert_term( $catarr['cat_name'], $catarr['taxonomy'], $args );
+	    }
+	 
+	    if ( is_wp_error( $catarr['cat_ID'] ) ) {
+	        if ( $wp_error ) {
+	            return $catarr['cat_ID'];
+	        } else {
+	            return 0;
+	        }
+	    }
+	    return $catarr['cat_ID']['term_id'];
+	}
+
+
+
 	private function get_term_id_from_entity_id($entity_id){
 		if($entity_id){
 			$results = get_terms( array(
