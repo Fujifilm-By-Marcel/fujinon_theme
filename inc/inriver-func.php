@@ -112,28 +112,28 @@ class Inriver {
 
 		//get links and fields
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$var->entityId."/linksandfields";
-		$data = $this->curlInriver(0, $url, false);    	
-		//$var[$i]->displayDescription = $data->summary->displayDescription;
-		//$var[$i]->image = $data->summary->resourceUrl;
+		$linksandfields = $this->curlInriver(0, $url, false);    	
+		//$var[$i]->displayDescription = $linksandfields->summary->displayDescription;
+		//$var[$i]->image = $linksandfields->summary->resourceUrl;
 
-		$var->oneLineDescription = $this->findObjectById($data->fields, "ProductOneLineDescription")[0]->en;
-		$var->longDescription = $this->findObjectById($data->fields, "ProductLongDescription")[0]->en;
-		$var->pageURL = $this->findObjectById($data->fields, "ProductProductPageURL")[0];
+		$var->oneLineDescription = $this->findObjectById($linksandfields->fields, "ProductOneLineDescription")[0]->en;
+		$var->longDescription = $this->findObjectById($linksandfields->fields, "ProductLongDescription")[0]->en;
+		$var->pageURL = $this->findObjectById($linksandfields->fields, "ProductProductPageURL")[0];
 
-		$var->bullet1 = $this->findObjectById($data->fields, "ProductShortBulletPoint1")[0]->en;				
-		$var->bullet2 = $this->findObjectById($data->fields, "ProductShortBulletPoint2")[0]->en;				
-		$var->bullet3 = $this->findObjectById($data->fields, "ProductShortBulletPoint3")[0]->en;				
+		$var->bullet1 = $this->findObjectById($linksandfields->fields, "ProductShortBulletPoint1")[0]->en;				
+		$var->bullet2 = $this->findObjectById($linksandfields->fields, "ProductShortBulletPoint2")[0]->en;				
+		$var->bullet3 = $this->findObjectById($linksandfields->fields, "ProductShortBulletPoint3")[0]->en;				
 
-		$var->catCopy = $this->findObjectById($data->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
-		$var->catHeader = $this->findObjectById($data->fields, "ProductCinemaBroadcastSubCategory1")[0];
+		$var->catCopy = $this->findObjectById($linksandfields->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
+		$var->catHeader = $this->findObjectById($linksandfields->fields, "ProductCinemaBroadcastSubCategory1")[0];
 
 		//get images
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$var->entityId."/mediadetails";
-		$data = $this->curlInriver(0, $url, false);
+		$mediadetails = $this->curlInriver(0, $url, false);
 
 		$images = [];
 
-		foreach($data as $value){
+		foreach($mediadetails as $value){
 			
 			$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$value->entityId."/linksandfields";
 			$imagedata = $this->curlInriver(0, $url, false);  
@@ -175,12 +175,16 @@ class Inriver {
 		   ),
 		);
 
-		if ( isset($data->outbound[0]) ){
-			$my_post['meta_input']['item_minimum_focusing_distance_in'] = $this->findObjectById($data->outbound[0]->fields, "ItemMinimumFocusingDistanceIn")[0];
-			$my_post['meta_input']['item_corresponding_image_size_diagonal'] = $this->findObjectById($data->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal")[0];
-			$my_post['meta_input']['item_lens_weight_lb'] = $this->findObjectById($data->outbound[0]->fields, "ItemLensWeightlb")[0];
+		if ( isset($linksandfields->outbound[0]) ){
+			//close circle -- image circle -- weight
+			$my_post['meta_input']['item_minimum_focusing_distance_in'] = $this->findObjectById($linksandfields->outbound[0]->fields, "ItemMinimumFocusingDistanceIn")[0];
+			$my_post['meta_input']['item_corresponding_image_size_diagonal'] = $this->findObjectById($linksandfields->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal")[0];
+			$my_post['meta_input']['item_lens_weight_lb'] = $this->findObjectById($linksandfields->outbound[0]->fields, "ItemLensWeightlb")[0];
 		}
-
+		
+		//echo "<pre>";
+		//print_r($linksandfields->outbound[0]);
+		//echo "</pre>";
 
 		// Insert the post into the database
 		$postId = wp_insert_post( $my_post );
