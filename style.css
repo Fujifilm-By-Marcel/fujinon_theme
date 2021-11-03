@@ -982,10 +982,21 @@ h5 {
 	font-size: .75rem;
 }
 
+.button.inverse {
+	background: white;
+	color: black !important;
+}
+
 .button:hover {
 	background: white;
 	color: black !important;
 	border: 1px solid #000;
+}
+
+.button.inverse:hover {
+	background: #01916d;
+	border: 1px solid #01916d;
+	color: white !important;
 }
 
 a.cta {
@@ -1881,8 +1892,105 @@ section.widget {
 	display: inline-block;
 }
 
+/* Modals */
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	z-index: 101;
+	overflow: scroll;
+}
+
+.modal .modal-content {
+	background: #01916d;
+	background: radial-gradient(circle, #01916d 0%, black 82%);
+	position: relative;
+	padding: 1em;
+}
+
+.modal .modal-content > * {
+	margin: 0;
+	margin-bottom: 1rem;
+}
+
+.modal .modal-content > *:last-child {
+	margin-bottom: 0;
+}
+
+.modal .modal-content img {
+	padding: 1em;
+	margin: 0 auto 2rem;
+	display: block;
+}
+
+.modal .modal-content .close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: .15em .5em;
+	cursor: pointer;
+	font-size: 1.5rem;
+}
+
+.modal .modal-content .bullets {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+.modal .modal-content .bullets > div {
+	border-right: 2px solid #01916d;
+	text-align: center;
+	padding: 0 1em;
+}
+
+.modal .modal-content .bullets > div:last-child {
+	border-right: none;
+}
+
+.modal .modal-content .buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.modal .modal-content .buttons .cta {
+	font-size: .75rem;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
+	.modal .modal-content {
+		padding: 2em;
+	}
+	.modal .modal-content .bullets {
+		display: block;
+	}
+	.modal .modal-content .bullets > div {
+		display: inline;
+	}
+	.modal .modal-content .bullets > div:first-child {
+		padding-left: 0;
+	}
+	.modal .modal-content .desktop-columns {
+		display: flex;
+		flex-direction: row;
+		gap: 3em;
+	}
+	.modal .modal-content .buttons {
+		flex-direction: column;
+		justify-content: center;
+		gap: 1em;
+	}
+	.modal .modal-content .buttons .button {
+		display: block;
+		width: 13em;
+	}
 	.hero-container {
 		height: 88vh;
 	}
