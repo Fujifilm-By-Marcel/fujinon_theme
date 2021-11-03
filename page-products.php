@@ -116,7 +116,7 @@ class products{
 
 		echo "<div class='products-container-inner'>";
 		foreach($products as $key => $value){
-			echo '<div class="product">';
+			echo '<div class="product" data-index="',$value->ID,'">';
 			//echo "<pre>";
 			//print_r($value);
 			//echo "</pre>";			
@@ -186,10 +186,83 @@ $products = new products();
 		</div>
 	</section>
 <?php } ?>
+
+<section class="modals">
+
+	<?php 
+	$query_args = array (
+		//'category__in' => $value->term_id,
+		'post_type' => 'inriver_products',
+		'orderby' => 'name',
+	   'order'   => 'ASC',
+	   'numberposts' => -1,
+	);
+	$products = get_posts($query_args);
+
+	foreach($products as $value){ 
+		
+		$post_meta = get_post_meta($value->ID);
+		/*echo "<pre>";
+		print_r($value);
+		echo "</pre>";
+		echo "<pre>";
+		print_r($post_meta);
+		echo "</pre>";*/
+		$bullet1 = "";
+		$bullet2 = "";
+		$bullet3 = "";
+
+		isset($post_meta['item_minimum_focusing_distance_in'][0]) && $post_meta['item_minimum_focusing_distance_in'][0] != "" ? 
+		$bullet1= "Minimum Focusing Distance: ".$post_meta['item_minimum_focusing_distance_in'][0] : 
+		$bullet1= $post_meta['bullet_1'][0];
+
+		isset($post_meta['item_corresponding_image_size_diagonal'][0]) && $post_meta['item_corresponding_image_size_diagonal'][0] != "" ? 
+		$bullet2= "Image Circle: ".$post_meta['item_corresponding_image_size_diagonal'][0] : 
+		$bullet2= $post_meta['bullet_2'][0];
+
+		isset($post_meta['item_lens_weightlb'][0]) && $post_meta['item_lens_weightlb'][0] != "" ? 
+		$bullet3= "Weight: ".post_meta['item_lens_weightlb'][0] : 
+		$bullet3= $post_meta['bullet_3'][0];
+
+		$bullet1 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet1);
+		$bullet2 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet2);
+		$bullet3 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet3);
+
+		?>
+	<div class="modal" data-index="<?php echo $value->ID; ?>"  style="display:none;">
+		<div class="modal-content container">
+			<div class="close"><i class="fal fa-times"></i></div>
+			<h3 class="title mobile-only"><?php echo $value->post_title; ?></h3>
+			<?php echo get_the_post_thumbnail($value->ID, "large") ?>			
+			<h3 class="title desktop-only"><?php echo $value->post_title; ?></h3>
+			<div class="desktop-columns">
+				<div class="content">
+					<div class="bullets">
+						<div class="bullet1"><?php echo $bullet1 ?></div>
+						<div class="bullet2"><?php echo $bullet2 ?></div>
+						<div class="bullet3"><?php echo $bullet3 ?></div>
+					</div>			
+					<p><?php echo $value->post_content ?></p>
+				</div>
+				<div class="buttons">
+					<div class="mobile-only"><a href="<?php echo $post_meta['page_url'][0] ?>" target="_blank" class="button reduced-padding">LEARN MORE</a></div>
+					<div class="mobile-only"><a href="/lens-services/" class="cta">FIND A LENS ></a></div>
+
+					<div  class="desktop-only"><a href="<?php echo $post_meta['page_url'][0] ?>" target="_blank" class="button">LEARN MORE</a></div>
+					<div class="desktop-only"><a href="/lens-services/" class="button inverse">FIND A LENS</a></div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php } ?>
+
+
+</section>
+
+
 <?php get_template_part( 'template-parts/content', 'discover-block' ); ?>
 <script>
 (function($) {
-	//onclick for category
 
 	$(".category-switcher").click(function (){
 		var index = $(this).data('index');
@@ -202,8 +275,6 @@ $products = new products();
 		return false;
 	});
 
-
-	//onclick for filters
 	$('.product-category-filter .button').click(function (){
 		var thisFilter = $(this).closest('.product-category-filter');
 		var index = $(this).data('index');
@@ -217,6 +288,26 @@ $products = new products();
 		targetFilter.show();
 		return false;
 	});
+
+	$('.product').click(function(){
+		var id = $(this).data('index');
+		var modal = $('.modal[data-index='+id+']');
+
+		modal.siblings().hide();
+		modal.show();
+		
+	});
+
+	$('.modal .close').click(function(){
+		$(this).closest('.modal').hide();
+	});
+
+	$('.modal').click(function(event){
+		if ( $(event.target).hasClass('modal') ) {
+			$(this).hide();
+		}		
+	});
+
 
 })( jQuery );
 </script>
