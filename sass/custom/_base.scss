@@ -36,10 +36,20 @@ h5{
 	padding: 0.5em 1.25em;
 	font-size:.75rem;
 }
+.button.inverse{
+	background: white;
+	color:black !important;
+}
+
 .button:hover{
 	background: white;
 	color:black !important;
 	border: 1px solid #000;	
+}
+.button.inverse:hover{
+	background: $color__accent;
+	border: 1px solid $color__accent;
+	color:white !important;
 }
 
 a.cta{
