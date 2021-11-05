@@ -40,20 +40,27 @@ class products{
 
 		//if there are query results results
 		if( count($child_cats) ){
+
+			//if grandfather is not empty and doesn't have products -- underline and no owl
+			$underlined = !$grandfather_id && !$child_cats[0]->count;		
 			
 			//if first child -- active
 			$style = $value->key?"display:none;":"";
 			echo '<div class="product-category-filter" data-index="',$parent_id,'" style="', $style ,'">';
-			echo '<div class="buttons">';
+			$class = $underlined ?"underlined-category-filter":"";		
+			echo '<div class="buttons ',$class,'">';
+			$class = "";
+			echo !$underlined ? '<div class="owl-carousel owl-theme">': '';
 			foreach($child_cats as $key => $value){						
 
 				//if first child -- active
 				$class = !$key?"active ":"";
 
-				//if grandfather is not empty and doesn't have products -- underline
-				$class .= !$grandfather_id && !$value->count ?"underlined-category-filter":"";		
+				//if grandfather is not empty and doesn't have products -- underline				
 				echo '<a href="#" class="button ',$class,'" data-index="', $value->term_id, '" >', $value->name, '</a>';
+				$class = "";
 			} 
+			echo !$underlined ? '</div>': ''; //owl
 			echo '</div>'; //buttons
 
 			//if the category filter contains products -- show the products
@@ -277,15 +284,16 @@ $products = new products();
 		return false;
 	});
 
-	$('.product-category-filter .button').click(function (){
-		var thisFilter = $(this).closest('.product-category-filter');
-		var index = $(this).data('index');
+	$('.product-category-filter').on('click', '.button', function () {
+		var thisItem = $(this);
+		var thisFilter = thisItem.closest('.product-category-filter');
+		var index = thisItem.data('index');
 		var parentIndex = thisFilter.data('index');
 		var parentFilter = $( ".button[data-index="+parentIndex+"]").closest('.product-category-filter');
-		var categoryindex = $(this).closest('.product-category').data('index');
+		var categoryindex = thisItem.closest('.product-category').data('index');
 		var targetFilter = $(".product-category[data-index="+categoryindex+"] .product-category-filter[data-index="+index+"]");
-		$(this).addClass('active');
-		$(this).siblings().removeClass('active');
+		thisItem.addClass('active');		
+		thisFilter.find('.button').not(thisItem).removeClass('active');
 		targetFilter.siblings().not(thisFilter).not(parentFilter).hide();
 		targetFilter.show();
 		return false;
@@ -311,7 +319,31 @@ $products = new products();
 	});
 
 
+
 })( jQuery );
+
+jQuery(document).ready(function( $ ) {
+	let owl  = $(".owl-carousel");
+	owl.owlCarousel({
+		center:true,
+		items:3,
+		dots: false,		
+		margin:10,
+		loop:true,
+		responsive:{
+			0:{
+				items:2,				
+			},
+			600:{
+				items:3,				
+			},
+			1000:{
+				items:5,
+				loop:false,
+			}
+		}
+	});
+});
 </script>
 <?php
 get_sidebar();
