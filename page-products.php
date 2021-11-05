@@ -111,7 +111,9 @@ class products{
 		the_field("header_block", "term_".$value->term_id);
 		echo "</div>";
 		echo "</div>";
+		echo "<div>";
 		echo wp_get_attachment_image(get_field( 'header_image', "term_".$value->term_id), 'large');
+		echo "</div>";
 		echo '</div>';
 
 		echo "<div class='products-container-inner'>";
