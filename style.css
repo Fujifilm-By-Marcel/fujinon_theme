@@ -1756,6 +1756,14 @@ section.widget {
 	margin: .5em 0;
 }
 
+.icon-descriptions .split > * > div p {
+	margin: .75em 0;
+}
+
+.icon-descriptions .split > * > div .cta {
+	text-transform: uppercase;
+}
+
 /* team members */
 .team-members {
 	display: grid;
@@ -2054,6 +2062,9 @@ section.widget {
 		/* 4 columns */
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+	.icon-descriptions .split.two-column-grid {
+		grid-template-columns: 1fr 1fr;
 	}
 	/* mini hero */
 	.mini-hero .hero-container {

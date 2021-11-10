@@ -306,6 +306,12 @@ section{
 				h3{
 					margin:.5em 0;
 				}
+				p{
+					margin:.75em 0;
+				}
+				.cta{
+					text-transform: uppercase;
+				}
 			}
 			
 
@@ -629,8 +635,11 @@ section{
 			/* 4 columns */
 			display:grid;
 			grid-template-columns:1fr 1fr 1fr 1fr;		
-			
+			&.two-column-grid{
+				grid-template-columns:1fr 1fr;
+			}
 		}
+
 	}
 
 
