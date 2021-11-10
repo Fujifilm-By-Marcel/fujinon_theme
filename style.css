@@ -1085,6 +1085,10 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	margin-right: 0;
 }
 
+#page {
+	overflow: hidden;
+}
+
 #masthead {
 	z-index: 100;
 	background: rgba(255, 255, 255, 0.8);
@@ -1105,7 +1109,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 #masthead.sticky + *:not(#product-nav) {
-	padding-top: 71px;
+	margin-top: 71px;
 }
 
 #masthead .site-branding .custom-logo-link {
@@ -1180,7 +1184,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 		/* show top right menu */
 	}
 	#masthead.sticky + *:not(#product-nav) {
-		padding-top: 53px;
+		margin-top: 53px;
 	}
 	#masthead.sticky #site-navigation #primary-menu {
 		background: none;
@@ -1290,6 +1294,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	background: rgba(255, 255, 255, 0.8);
 	padding: 1em 0;
 	height: 73.5px;
+	/* never hide when not sticky */
 	/* force columns on mobile */
 }
 
@@ -1302,7 +1307,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 #product-nav.sticky + * {
-	padding-top: 144.5px;
+	margin-top: 144.5px;
 }
 
 @media (min-width: 1060px) {
@@ -1310,8 +1315,12 @@ a.cta:hover, a.cta:focus, a.cta:active {
 		margin-top: 53px;
 	}
 	#product-nav.sticky + * {
-		padding-top: 126.5px;
+		margin-top: 126.5px;
 	}
+}
+
+#product-nav:not(.sticky) {
+	display: block !important;
 }
 
 #product-nav .split {

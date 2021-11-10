@@ -5,6 +5,10 @@ $product_nav_height: 73.5px;
 $product_nav_total_desktop_height: $primary_nav_desktop_height+$product_nav_height;
 $product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height;
 
+#page{
+	overflow: hidden;
+}
+
 #masthead {
 	z-index:100;
 	background: $menu_bg;
@@ -15,7 +19,7 @@ $product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height
 
     	/* prevent site from jumping on scroll */
     	+ *:not(#product-nav){
-    		padding-top:$primary_nav_mobile_height;
+    		margin-top:$primary_nav_mobile_height;
     	}
     	
 	}
@@ -95,7 +99,7 @@ $product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height
 			
 		/* prevent site from jumping on scroll */
     	&.sticky + *:not(#product-nav){
-    		padding-top:$primary_nav_desktop_height;
+    		margin-top:$primary_nav_desktop_height;
     	}
 
 		/* remove background from menu */
@@ -238,7 +242,7 @@ $product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height
 
     	/* prevent site from jumping on scroll */
     	+ *{
-    		padding-top:$product_nav_total_mobile_height;
+    		margin-top:$product_nav_total_mobile_height;
     	}
 
     	/* change space between menus on desktop */
@@ -247,10 +251,15 @@ $product_nav_total_mobile_height: $primary_nav_mobile_height+$product_nav_height
 	    	margin-top:$primary_nav_desktop_height;
 	    	
 	    	+ *{
-	    		padding-top:$product_nav_total_desktop_height;
+	    		margin-top:$product_nav_total_desktop_height;
 	    	}
 		}
 
+	}
+
+	/* never hide when not sticky */
+	&:not(.sticky){
+		display:block !important;
 	}
 
 	/* force columns on mobile */
