@@ -51,27 +51,26 @@ get_template_part( 'template-parts/content', 'hero' );
 
 <?php get_template_part( 'template-parts/content', 'discover-block' ); ?>
 
-<section class="teasers brand-teasers standard-spacing-padding black-bg">
+<section class="teasers standard-spacing-padding">
+	<div class="container" style="max-width:80em;">
 	<?php
-	if( have_rows('products') ):
-	    while( have_rows('products') ) : the_row(); $image = get_sub_field('image'); ?>
-
-	        
-	        <div class="split column-reverse">
+	if( have_rows('teasers') ):
+	    while( have_rows('teasers') ) : the_row(); ?>	        
+	        <div class="split">
 	        	<div>
 	        		<div class="container">
 	        			<?php the_sub_field('text'); ?>		
 	        		</div>	        			
 	        	</div>	        	
 	        	<div>
-	        		<?php echo wp_get_attachment_image( $image, 'full' ); ?>	        		
+	        		<?php echo wp_get_attachment_image( get_sub_field('image'), 'full' ); ?>	        		
 	        	</div>
-	        </div>
-	    
+	        </div>	    
 	    <?php
 	    endwhile;
 	endif;
 	?>
+	</div>
 </section>
 <script>
 	jQuery(document).ready(function( $ ) {
