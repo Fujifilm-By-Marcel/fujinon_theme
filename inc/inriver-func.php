@@ -89,6 +89,7 @@ class Inriver {
 
 		if($cat_id){
 			add_term_meta( $cat_id, 'entity_id', $var->entityId );
+			add_term_meta( $cat_id, 'path', $var->path );
 		}
 
 		
@@ -230,6 +231,7 @@ class Inriver {
 		  	'cat_copy' => $var->catCopy,
 		  	'cat_header' => $var->catHeader,
 		  	'entity_id' => $var->entityId,
+		  	'path' => $var->path,
 		   ),
 		);
 
