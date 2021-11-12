@@ -296,8 +296,13 @@ $products = new products();
 		thisFilter.find('.button').not(thisItem).removeClass('active');
 		targetFilter.siblings().not(thisFilter).not(parentFilter).hide();
 		targetFilter.show();
+		$(this).closest('.owl-carousel').trigger('to.owl.carousel', $(this).parent().prevAll().length);
 		return false;
 	});
+
+	
+	
+	
 
 	$('.product').click(function(){
 		var id = $(this).data('index');
