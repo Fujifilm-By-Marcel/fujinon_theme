@@ -7,58 +7,60 @@ function enqueue_scripts(){
 add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 get_header();
 
-//get top level categories
-$args = array(
-   'taxonomy' => 'inriver_categories',
-   'orderby' => 'name',
-   'order'   => 'DESC',
-   'parent' => '0',
-);
-
-$top_cats = get_categories($args);
-
-
 class products{
+
+	public $path;
+	protected $top_cats;
+
+	public function __construct() {
+
+		//get path
+		$this->path = $this->getPath();
+
+		//get top level categories
+		$args = array(
+		   'taxonomy' => 'inriver_categories',
+		   'orderby' => 'name',
+		   'order'   => 'DESC',
+		   'parent' => '0',
+		);
+		$this->top_cats = get_categories($args);
+	}
+
+	private function getPath(){
+		$productPath = isset($_GET['path']) ? $_GET['path'] : false;
+		return $productPath ? $productPath : false;			
+	}
+
 	public function echo_filters($value){	
 
 		//echo "<pre>";
 		//print_r($value);
 		//echo "</pre>";
-		
-		//save values for use in loop
-		$parent_id = $value->term_id;
-		$grandfather_id = $value->parent;
 
 		//query based on term_id of parent
 		$query_args = array(
 		   'taxonomy' => 'inriver_categories',
 		   'orderby' => 'name',
 		   'order'   => 'ASC',
-		   'parent' => $parent_id,
+		   'parent' => $value->term_id,
 		);
 		$child_cats = get_categories($query_args);
 
 		//if there are query results results
 		if( count($child_cats) ){
 
-			//if grandfather is not empty and doesn't have products -- underline and no owl
-			$underlined = !$grandfather_id && !$child_cats[0]->count;		
-			
-			//if first child -- active
+			//if parent is not empty and first child doesn't have products -- underline and no owl
+			$underlined = !$value->parent && !$child_cats[0]->count;
 			$style = $value->key?"display:none;":"";
-			echo '<div class="product-category-filter" data-index="',$parent_id,'" style="', $style ,'">';
-			$class = $underlined ?"underlined-category-filter":"";		
+			echo '<div class="product-category-filter" data-index="',$value->term_id,'" style="', $style ,'" entity-id="'.get_term_meta($value->term_id, "entity_id", true).'">';
+			$class = $underlined ?"underlined-category-filter":"";
 			echo '<div class="buttons ',$class,'">';
-			$class = "";
 			echo !$underlined ? '<div class="owl-carousel owl-theme">': '';
-			foreach($child_cats as $key => $value){						
-
-				//if first child -- active
+			foreach($child_cats as $key => $value){
 				$class = !$key?"active ":"";
-
-				//if grandfather is not empty and doesn't have products -- underline				
-				echo '<a href="#" class="button ',$class,'" data-index="', $value->term_id, '" >', $value->name, '</a>';
-				$class = "";
+				//if grandfather is not empty and doesn't have products -- underline
+				echo '<a href="#" class="button ',$class,'" data-index="', $value->term_id, '" entity-id="'.get_term_meta($value->term_id, "entity_id", true).'" >', $value->name, '</a>';
 			} 
 			echo !$underlined ? '</div>': ''; //owl
 			echo '</div>'; //buttons
@@ -77,7 +79,7 @@ class products{
 		}
 
 
-		//continue the loop for all children.
+		//continue the loop for all children.		
 		foreach($child_cats as $key => $value){
 			//save key for later use -- to determine first child
 			$value->key = $key;
@@ -88,7 +90,6 @@ class products{
 
 	private function echo_products($value){
 		$category_name = $value->name;
-		$parent_id = $value->term_id;
 		$query_args = array (
 			//'category__in' => $value->term_id,
 			'post_type' => 'inriver_products',
@@ -105,7 +106,7 @@ class products{
 		);
 		$products = get_posts($query_args);
 		$style = $value->key?"display:none;":"";
-		echo "<div class='product-category-filter' data-index='",$parent_id,"' style='",$style,"'>";
+		echo "<div class='product-category-filter' data-index='",$value->term_id,"' style='",$style,"' entity-id='".get_term_meta($value->term_id, "entity_id", true)."'>";
 
 		//echo "<pre>";
 		//print_r($value);
@@ -125,7 +126,7 @@ class products{
 
 		echo "<div class='products-container-inner'>";
 		foreach($products as $key => $value){
-			echo '<div class="product" data-index="',$value->ID,'">';
+			echo '<div class="product" data-index="',$value->ID,'" entity-id="'.get_post_meta($value->ID, "entity_id", true).'">';
 			//echo "<pre>";
 			//print_r($value);
 			//echo "</pre>";			
@@ -146,14 +147,13 @@ class products{
 
 	}
 
-	public function echo_banners($value){
-		foreach($value as $key => $value){ 
+	public function echo_banners(){
+		foreach($this->top_cats as $key => $value){ 
 			//echo hero
 			set_query_var( 'hero-classes', 'reduced-spacing-margin broadcast-hero' );
 			set_query_var('hero-id', "term_".$value->term_id );
 			$style = $key ? "display:none;":"";
-
-			echo "<div class='hero-toggle' data-index='",$value->term_id,"' style='",$style,"'>";
+			echo "<div class='hero-toggle' data-index='",$value->term_id,"' style='",$style,"' entity-id='".get_term_meta($value->term_id, "entity_id", true)."'>";
 			get_template_part( 'template-parts/content', 'hero' );
 			echo '<div class="container">';
 			echo '<div class="header-block">';
@@ -164,37 +164,52 @@ class products{
 		} 
 	}
 
+	public function echo_top_cats(){
+		foreach($this->top_cats as $key => $value){			
+			$class = $key ? "" : "active";
+			?>
+			<div  class="underline nav-item <?php echo $class; ?>">
+				<a class='category-switcher' href="#" data-index='<?php echo $value->term_id ?>' entity-id='<?php echo get_term_meta($value->term_id, "entity_id", true)?>' ><h3><span><?php echo $value->name ?></span></h3></a>
+			</div>			
+		<?php 
+		}
+	}
+
+	public function echo_product_categories(){		
+		foreach($this->top_cats as $key => $value){ 
+			$style = $key ? 'display:none;' : "";
+			?>
+			<div class="product-category" data-index=<?php echo $value->term_id ?> style="<?php echo $style; ?>" entity-id='<?php echo get_term_meta($value->term_id, "entity_id", true)?>'>
+				<div class="container">
+					<div class="product-filters ">
+						<?php				
+						$this->echo_filters($value, 1); 
+						?>
+					</div>			
+				</div>
+			</div>
+			<?php 
+		}
+	}
+
 }
-$products = new products();
+$_products = new products();
 ?>
 <section id="product-nav">
 	<div class="container">
 		<div class="split">
-			<?php foreach($top_cats as $key => $value){ ?>
-			<div  class="underline nav-item <?php echo ($key ? "" : "active"); ?>"><a class='category-switcher' href="#" data-index='<?php echo $value->term_id ?>' ><h3><span><?php echo $value->name ?></span></h3></a></div>			
-			<?php } ?>
+			<?php $_products->echo_top_cats(); ?>
 		</div>
 	</div>
 </section>
 
 <section class="banners">
-<?php 
-	$products->echo_banners($top_cats);
-?>
+	<?php $_products->echo_banners(); ?>
 </section>
 
-<?php foreach($top_cats as $key => $value){ ?>
-	<section class="product-category standard-spacing-margin" data-index=<?php echo $value->term_id ?> style="<?php echo $key ? 'display:none;' : "" ?>">
-		<div class="container">
-			<div class="product-filters ">
-				<?php	
-				
-				$products->echo_filters($value); 
-				?>
-			</div>			
-		</div>
-	</section>
-<?php } ?>
+<section class="product-categories standard-spacing-margin">
+	<?php $_products->echo_product_categories(); ?>
+</section>
 
 <section class="modals">
 
@@ -348,8 +363,33 @@ jQuery(document).ready(function( $ ) {
 			}
 		}
 	});
+
+	//trigger path if exists
+	var path = "<?php echo $_products->path; ?>";
+	if( path != "" ){
+		var pathArray = path.split("/");
+		for (i=0;i<pathArray.length;i++){
+			var ele = $("[entity-id="+pathArray[i]+"]");
+			var offset;	
+			ele.click();
+			if (ele.offset() !== undefined){
+				offset = ele.offset().top;	
+			}			
+		}
+		
+		setTimeout(function(){
+			$(window).scrollTop( parseInt(offset)-250 );
+		}, 1000);
+		
+	}
+
+
 });
+
+
+
 </script>
+
 <?php
 get_sidebar();
 get_footer();
