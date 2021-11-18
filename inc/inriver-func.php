@@ -3,7 +3,7 @@
 class Inriver {
 
 	public function __construct() {
-        add_action( 'buildProductData', array( $this, 'buildProductData' ) );
+        add_action( 'buildProductData', array( $this, 'build_product_data' ) );
         add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 1 );
         add_action( 'addProduct', array( $this, 'add_product' ), 10, 1 );
     }
@@ -28,7 +28,7 @@ class Inriver {
 	}
 
 
-	private function recursivelyBuild($url, $parent_entity_id = null){
+	private function recursively_build($url, $parent_entity_id = null){
 
 		$data = $this->curlInriver(0, $url, false);
 		$var = [];
@@ -55,7 +55,7 @@ class Inriver {
 					$this->add_term($var[$i]);
 
 					$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/channels/content/".urlencode($value->path);
-					$var[$i]->children = $this->recursivelyBuild($url, $var[$i]->entityId);
+					$var[$i]->children = $this->recursively_build($url, $var[$i]->entityId);
 				}	
 
 				//else - it is a product - assign product data
@@ -152,8 +152,7 @@ class Inriver {
 	}
 
 
-
-	private function get_term_id_from_entity_id($entity_id){
+	public function get_term_from_entity_id($entity_id){
 		if($entity_id){
 			$results = get_terms( array(
 			    'taxonomy' => 'inriver_categories',
@@ -161,10 +160,21 @@ class Inriver {
 			    'meta_value' => $entity_id,
 			    'hide_empty' => false
 			) );
-			return !empty( $results ) && !is_wp_error($results) ? $results[0]->term_id : false;
+			return !empty( $results ) && !is_wp_error($results) ? $results[0] : false;
 		} else {
 			return false;
 		}
+	}	
+
+	public function get_term_id_from_entity_id($entity_id){
+		$results = $this->get_term_from_entity_id($entity_id);
+		return $results ? $results->term_id : false;
+	}	
+
+	public function get_term_path_from_entity_id($entity_id){
+		$termId = $this->get_term_id_from_entity_id($entity_id);
+		$path = get_term_meta($termId, "path", true);
+		return $path;
 	}	
 
 	public function add_product($var){	
@@ -175,16 +185,16 @@ class Inriver {
 		//$var[$i]->displayDescription = $linksandfields->summary->displayDescription;
 		//$var[$i]->image = $linksandfields->summary->resourceUrl;
 
-		$var->oneLineDescription = $this->findObjectById($linksandfields->fields, "ProductOneLineDescription")[0]->en;
-		$var->longDescription = $this->findObjectById($linksandfields->fields, "ProductLongDescription")[0]->en;
-		$var->pageURL = $this->findObjectById($linksandfields->fields, "ProductProductPageURL")[0];
+		$var->oneLineDescription = $this->find_object_by_id($linksandfields->fields, "ProductOneLineDescription")[0]->en;
+		$var->longDescription = $this->find_object_by_id($linksandfields->fields, "ProductLongDescription")[0]->en;
+		$var->pageURL = $this->find_object_by_id($linksandfields->fields, "ProductProductPageURL")[0];
 
-		$var->bullet1 = $this->findObjectById($linksandfields->fields, "ProductShortBulletPoint1")[0]->en;				
-		$var->bullet2 = $this->findObjectById($linksandfields->fields, "ProductShortBulletPoint2")[0]->en;				
-		$var->bullet3 = $this->findObjectById($linksandfields->fields, "ProductShortBulletPoint3")[0]->en;				
+		$var->bullet1 = $this->find_object_by_id($linksandfields->fields, "ProductShortBulletPoint1")[0]->en;				
+		$var->bullet2 = $this->find_object_by_id($linksandfields->fields, "ProductShortBulletPoint2")[0]->en;				
+		$var->bullet3 = $this->find_object_by_id($linksandfields->fields, "ProductShortBulletPoint3")[0]->en;				
 
-		$var->catCopy = $this->findObjectById($linksandfields->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
-		$var->catHeader = $this->findObjectById($linksandfields->fields, "ProductCinemaBroadcastSubCategory1")[0];
+		$var->catCopy = $this->find_object_by_id($linksandfields->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
+		$var->catHeader = $this->find_object_by_id($linksandfields->fields, "ProductCinemaBroadcastSubCategory1")[0];
 
 		//get images
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/entities/".$var->entityId."/mediadetails";
@@ -212,7 +222,7 @@ class Inriver {
 
 		$var->images = $images;	
 
-		$postId = $this->queryEntityId( $var->entityId, 'inriver_products', 'publish' );
+		$postId = $this->get_post_id_from_entity_id( $var->entityId, 'inriver_products', 'publish' );
 
 		// Create post object
 		$my_post = array(
@@ -237,9 +247,9 @@ class Inriver {
 
 		if ( isset($linksandfields->outbound[0]) ){
 			//close circle -- image circle -- weight
-			$my_post['meta_input']['item_minimum_focusing_distance_in'] = $this->findObjectById($linksandfields->outbound[0]->fields, "ItemMinimumFocusingDistanceIn")[0];
-			$my_post['meta_input']['item_corresponding_image_size_diagonal'] = $this->findObjectById($linksandfields->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal")[0];
-			$my_post['meta_input']['item_lens_weight_lb'] = $this->findObjectById($linksandfields->outbound[0]->fields, "ItemLensWeightlb")[0];
+			$my_post['meta_input']['item_minimum_focusing_distance_in'] = $this->find_object_by_id($linksandfields->outbound[0]->fields, "ItemMinimumFocusingDistanceIn")[0];
+			$my_post['meta_input']['item_corresponding_image_size_diagonal'] = $this->find_object_by_id($linksandfields->outbound[0]->fields, "ItemCorrespondingImageSizeDiagonal")[0];
+			$my_post['meta_input']['item_lens_weight_lb'] = $this->find_object_by_id($linksandfields->outbound[0]->fields, "ItemLensWeightlb")[0];
 		}
 		
 		//echo "<pre>";
@@ -275,7 +285,7 @@ class Inriver {
 
 		// Does the attachment already exist ?
 		//get the post id of the attachment with the entity id
-		$postId = $this->queryEntityId( $imageobject->entityId, 'attachment', 'inherit' );						
+		$postId = $this->get_post_id_from_entity_id( $imageobject->entityId, 'attachment', 'inherit' );						
 		if( $postId ){
 			//get the attachment data
 		  	$attachment = get_page( $postId, OBJECT, 'attachment');
@@ -312,7 +322,7 @@ class Inriver {
 		$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
 		
 		//get the parent's post id
-		$parentPostId = $this->queryEntityId($imageobject->parentEntityId, 'inriver_products', 'publish');
+		$parentPostId = $this->get_post_id_from_entity_id($imageobject->parentEntityId, 'inriver_products', 'publish');
 
 		
 		if($imageobject->isCategoryImage){
@@ -334,7 +344,7 @@ class Inriver {
 		update_post_meta($attach_id, 'entity_id', $imageobject->entityId);
 	}
 
-	private function queryEntityId($value,$post_type,$post_status = ''){
+	public function get_post_from_entity_id($value,$post_type,$post_status = ''){
 		$args = array(
 		    'post_type'   => $post_type,
 		    'post_status' => $post_status,
@@ -345,20 +355,24 @@ class Inriver {
 		        )
 		    )
 		);
-		$query = new WP_Query($args);
-		if ( $query->have_posts() ) {		    
-		    while ( $query->have_posts() ) {
-		    	$query->the_post();
-		        return get_the_ID();		        
-		    }		    
-		} else {
-		    return false;
-		}
-		/* Restore original Post Data */
-		wp_reset_postdata();
+		$query = new WP_Query($args);		
+		return $query->posts ? $query->posts[0] : false;
 	}
 
-	private function findObjectById($array, $id){
+	//use post status - inherit for attachment / publish for posts
+	//post type will usually be inriver_products or attachment
+	public function get_post_id_from_entity_id($value,$post_type,$post_status = ''){
+		$post = $this->get_post_from_entity_id($value,$post_type,$post_status);		
+		return $post ? $post->ID : false;		
+	}
+
+	public function get_post_path_from_entity_id($value,$post_type,$post_status = ''){
+		$post = $this->get_post_id_from_entity_id($value,$post_type,$post_status);		
+		$path = $post ? get_post_meta( $post, "path", true) : false;		
+		return $path;
+	}	
+
+	private function find_object_by_id($array, $id){
 		$elements = [];
 		$i=0;
 	    foreach ( $array as $element ) {
@@ -372,7 +386,7 @@ class Inriver {
 	    return array_values($elements);
 	}
 
-	private function saveData($json){
+	private function save_data($json){
 		$myfile = fopen(get_template_directory()."/data/logs.txt", "a") or die("Unable to open file!");
 		$txt = "";
 		if ( file_put_contents( get_template_directory()."/data/product-data.json", json_encode($json) ) ){
@@ -386,13 +400,13 @@ class Inriver {
 		fclose($myfile);
 	}
 
-	public function buildProductData(){
+	public function build_product_data(){
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/channels/content/6527";
-		$list = $this->recursivelyBuild($url);
-		$this->saveData($list);
+		$list = $this->recursively_build($url);
+		$this->save_data($list);
 	}
 
-	public function getProductData(){
+	public function get_product_data(){
 		$contents = file_get_contents(get_template_directory()."/data/product-data.json");
 		$list = json_decode($contents);
 		return $list;
