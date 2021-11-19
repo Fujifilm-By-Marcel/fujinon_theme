@@ -20,7 +20,7 @@ get_template_part( 'template-parts/content', 'hero' );
 	        		
 	        		<div class="container">
 	        		<?php if(get_sub_field('image')){ ?>
-	        			<img src="<?php echo get_sub_field('image')['url']; ?>" width="<?php echo get_sub_field('image')['width']; ?>" height="<?php echo get_sub_field('image')['height']; ?>">
+	        			<?php echo wp_get_attachment_image( get_sub_field('image'), 'full', false, array( 'style' => 'width:500px;' ) ); ?>
 	        		<?php } ?>
 	        		</div>
 	        		<div class="container">
@@ -52,6 +52,20 @@ get_template_part( 'template-parts/content', 'hero' );
 	endif;
 	?>
 </section>
+<?php 
+$featured = get_field('featured');
+if ( isset($featured['content']) && $featured['content'] != "" ){ ?>
+<section class="featured standard-spacing-padding standard-spacing-margin">
+	<div class="split container" style="">
+		<div class="content">
+			<?php echo $featured['content']; ?>
+		</div>
+		<div>
+			<?php echo wp_get_attachment_image( $featured['image'], 'large' ); ?>
+		</div>
+	</div>			
+</section>
+<?php } ?>
 <?php 
 get_template_part( 'template-parts/content', 'discover-block' ); 
 get_sidebar();
