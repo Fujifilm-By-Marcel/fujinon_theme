@@ -39,7 +39,7 @@ get_template_part( 'template-parts/content', 'hero' );
 	    while( have_rows('teasers') ) : the_row(); ?>
 	    	<div class="split column-reverse">
 	    		<div>
-	    			<div>
+	    			<div class="container">
 	    				<?php the_sub_field('text'); ?>
 	    			</div>
 	    		</div>
