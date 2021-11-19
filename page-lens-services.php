@@ -47,7 +47,7 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 		</div>
 	</div>
 
-	<div class="container" style="max-width:80em;">
+	<div class="container">
 		<div class="team-members">
 			<?php
 			if( have_rows('team_members') ):
