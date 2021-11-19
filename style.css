@@ -1990,6 +1990,35 @@ section.widget {
 	font-size: .75rem;
 }
 
+/* Featured */
+.featured {
+	border-bottom: 3.5rem solid black;
+}
+
+.featured .split {
+	gap: 3em;
+	align-items: center;
+}
+
+.featured .split .content > p:first-child {
+	margin: 1.25rem 0;
+}
+
+.featured .split .content h2 {
+	color: #01916d;
+	line-height: 1;
+	margin: 1.25rem 0;
+}
+
+.featured .split .content p {
+	line-height: 1;
+}
+
+.featured .split img {
+	display: block;
+	margin: auto;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
 	.modal .modal-content {

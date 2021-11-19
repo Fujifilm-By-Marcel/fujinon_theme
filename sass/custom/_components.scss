@@ -536,7 +536,33 @@ section{
 	}
 }
 
+/* Featured */
+.featured{
+	border-bottom: 3.5rem solid black;
+	.split{
+		gap:3em;
+		align-items:center;
+		
+		.content{
+			> p:first-child{
+				margin:1.25rem 0;
+			}
+			h2{
+				color: $color__accent;
+				line-height:1;
+				margin:1.25rem 0;
+			}
+			p{
+				line-height:1;	
+			}
+		}
+		img{
+			display:block;			
+			margin:auto
+		}
+	}
 
+}
 
 
 /* desktop styles */
