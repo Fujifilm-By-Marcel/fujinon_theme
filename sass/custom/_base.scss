@@ -51,7 +51,6 @@ h5{
 	border: 1px solid $color__accent;
 	color:white !important;
 }
-
 a.cta{
 	font-size:1.125rem;
 	padding-bottom:4px;
@@ -66,9 +65,9 @@ a.cta:hover{
 a.cta:hover, a.cta:focus, a.cta:active{
 	color:inherit;
 }
-
-
-/* helpers */
+.color-accent{
+	color: $color__accent;
+}
 .container{
 	width: 90%;
 	margin:auto;
