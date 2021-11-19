@@ -324,7 +324,10 @@ section{
 .team-members{
 	display:grid;
 	grid-template-columns:1fr;
-	gap:4em 10vw;
+	gap:4em 8vw;
+	max-width:60em;
+	margin:auto;
+
 	> .content-wrap{		
 		position:relative;		
 		padding-top:3em;
@@ -547,8 +550,7 @@ section{
 			> p:first-child{
 				margin:1.25rem 0;
 			}
-			h2{
-				color: $color__accent;
+			h2{				
 				line-height:1;
 				margin:1.25rem 0;
 			}
@@ -653,6 +655,7 @@ section{
 	.team-members{
 		display:grid;
 		grid-template-columns:1fr 1fr;	
+
 	}
 
 	/* icon descriptions */
