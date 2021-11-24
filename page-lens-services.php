@@ -1,13 +1,9 @@
 <?php
 function enqueue_scripts(){
-	//wp_enqueue_script('owl-carousel', get_template_directory_uri().'/js/owl.carousel/owl.carousel.min.js', array( 'jquery' ), false, true ); 
-	//wp_enqueue_style('owl-carousel', get_template_directory_uri().'/js/owl.carousel/assets/owl.carousel.min.css');
-	//wp_enqueue_style('owl-carousel-theme', get_template_directory_uri().'/js/owl.carousel/assets/owl.theme.default.min.css');
+	wp_enqueue_script('owl-carousel', get_template_directory_uri().'/js/page-lens-services.js', array( 'jquery' ), false, true );
 }
-//add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 get_header();
-?>
-<?php 
 set_query_var( 'hero-classes', 'standard-spacing-margin' );
 get_template_part( 'template-parts/content', 'hero-mini' ); 
 ?>
@@ -55,10 +51,24 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 			    	<div class="content-wrap">
 			    		<img src="<?php the_sub_field('portrait'); ?>" alt="">
 				        <div class="content">				        	
+				        	<div class="map-button">
+								<a class="button circle" href="#"><i class="fas fa-map-marked"></i></a>
+							</div>							
 					        <div class="container">
 								<?php the_sub_field('content'); ?>
-							</div>
+							</div>							
+							<div class="card">
+								<div class="container">
+									<?php the_sub_field('card_content'); ?>
+								</div>
+							</div>							
 						</div>	
+						<div class="map-modal" style="display: none;">
+							<div class="close"><i class="fal fa-times"></i></div>
+							<div class="container">
+								<?php the_sub_field('modal_content'); ?>
+							</div>
+						</div>
 					</div>
 			    <?php 
 			    endwhile;
