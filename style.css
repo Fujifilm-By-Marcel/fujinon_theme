@@ -977,6 +977,19 @@ h5 {
 	text-align: center;
 }
 
+.button.circle {
+	border-radius: 50%;
+	padding: 1.25em;
+	position: relative;
+}
+
+.button.circle > * {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 .button.reduced-padding {
 	padding: 0.5em 1.25em;
 	font-size: .75rem;
@@ -1016,7 +1029,14 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	color: inherit;
 }
 
-/* helpers */
+.color-accent {
+	color: #01916d;
+}
+
+.color-darkgrey {
+	color: #C6C6C6;
+}
+
 .container {
 	width: 90%;
 	margin: auto;
@@ -1777,12 +1797,14 @@ section.widget {
 .team-members {
 	display: grid;
 	grid-template-columns: 1fr;
-	gap: 4em 10vw;
+	gap: 4em 8vw;
+	max-width: 60em;
+	margin: auto;
 }
 
 .team-members > .content-wrap {
 	position: relative;
-	padding-top: 3em;
+	padding-top: 5rem;
 }
 
 .team-members > .content-wrap > img {
@@ -1795,10 +1817,17 @@ section.widget {
 
 .team-members > .content-wrap .content {
 	background: #ECECEC;
-	padding: 2em;
-	padding-top: 160px;
+	padding-top: 6rem;
 	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 	height: 100%;
+}
+
+.team-members > .content-wrap .content .container {
+	padding: 1rem 2rem;
+	margin-top: 0;
 }
 
 .team-members > .content-wrap .content p {
@@ -1810,15 +1839,59 @@ section.widget {
 	margin: 0;
 }
 
-.team-members > .content-wrap .content .container {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	/*bottom align button*/
+.team-members > .content-wrap .content .card {
+	background: #242424;
+	overflow: hidden;
 }
 
-.team-members > .content-wrap .content .container > *:last-child {
-	margin-top: auto;
+.team-members > .content-wrap .content .card p {
+	margin: 1rem 0;
+}
+
+.team-members > .content-wrap .content .card a:not(.button) {
+	color: white !important;
+	text-decoration: none;
+}
+
+.team-members > .content-wrap .content .card i, .team-members > .content-wrap .content .card svg {
+	margin-right: .5rem;
+}
+
+.team-members > .content-wrap .content .map-button {
+	position: absolute;
+	right: .75rem;
+	top: 1rem;
+}
+
+.team-members > .content-wrap .content .map-button svg {
+	font-size: 1.25rem;
+}
+
+.team-members > .content-wrap .map-modal {
+	width: 100%;
+	height: 100%;
+	background: #242424;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	color: white;
+	padding: 2rem;
+}
+
+.team-members > .content-wrap .map-modal .close {
+	position: absolute;
+	top: .75rem;
+	right: 1rem;
+	color: white;
+	font-size: 1.25rem;
+	cursor: pointer;
+}
+
+.team-members > .content-wrap .map-modal > .container > * {
+	margin: 0;
+	margin-bottom: 1rem;
+	line-height: 1;
 }
 
 /* mapsvg container */
@@ -2005,7 +2078,6 @@ section.widget {
 }
 
 .featured .split .content h2 {
-	color: #01916d;
 	line-height: 1;
 	margin: 1.25rem 0;
 }
