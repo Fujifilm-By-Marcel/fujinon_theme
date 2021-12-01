@@ -2098,10 +2098,11 @@ section.widget {
 	.modal .modal-content .bullets {
 		display: block;
 	}
-	.modal .modal-content .bullets > div {
+	.modal .modal-content .bullets > .bullet {
 		display: inline;
+		white-space: nowrap;
 	}
-	.modal .modal-content .bullets > div:first-child {
+	.modal .modal-content .bullets > .bullet:first-child {
 		padding-left: 0;
 	}
 	.modal .modal-content .desktop-columns {

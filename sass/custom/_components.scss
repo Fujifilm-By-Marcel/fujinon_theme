@@ -609,8 +609,9 @@ section{
 		padding:2em;
 		.bullets{
 			display:block;
-			> div{
+			> .bullet{
 				display:inline;
+				white-space: nowrap;
 				&:first-child{
 					padding-left:0;
 				}

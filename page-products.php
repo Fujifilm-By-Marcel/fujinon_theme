@@ -262,9 +262,9 @@ $_products = new products();
 			<div class="desktop-columns">
 				<div class="content">
 					<div class="bullets">
-						<div class="bullet1"><?php echo $bullet1 ?></div>
-						<div class="bullet2"><?php echo $bullet2 ?></div>
-						<div class="bullet3"><?php echo $bullet3 ?></div>
+						<div class="bullet"><?php echo $bullet1 ?></div>
+						<div class="bullet"><?php echo $bullet2 ?></div>
+						<div class="bullet"><?php echo $bullet3 ?></div>
 					</div>			
 					<p><?php echo $value->post_content ?></p>
 				</div>
