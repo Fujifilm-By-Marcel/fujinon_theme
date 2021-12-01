@@ -446,13 +446,12 @@ section{
 	}
 
 	.buttons.underlined-category-filter {
-		display:flex;
+		display:grid;
 		justify-content: center;
 		gap:1em;
-		flex-wrap:wrap;
+		grid-template-columns:1fr 1fr;		
 
-		.button{
-			width:15em;
+		.button{			
 			background:white;	
 			border:none;
 			border-bottom: 3px solid $color__accent;

@@ -1928,14 +1928,13 @@ section.widget {
 }
 
 .product-category-filter .buttons.underlined-category-filter {
-	display: flex;
+	display: grid;
 	justify-content: center;
 	gap: 1em;
-	flex-wrap: wrap;
+	grid-template-columns: 1fr 1fr;
 }
 
 .product-category-filter .buttons.underlined-category-filter .button {
-	width: 15em;
 	background: white;
 	border: none;
 	border-bottom: 3px solid #01916d;
