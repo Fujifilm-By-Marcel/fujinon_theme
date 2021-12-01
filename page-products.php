@@ -313,32 +313,14 @@ $_products = new products();
 		targetFilter.show();
 		$(this).closest('.owl-carousel').trigger('to.owl.carousel', $(this).parent().prevAll().length);
 		return false;
-	});
-
-	
-	
-	
+	});	
 
 	$('.product').click(function(){
 		var id = $(this).data('index');
 		var modal = $('.modal[data-index='+id+']');
-
 		modal.siblings().hide();
-		modal.show();
-		
+		modal.show();		
 	});
-
-	$('.modal .close').click(function(){
-		$(this).closest('.modal').hide();
-	});
-
-	$('.modal').click(function(event){
-		if ( $(event.target).hasClass('modal') ) {
-			$(this).hide();
-		}		
-	});
-
-
 
 })( jQuery );
 
