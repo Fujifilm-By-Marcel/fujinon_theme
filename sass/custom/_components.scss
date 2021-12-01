@@ -526,10 +526,22 @@ section{
 	overflow: auto;
 
 	.modal-content{
-		background: rgb(1,145,109);
-		background: radial-gradient(circle, rgba(1,145,109,1) 0%, rgba(0,0,0,1) 82%);
 		position: relative;
 		padding:1em;
+		.close{
+			position: absolute;
+			top:0;
+			right:0;
+			padding:.15em .5em;
+			cursor:pointer;
+			font-size:1.5rem;
+		}
+	}
+
+	&.product-modal .modal-content{
+		background: rgb(1,145,109);
+		background: radial-gradient(circle, rgba(1,145,109,1) 0%, rgba(0,0,0,1) 82%);
+		
 		>*{
 			margin:0;
 			margin-bottom:1rem;
@@ -542,19 +554,12 @@ section{
 			margin: 0 auto 2rem;
     		display: block;
 		}
-		.close{
-			position: absolute;
-			top:0;
-			right:0;
-			padding:.15em .5em;
-			cursor:pointer;
-			font-size:1.5rem;
-		}
+		
 		.bullets{
 			display:grid;
 			grid-template-columns:1fr 1fr 1fr;
 
-			> div{
+			> .bullet{
 				border-right:2px solid $color__accent;
 				text-align:center;
 				padding:0 1em;
@@ -605,30 +610,34 @@ section{
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
 
-	.modal .modal-content{
-		padding:2em;
-		.bullets{
-			display:block;
-			> .bullet{
-				display:inline;
-				white-space: nowrap;
-				&:first-child{
-					padding-left:0;
+	.modal {
+		.modal-content{
+			padding:2em;
+		}
+		&.product-modal .modal-content{			
+			.bullets{
+				display:block;
+				> .bullet{
+					display:inline;
+					white-space: nowrap;
+					&:first-child{
+						padding-left:0;
+					}
 				}
 			}
-		}
-		.desktop-columns{
-			display:flex;
-			flex-direction:row;
-			gap:3em;
-		}
-		.buttons{
-			flex-direction:column;
-			justify-content: center;			
-			gap:1em;
-			.button{
-				display:block;
-				width:13em;
+			.desktop-columns{
+				display:flex;
+				flex-direction:row;
+				gap:3em;
+			}
+			.buttons{
+				flex-direction:column;
+				justify-content: center;			
+				gap:1em;
+				.button{
+					display:block;
+					width:13em;
+				}
 			}
 		}
 	}
