@@ -2002,7 +2002,6 @@ section.widget {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: white;
 	z-index: 101;
 	overflow: auto;
 }
@@ -2021,9 +2020,41 @@ section.widget {
 	font-size: 1.5rem;
 }
 
+.modal.newsletter-modal .modal-content {
+	background: white;
+	color: black;
+	max-width: 30em;
+	margin: auto;
+	padding: 2em 3em;
+}
+
+.modal.newsletter-modal .modal-content .terms label {
+	font-size: .75rem !important;
+}
+
+.modal.newsletter-modal .modal-content .button {
+	background: #01916d;
+}
+
+.modal.newsletter-modal .modal-content .wpforms-title {
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 1.25rem;
+}
+
+.modal.newsletter-modal .modal-content .wpforms-submit-container {
+	text-align: right;
+}
+
+.modal.newsletter-modal .modal-content .wpforms-field-email input {
+	width: 100%;
+	max-width: 100%;
+}
+
 .modal.product-modal .modal-content {
 	background: #01916d;
 	background: radial-gradient(circle, #01916d 0%, black 82%);
+	color: white;
 }
 
 .modal.product-modal .modal-content > * {

@@ -13,19 +13,16 @@
 
 	<footer id="colophon" class="site-footer offblack-bg">
 		<div class="container">
-			<div class="footer-widgets">
-			
+			<div class="footer-widgets">			
 				<aside class="widget-area">
 					<?php dynamic_sidebar( 'footer-col-1' ); ?>
 				</aside><!-- #secondary -->
 				<aside class="widget-area">
 					<?php dynamic_sidebar( 'footer-col-2' ); ?>
-				</aside><!-- #secondary -->
-			
+				</aside><!-- #secondary -->			
 			</div>
 		</div>
 		<div class="black-bg">
-
 			<div class="container">
 				<div class="site-info">
 					<!-- LOGO AND TEXT -->
@@ -48,7 +45,12 @@
 				</div><!-- .site-info -->
 			</div>
 		</div>
-
+		<div class="modal newsletter-modal"  style="display:none;">			
+			<div class="modal-content container">
+				<div class="close"><i class="fal fa-times"></i></div>
+				<?php the_field('newsletter_modal', 'option'); ?>
+			</div>		
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
