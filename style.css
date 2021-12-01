@@ -2008,25 +2008,8 @@ section.widget {
 }
 
 .modal .modal-content {
-	background: #01916d;
-	background: radial-gradient(circle, #01916d 0%, black 82%);
 	position: relative;
 	padding: 1em;
-}
-
-.modal .modal-content > * {
-	margin: 0;
-	margin-bottom: 1rem;
-}
-
-.modal .modal-content > *:last-child {
-	margin-bottom: 0;
-}
-
-.modal .modal-content img {
-	padding: 1em;
-	margin: 0 auto 2rem;
-	display: block;
 }
 
 .modal .modal-content .close {
@@ -2038,27 +2021,47 @@ section.widget {
 	font-size: 1.5rem;
 }
 
-.modal .modal-content .bullets {
+.modal.product-modal .modal-content {
+	background: #01916d;
+	background: radial-gradient(circle, #01916d 0%, black 82%);
+}
+
+.modal.product-modal .modal-content > * {
+	margin: 0;
+	margin-bottom: 1rem;
+}
+
+.modal.product-modal .modal-content > *:last-child {
+	margin-bottom: 0;
+}
+
+.modal.product-modal .modal-content img {
+	padding: 1em;
+	margin: 0 auto 2rem;
+	display: block;
+}
+
+.modal.product-modal .modal-content .bullets {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 }
 
-.modal .modal-content .bullets > div {
+.modal.product-modal .modal-content .bullets > .bullet {
 	border-right: 2px solid #01916d;
 	text-align: center;
 	padding: 0 1em;
 }
 
-.modal .modal-content .bullets > div:last-child {
+.modal.product-modal .modal-content .bullets > .bullet:last-child {
 	border-right: none;
 }
 
-.modal .modal-content .buttons {
+.modal.product-modal .modal-content .buttons {
 	display: flex;
 	justify-content: space-between;
 }
 
-.modal .modal-content .buttons .cta {
+.modal.product-modal .modal-content .buttons .cta {
 	font-size: .75rem;
 }
 
@@ -2095,27 +2098,27 @@ section.widget {
 	.modal .modal-content {
 		padding: 2em;
 	}
-	.modal .modal-content .bullets {
+	.modal.product-modal .modal-content .bullets {
 		display: block;
 	}
-	.modal .modal-content .bullets > .bullet {
+	.modal.product-modal .modal-content .bullets > .bullet {
 		display: inline;
 		white-space: nowrap;
 	}
-	.modal .modal-content .bullets > .bullet:first-child {
+	.modal.product-modal .modal-content .bullets > .bullet:first-child {
 		padding-left: 0;
 	}
-	.modal .modal-content .desktop-columns {
+	.modal.product-modal .modal-content .desktop-columns {
 		display: flex;
 		flex-direction: row;
 		gap: 3em;
 	}
-	.modal .modal-content .buttons {
+	.modal.product-modal .modal-content .buttons {
 		flex-direction: column;
 		justify-content: center;
 		gap: 1em;
 	}
-	.modal .modal-content .buttons .button {
+	.modal.product-modal .modal-content .buttons .button {
 		display: block;
 		width: 13em;
 	}

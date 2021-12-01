@@ -253,7 +253,7 @@ $_products = new products();
 		$bullet3 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet3);
 
 		?>
-	<div class="modal" data-index="<?php echo $value->ID; ?>"  style="display:none;">
+	<div class="modal product-modal" data-index="<?php echo $value->ID; ?>"  style="display:none;">
 		<div class="modal-content container">
 			<div class="close"><i class="fal fa-times"></i></div>
 			<h3 class="title mobile-only"><?php echo $value->post_title; ?></h3>
