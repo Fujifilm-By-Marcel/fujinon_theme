@@ -1775,6 +1775,7 @@ section.widget {
 
 .icon-descriptions .split > * > div svg, .icon-descriptions .split > * > div i {
 	font-size: 2.5rem;
+	color: #01916d;
 }
 
 .icon-descriptions .split > * > div > * {
@@ -1791,6 +1792,82 @@ section.widget {
 
 .icon-descriptions .split > * > div .cta {
 	text-transform: uppercase;
+}
+
+.icon-descriptions .split > * > div .tab-button {
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: black !important;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .75em;
+}
+
+.icon-descriptions .split > * > div .tab-button svg, .icon-descriptions .split > * > div .tab-button i {
+	font-size: 1.5rem;
+}
+
+.icon-descriptions .split > * > div .triangle {
+	border-top: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 25px solid #01916d;
+	width: 0;
+	height: 0;
+	margin: auto;
+	margin-top: 3em;
+}
+
+/* icon tabs */
+.icon-tabs {
+	position: relative;
+	background: #01916d;
+	color: white;
+}
+
+.icon-tabs .tab .tab-list {
+	display: grid;
+	grid-template-columns: 1fr;
+	margin-bottom: 4em;
+	gap: 2em;
+}
+
+.icon-tabs .tab .tab-list h1, .icon-tabs .tab .tab-list h2, .icon-tabs .tab .tab-list h3, .icon-tabs .tab .tab-list h4, .icon-tabs .tab .tab-list h5, .icon-tabs .tab .tab-list p {
+	margin: 0;
+	margin-bottom: .25rem;
+}
+
+.icon-tabs .tab .tab-list > * {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 240px;
+}
+
+.icon-tabs .tab a {
+	color: white !important;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.icon-tabs .tab a svg, .icon-tabs .tab a i {
+	margin-right: .5rem;
+}
+
+.icon-tabs .tab .tab-title {
+	text-align: center;
+	margin: 2em 0;
+}
+
+.icon-tabs .close {
+	position: absolute;
+	top: .75rem;
+	right: 1rem;
+	color: white;
+	font-size: 1.25rem;
+	cursor: pointer;
+	display: none;
 }
 
 /* team members */
@@ -2126,6 +2203,23 @@ section.widget {
 
 /* desktop styles */
 @media (min-width: 50em) {
+	/* icon tabs */
+	.icon-tabs {
+		max-width: 90%;
+		margin: auto;
+	}
+	.icon-tabs .tab .tab-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+	.icon-tabs .tab .tab-list > * {
+		margin: 0;
+		width: 100%;
+		max-width: none;
+	}
+	.icon-tabs .close {
+		display: block;
+	}
 	.modal .modal-content {
 		padding: 2em;
 	}
