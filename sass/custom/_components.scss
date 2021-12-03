@@ -297,6 +297,7 @@ section{
 			    /* increase font size of icon */
 			    svg,i{
 					font-size:2.5rem;
+					color: $color__accent;
 				}
 
 				/* remove margins */
@@ -312,10 +313,80 @@ section{
 				.cta{
 					text-transform: uppercase;
 				}
+				.tab-button{
+					font-weight: bold;
+					text-transform: uppercase;
+					text-decoration: none;
+					color:black !important;
+				    display: flex;
+    				align-items: center;
+    				justify-content: center;
+    				gap:.75em;
+    				svg,i{
+    					font-size:1.5rem;
+    				}
+				}
+				.triangle{
+					border-top: 0;
+					border-left: 15px solid transparent;
+					border-right: 15px solid transparent;
+					border-bottom: 25px solid $color__accent;
+					width:0;
+					height:0;
+					margin:auto;
+					margin-top:3em;
+
+				}
 			}
 			
 
 		}
+	}
+}
+
+/* icon tabs */
+.icon-tabs{
+	position: relative;
+	background: $color__accent;
+	color: white;
+	.tab{
+		
+		.tab-list {		
+			display: grid;
+			grid-template-columns:1fr;
+			margin-bottom: 4em;
+			gap:2em;
+			h1,h2,h3,h4,h5,p {
+				margin:0;
+				margin-bottom:.25rem;
+			}		
+			> *{
+				margin: 0 auto;
+		    	width: 100%;
+		    	max-width: 240px;
+			}					
+		}		
+		a{
+			color:white !important;
+			text-decoration:none;
+			font-weight:bold;
+			svg,i{
+				margin-right:.5rem;
+			}
+		}	
+		.tab-title{
+			text-align:center;
+			margin:2em 0;
+		}		
+	}
+	.close{
+		position:absolute;
+		top:.75rem;
+		right:1rem;
+		color:white;
+		font-size:1.25rem;
+		cursor:pointer;
+		display:none;
 	}
 }
 
@@ -635,6 +706,38 @@ section{
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
+
+	/* icon tabs */
+	.icon-tabs{
+		max-width:90%;
+		margin:auto;
+		.tab{			
+			.tab-list {		
+				display: grid;
+				grid-template-columns:1fr 1fr 1fr;				
+				h1,h2,h3,h4,h5,p {
+					
+				}		
+				> *{
+					margin: 0;
+			    	width: 100%;
+			    	max-width: none;
+				}					
+			}
+			
+			a{				
+				svg,i{
+			
+				}
+			}	
+			.tab-title{
+			
+			}
+		}
+		.close{
+			display:block;
+		}
+	}
 
 	.modal {
 		.modal-content{
