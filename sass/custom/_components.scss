@@ -703,6 +703,143 @@ section{
 
 }
 
+.faq{
+	.faq-navigation{
+		/* force columns on mobile */
+		.split{
+			flex-direction: row;
+			gap:2em;
+			> *{
+				flex-basis:100%;
+			}
+		}
+	}
+	.nav-item:not(.active){
+		border-bottom-color: $color__darkgrey;
+		h3{
+			color:$color__darkgrey;
+		}
+	}
+	.nav-item {
+		text-align: center;
+		h3{
+			text-transform: uppercase;
+		}
+		a{
+			text-decoration:none;
+			color:black;
+		}
+		span{
+			text-transform: uppercase;
+		}
+	}
+
+	.faq-section{
+		background:$color__lightgrey;
+		padding:1em;
+		margin:2rem 0;
+
+		&.active{
+			.section-title{
+				margin-block-end: 1.33em;
+				&::after{
+					content:"-";
+					display:block;
+				}
+			}
+		}
+
+		&:not(.active){
+			.section-title{
+				margin-block-end: 0;
+				border-bottom:none;
+				&::after{
+					content:"+";
+					display:block;
+				}
+			}	
+		}
+
+		.section-title{
+			margin-top:0;
+			text-transform: uppercase;
+			display: flex;
+			flex-direction:row;
+			justify-content: space-between;
+			cursor:pointer;			
+		}
+		.qa{
+			overflow:hidden;
+			border-bottom:1px solid $color__darkgrey;
+			&:last-child{
+				border-bottom:none;
+			}
+		}
+		.q{
+			font-weight:bold;
+			line-height:1;
+			cursor:pointer;
+
+			&::before{
+				content:"Q";
+				color:$color__accent;
+				font-wieght:bold;
+				font-size:2em;
+				margin-right:1rem;
+
+			}
+
+			svg, i{
+				color: $color__accent;
+				margin-left:1rem;
+			}
+		}
+
+		.a{
+			margin-left:2rem;
+			display: flex;
+			line-height:1.2;
+			&::before{
+				content:"A";
+				color:$color__darkgrey;
+				font-weight:bold;
+				font-size:2em;
+				margin-right:1rem;
+			}
+		}
+
+	}
+	.load-more-button{
+		text-align:center;
+	}
+}
+
+
+.faq-search{
+	text-align: center;
+	#search{
+		width:25em;
+		padding: .25rem 2rem .25rem 1rem;
+		&::placeholder {
+			color:black;
+			font-weight:bold;
+		}
+	}
+	.input-container{
+		display: inline-block;
+		position: relative;
+
+		.clear-button{
+			color:$color__lightgrey;
+			position: absolute;
+			right: .75em;
+			top: 50%;
+    		transform: translateY(-50%);
+    		cursor: pointer;
+		}
+	}
+}
+
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
