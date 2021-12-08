@@ -50,6 +50,7 @@ $faq = get_field('faq');
 				</div>
 			<?php $j++;} ?>	
 			<div class="load-more-button" style="<?php echo $j<=5?"display:none;":""; ?>"><a href="#" class="button">Load More</a></div>			
+			<p class="no-results" style="text-align: center;display:none;margin:3rem 0;">No results.</p>
 		</div>
 		<?php $i++;} ?>
 	</div>
@@ -97,14 +98,15 @@ $faq = get_field('faq');
 	});	
 	$(".faq .load-more-button .button").click(function (){
 		var faqsections = $(this).closest(".faq-category").find(".faq-section.result");
-		var visiblesections = faqsections.not(":not(:visible)").length;
+		var visiblesections = faqsections.not(":not(:visible)").length;		
 		var totalsections = faqsections.length;
 		for(i=0;i<faqsections.length;i++){
-			if(visiblesections <= visiblesections+5){
-				$(faqsections[i]).show();
-				visiblesections++;
-			}
-		}
+			if(visiblesections <= visiblesections+5 && i<visiblesections+5){
+				$(faqsections[i]).show();				
+				iterated = true;
+			}			
+		}		
+		visiblesections+=5;		
 		if(visiblesections >= totalsections){
 			$(this).closest('.load-more-button').hide();
 		}
@@ -114,16 +116,24 @@ $faq = get_field('faq');
 		var categories = $(".faq .faq-category");		
 		for (i=0;i<categories.length;i++){
 			var loadmorebutton = $(categories[i]).children('.load-more-button');
-			var results = $(categories[i]).children('.faq-section.result');			
+			var results = $(categories[i]).children('.faq-section.result');						
 			if(results.length>5){
-				loadmorebutton.show();
-				for (j=0;j<results.length;j++){
-					if(j>=5){
-						$(results[j]).hide();
-					}
-				}
+				loadmorebutton.show();				
 			} else {
 				loadmorebutton.hide();
+			}
+
+			for (j=0;j<results.length;j++){
+				if(j>=5){
+					$(results[j]).hide();
+				}
+			}
+
+			console.log(results.length);
+			if(results.length == 0){
+				$(categories[i]).children('.no-results').show();
+			} else {
+				$(categories[i]).children('.no-results').hide();
 			}
 			
 		}
