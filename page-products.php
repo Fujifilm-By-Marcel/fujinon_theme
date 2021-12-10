@@ -19,21 +19,21 @@ class products{
 
 		//get top level categories
 		$args = array(
-		   'taxonomy' => 'inriver_categories',		   
-		   'parent' => '0',
-		   'meta_query' => array(
-	            'relation' => 'OR',
-	            array(
-	                'key' => 'menu_order',
-	                'compare' => 'EXISTS'
-	            ),
-	            array(
-	                'key' => 'menu_order',
-	                'compare' => 'NOT EXISTS'
-	            )
-	        ),		   
-		   'orderby' => 'meta_value title',
-		   'order'   => 'ASC',
+			'taxonomy' => 'inriver_categories',		   
+			'parent' => '0',
+			'meta_query' => array(
+			    'relation' => 'OR',
+			    array(
+			        'key' => 'menu_order',
+			        'compare' => 'EXISTS'
+			    ),
+			    array(
+			        'key' => 'menu_order',
+			        'compare' => 'NOT EXISTS'
+			    )
+			),		   
+			'orderby' => 'meta_value title',
+			'order'   => 'ASC',
 		);
 		$this->top_cats = get_categories($args);
 	}
@@ -51,21 +51,21 @@ class products{
 
 		//query based on term_id of parent
 		$query_args = array(
-		   'taxonomy' => 'inriver_categories',		   
-		   'parent' => $value->term_id,
-		   'meta_query' => array(
-	            'relation' => 'OR',
-	            array(
-	                'key' => 'menu_order',
-	                'compare' => 'EXISTS'
-	            ),
-	            array(
-	                'key' => 'menu_order',
-	                'compare' => 'NOT EXISTS'
-	            )
-	        ),		   
-		   'orderby' => 'meta_value title',
-		   'order'   => 'ASC',
+			'taxonomy' => 'inriver_categories',		   
+			'parent' => $value->term_id,
+			'meta_query' => array(
+			    'relation' => 'OR',
+			    array(
+			        'key' => 'menu_order',
+			        'compare' => 'EXISTS'
+			    ),
+			    array(
+			        'key' => 'menu_order',
+			        'compare' => 'NOT EXISTS'
+			    )
+			),		   
+			'orderby' => 'meta_value title',
+			'order'   => 'ASC',
 		);
 		$child_cats = get_categories($query_args);
 
@@ -112,19 +112,30 @@ class products{
 
 	private function echo_products($value){
 		$category_name = $value->name;
-		$query_args = array (
-			//'category__in' => $value->term_id,
-			'post_type' => 'inriver_products',
-			'orderby' => 'name',
-		   'order'   => 'ASC',
-		   'numberposts' => -1,
-		   'tax_query' => array(
-            array(
-                'taxonomy' => 'inriver_categories',
-                'field' => 'id',
-                'terms' => array($value->term_id),                
-            )
-         )
+		$query_args = array (		   
+		    'post_type' => 'inriver_products',		    
+		    'numberposts' => -1,
+		    'tax_query' => array(
+	            array(
+	                'taxonomy' => 'inriver_categories',
+	                'field' => 'id',
+	                'terms' => array($value->term_id),                
+	            ),
+	        ),
+            'meta_query' => array(
+	            'relation' => 'OR',
+	            array(
+	                'key' => 'menu_order',
+	                'compare' => 'EXISTS'
+	            ),
+	            array(
+	                'key' => 'menu_order',
+	                'compare' => 'NOT EXISTS'
+	            )
+	        ),		   
+		    'orderby' => 'meta_value title',
+		    'order'   => 'ASC',
+         
 		);
 		$products = get_posts($query_args);
 		$style = $value->key?"display:none;":"";
