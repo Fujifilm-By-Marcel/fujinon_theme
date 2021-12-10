@@ -19,10 +19,21 @@ class products{
 
 		//get top level categories
 		$args = array(
-		   'taxonomy' => 'inriver_categories',
-		   'orderby' => 'name',
-		   'order'   => 'DESC',
+		   'taxonomy' => 'inriver_categories',		   
 		   'parent' => '0',
+		   'meta_query' => array(
+	            'relation' => 'OR',
+	            array(
+	                'key' => 'menu_order',
+	                'compare' => 'EXISTS'
+	            ),
+	            array(
+	                'key' => 'menu_order',
+	                'compare' => 'NOT EXISTS'
+	            )
+	        ),		   
+		   'orderby' => 'meta_value title',
+		   'order'   => 'ASC',
 		);
 		$this->top_cats = get_categories($args);
 	}
@@ -40,10 +51,21 @@ class products{
 
 		//query based on term_id of parent
 		$query_args = array(
-		   'taxonomy' => 'inriver_categories',
-		   'orderby' => 'name',
-		   'order'   => 'ASC',
+		   'taxonomy' => 'inriver_categories',		   
 		   'parent' => $value->term_id,
+		   'meta_query' => array(
+	            'relation' => 'OR',
+	            array(
+	                'key' => 'menu_order',
+	                'compare' => 'EXISTS'
+	            ),
+	            array(
+	                'key' => 'menu_order',
+	                'compare' => 'NOT EXISTS'
+	            )
+	        ),		   
+		   'orderby' => 'meta_value title',
+		   'order'   => 'ASC',
 		);
 		$child_cats = get_categories($query_args);
 
