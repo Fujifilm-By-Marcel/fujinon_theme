@@ -2084,6 +2084,8 @@ section.widget {
 }
 
 .modal .modal-content {
+	background: white;
+	color: black;
 	position: relative;
 	padding: 1em;
 }

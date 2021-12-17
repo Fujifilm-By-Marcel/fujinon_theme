@@ -48,7 +48,8 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 			<?php
 			if( have_rows('team_members') ):
 			    while( have_rows('team_members') ) : the_row(); ?>			        
-			    	<div class="content-wrap">
+			    	<div class="content-wrap" >
+			    		<div id="<?php the_sub_field('anchor'); ?>" style="position:relative;top:-12rem;"></div>
 			    		<img src="<?php the_sub_field('portrait'); ?>" alt="">
 				        <div class="content">				        	
 				        	<div class="map-button">
@@ -75,8 +76,24 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 			endif;
 			?>
 		</div>
-	</div>	
+	</div>
+
+	<div class="modal agent-contact-modal"  style="display:none;">			
+		<div class="modal-content container">
+			<div class="close"><i class="fal fa-times"></i></div>
+			<?php the_field('contact_modal_shortcode'); ?>
+		</div>		
+	</div>
+
 </section>
+<script>
+	(function($) {
+		$('.open-agent-contact-modal').click(function(){
+			$('.agent-contact-modal').show();
+			return false;
+		});
+	})( jQuery );
+</script>
 <?php
 get_sidebar();
 get_footer();
