@@ -251,3 +251,10 @@ $inriver = new Inriver();
 if ( ! wp_next_scheduled( 'buildProductData' ) ) {
     wp_schedule_event( time(), 'daily', 'buildProductData' );
 }
+
+//shortcode for url encode
+add_shortcode( 'make_button',    'make_button' );
+
+function make_button( $atts ) {    
+    return '<a class="button" href="#'.str_replace(" ", "-", strtolower($atts['anchor']) ).'">Meet '.$atts['anchor'].'</a>';
+}
