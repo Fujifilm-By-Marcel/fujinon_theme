@@ -578,6 +578,46 @@ section{
 		}
 	}
 
+	.owl-carousel .owl-item{
+		display:none;
+	}
+	.loader-container{
+		padding:1.25em 0;
+		text-align:center;
+		display:flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.owl-custom-container{
+		position:relative;		
+		.owl-custom-nav{
+			position: absolute;
+			top:50%;
+			transform: translateY(-50%);
+			width:100%;
+			.fa-chevron-right{
+				position: relative;
+			}
+			.left, .right{				
+				position: relative;
+				color: $color__accent;
+				font-size:1.25em;
+			}
+			.left{				
+				float:left;
+				left:-20px;
+			}
+			.right{				
+				float:right;
+				left:20px;
+			}
+			.disabled{
+				display:none;
+			}
+
+		}
+	}
 
 }
 

@@ -78,13 +78,17 @@ class products{
 			echo '<div class="product-category-filter" data-index="',$value->term_id,'" style="', $style ,'" entity-id="'.get_term_meta($value->term_id, "entity_id", true).'">';
 			$class = $underlined ?"underlined-category-filter":"";
 			echo '<div class="buttons ',$class,'">';
+			echo !$underlined ? '<div class="owl-custom-container">': '';
+			echo !$underlined ? '<div class="loader-container"><div class="loader"></div></div>': '';
 			echo !$underlined ? '<div class="owl-carousel owl-theme">': '';
 			foreach($child_cats as $key => $value){
 				$class = !$key?"active ":"";
 				//if grandfather is not empty and doesn't have products -- underline
-				echo '<a href="#" class="button ',$class,'" data-index="', $value->term_id, '" entity-id="'.get_term_meta($value->term_id, "entity_id", true).'" >', $value->name, '</a>';
+				echo '<a href="#" class="button ',$class,'" data-index="', $value->term_id, '" entity-id="'.get_term_meta($value->term_id, "entity_id", true).'" >', $value->name, '</a>';				
 			} 
 			echo !$underlined ? '</div>': ''; //owl
+			echo !$underlined ? '<div class="owl-custom-nav desktop-only"><div class="left disabled"><i class="fas fa-chevron-left"></i></div><div class="right disabled"><i class="fas fa-chevron-right wiggle-right"></i></div></div>': '';
+			echo !$underlined ? '</div>': ''; //owl-custom-container
 			echo '</div>'; //buttons
 
 			//if the category filter contains products -- show the products
@@ -358,26 +362,70 @@ $_products = new products();
 })( jQuery );
 
 jQuery(document).ready(function( $ ) {
-	let owl  = $(".owl-carousel");
-	owl.owlCarousel({
+	var owl  = $(".owl-carousel");
+	owl.on({
+	    'refreshed.owl.carousel': function (event) {	    	
+	    	$(event.target).find('.owl-item').show();			
+	        $(event.target).siblings('.loader-container').hide();
+	    }
+	}).on({
+	    'changed.owl.carousel': function (event) {
+	    	var thisCarousel = $(event.target);
+	    	var left = thisCarousel.siblings('.owl-custom-nav').children('.left');
+			var right = thisCarousel.siblings('.owl-custom-nav').children('.right');
+			var width;
+			if (window.innerWidth) {
+				width = window.innerWidth;
+			} else if (document.documentElement && document.documentElement.clientWidth) {
+				width = document.documentElement.clientWidth;
+			} else {
+				console.warn('Can not detect viewport width.');
+			}
+	    	if( (event.item.count < 3 && width < 1400) || (event.item.count < 4 && width >= 1400)  ){
+				left.addClass('disabled');
+				right.addClass('disabled');
+			} else if (event.item.index == 0 || event.item.index == null){
+				left.addClass('disabled');
+				right.removeClass('disabled');				
+			} else if(event.item.index == event.item.count-1){				
+				left.removeClass('disabled');			
+				right.addClass('disabled');				
+			} else{
+				left.removeClass('disabled');				
+				right.removeClass('disabled');								
+			}					
+	    }
+	}).owlCarousel({
 		center:true,
-		items:3,
+		items:4,		
 		dots: false,		
-		margin:10,
-		loop:true,
+		margin:10,		
 		responsive:{
 			0:{
 				items:2,				
 			},
 			600:{
-				items:3,				
+				items:4,				
 			},
-			1000:{
-				items:5,
-				loop:false,
+			1400:{
+				items:6,
 			}
 		}
 	});
+
+	$('.owl-custom-nav').click(function(event) {
+		var target = event.target;
+		var thisCarousel = $(this).siblings('.owl-carousel');
+		if(target.closest('.left')){
+			thisCarousel.trigger('prev.owl.carousel');
+		}
+		if(target.closest('.right')){
+			thisCarousel.trigger('next.owl.carousel');
+			thisCarousel.siblings('.owl-custom-nav').find('.wiggle-right').removeClass('wiggle-right');
+		}
+	});
+
+
 
 	//trigger path if exists
 	var path = "<?php echo $_products->path; ?>";
