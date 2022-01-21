@@ -274,7 +274,7 @@ $_products = new products();
 		$bullet3 = "";
 
 		isset($post_meta['item_minimum_focusing_distance_in'][0]) && $post_meta['item_minimum_focusing_distance_in'][0] != "" ? 
-		$bullet1= "Minimum Focusing Distance: ".$post_meta['item_minimum_focusing_distance_in'][0] : 
+		$bullet1= "Minimum Focusing Distance: ".$post_meta['item_minimum_focusing_distance_in'][0]."in" : 
 		$bullet1= $post_meta['bullet_1'][0];
 
 		isset($post_meta['item_corresponding_image_size_diagonal'][0]) && $post_meta['item_corresponding_image_size_diagonal'][0] != "" ? 
