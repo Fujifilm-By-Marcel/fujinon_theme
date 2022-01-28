@@ -382,8 +382,11 @@ $_products = new products();
 		}, 1000);		
 	});
 
+	var windowWidth = $(window).width();
 	$( window ).resize(function() {
-	  $( ".modal" ).hide();
+		if ($(window).width() != windowWidth) {
+	  		$( ".modal" ).hide();
+	  	}
 	});
 
 })( jQuery );
