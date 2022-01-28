@@ -2148,16 +2148,17 @@ section.widget {
 	position: relative;
 	color: #01916d;
 	font-size: 1.25em;
+	padding: 0 .5em;
 }
 
 .product-category-filter .owl-custom-container .owl-custom-nav .left {
 	float: left;
-	left: -20px;
+	left: -32px;
 }
 
 .product-category-filter .owl-custom-container .owl-custom-nav .right {
 	float: right;
-	left: 20px;
+	left: 32px;
 }
 
 .product-category-filter .owl-custom-container .owl-custom-nav .disabled {

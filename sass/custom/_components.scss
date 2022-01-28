@@ -603,14 +603,15 @@ section{
 				position: relative;
 				color: $color__accent;
 				font-size:1.25em;
+				padding:0 .5em;
 			}
 			.left{				
 				float:left;
-				left:-20px;
+				left:-32px;
 			}
 			.right{				
 				float:right;
-				left:20px;
+				left:32px;
 			}
 			.disabled{
 				display:none;
