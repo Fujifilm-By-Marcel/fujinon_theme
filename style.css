@@ -2288,6 +2288,7 @@ section.widget {
 	background: #01916d;
 	background: radial-gradient(circle, #01916d 0%, black 82%);
 	color: white;
+	line-height: 1;
 }
 
 .modal.product-modal .modal-content > * {
