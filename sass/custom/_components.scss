@@ -650,6 +650,54 @@ section{
 		}
 	}
 
+	&.agent-contact-modal .modal-content{
+		max-width: 33em;	
+		padding:0;	
+		.close{
+			color:white;
+		}
+		.wpforms-head-container{
+			background: $color__accent;
+		    color: white;
+		    padding: 1em 2em;
+		    text-align: center;
+	    	line-height: 1.2;
+	    	.wpforms-title{
+	    		font-weight:700;
+	    		margin-bottom:.25em;
+	    	}
+		}
+		.wpforms-field-container{
+			padding: 1em 2em 0;
+			input, select, textarea{
+				max-width:none;
+				border-radius:5px;				
+				font-size:.75rem;
+				font-weight:700;
+				color:black;
+				&::placeholder, .placeholder, option{
+					font-weight:700;
+					color:black;
+				}
+			}
+			
+		}
+		.wpforms-submit-container{
+			padding: 0 2em;
+			.wpforms-submit{
+				background: $color__accent;
+				color:white;
+				text-transform:uppercase;
+				padding:.5em 3em;
+				font-weight: 700;
+				&:hover{
+					background:white;
+					color:black;
+				}
+			}
+		}
+	}
+
 	&.newsletter-modal .modal-content{
 		background:white;
 		color:black;
@@ -922,6 +970,11 @@ section{
 		.modal-content{
 			padding:2em;
 		}
+
+		&.agent-contact-modal .modal-content{
+			padding:0;
+		}
+
 		&.product-modal .modal-content{			
 			.bullets{
 				display:block;
@@ -1055,20 +1108,17 @@ section{
 		&:nth-child(odd){
 			flex-direction: row-reverse;
 			> div:last-child{
-				display:flex;
-				> img{
-					margin-right:auto;
-				}
+				display:flex;				
 			}
 		}
 		&:nth-child(even){
 			
 			> div:last-child{
-				display:flex;
-				> img{
-					margin-left:auto;
-				}
+				display:flex;				
 			}
+		}
+		img{
+			width:100%;
 		}
 	
 		> *{		
