@@ -495,7 +495,7 @@ section{
 	}
 	
 	.button{
-		flex:0 0 auto;
+		/*flex:0 0 auto;*/
 		height:3em;
 		/*width:15em;*/
 		display: flex;
@@ -517,17 +517,17 @@ section{
 	}
 
 	.buttons.underlined-category-filter {
-		display:grid;
+		display:flex;
 		justify-content: center;
-		gap:1em;
-		grid-template-columns:1fr 1fr;		
+		gap:1em;		
 
 		.button{			
 			background:white;	
 			border:none;
 			border-bottom: 3px solid $color__accent;
 			color:black !important;
-			padding:0 3em;			
+			padding:0 3em;	
+			flex:1;		
 		}
 
 		.button:not(.active){
@@ -936,6 +936,9 @@ section{
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
 
+
+
+
 	/* icon tabs */
 	.icon-tabs{
 		max-width:90%;
@@ -1044,6 +1047,11 @@ section{
 
 					}
 				}
+			}
+		}
+		.buttons.underlined-category-filter {
+			.button{
+				flex:0 1 25%;
 			}
 		}
 	}
