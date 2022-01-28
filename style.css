@@ -2149,6 +2149,7 @@ section.widget {
 	color: #01916d;
 	font-size: 1.25em;
 	padding: 0 .5em;
+	cursor: pointer;
 }
 
 .product-category-filter .owl-custom-container .owl-custom-nav .left {
