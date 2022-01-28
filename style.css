@@ -2032,7 +2032,7 @@ section.widget {
 }
 
 .product-category-filter .button {
-	flex: 0 0 auto;
+	/*flex:0 0 auto;*/
 	height: 3em;
 	/*width:15em;*/
 	display: flex;
@@ -2054,10 +2054,9 @@ section.widget {
 }
 
 .product-category-filter .buttons.underlined-category-filter {
-	display: grid;
+	display: flex;
 	justify-content: center;
 	gap: 1em;
-	grid-template-columns: 1fr 1fr;
 }
 
 .product-category-filter .buttons.underlined-category-filter .button {
@@ -2066,6 +2065,7 @@ section.widget {
 	border-bottom: 3px solid #01916d;
 	color: black !important;
 	padding: 0 3em;
+	flex: 1;
 }
 
 .product-category-filter .buttons.underlined-category-filter .button:not(.active) {
@@ -2585,6 +2585,9 @@ section.widget {
 	}
 	.product-category-filter .products-container-inner .product .info .cta {
 		float: right;
+	}
+	.product-category-filter .buttons.underlined-category-filter .button {
+		flex: 0 1 25%;
 	}
 	/* mapsvg container */
 	.mapsvg-container {
