@@ -11,6 +11,10 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+global $post;
+$post_slug = $post->post_name;
+
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -30,7 +34,7 @@ error_reporting(E_ALL);
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<div id="page" class="site">
+<div id="page" class="site <?php echo $post_slug ?>">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'fujinon_theme' ); ?></a>
 
 	<header id="masthead" class="site-header">
