@@ -2195,6 +2195,62 @@ section.widget {
 	font-size: 1.5rem;
 }
 
+.modal.agent-contact-modal .modal-content {
+	max-width: 33em;
+	padding: 0;
+}
+
+.modal.agent-contact-modal .modal-content .close {
+	color: white;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-head-container {
+	background: #01916d;
+	color: white;
+	padding: 1em 2em;
+	text-align: center;
+	line-height: 1.2;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-head-container .wpforms-title {
+	font-weight: 700;
+	margin-bottom: .25em;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-field-container {
+	padding: 1em 2em 0;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-field-container input, .modal.agent-contact-modal .modal-content .wpforms-field-container select, .modal.agent-contact-modal .modal-content .wpforms-field-container textarea {
+	max-width: none;
+	border-radius: 5px;
+	font-size: .75rem;
+	font-weight: 700;
+	color: black;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-field-container input::placeholder, .modal.agent-contact-modal .modal-content .wpforms-field-container input .placeholder, .modal.agent-contact-modal .modal-content .wpforms-field-container input option, .modal.agent-contact-modal .modal-content .wpforms-field-container select::placeholder, .modal.agent-contact-modal .modal-content .wpforms-field-container select .placeholder, .modal.agent-contact-modal .modal-content .wpforms-field-container select option, .modal.agent-contact-modal .modal-content .wpforms-field-container textarea::placeholder, .modal.agent-contact-modal .modal-content .wpforms-field-container textarea .placeholder, .modal.agent-contact-modal .modal-content .wpforms-field-container textarea option {
+	font-weight: 700;
+	color: black;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-submit-container {
+	padding: 0 2em;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-submit-container .wpforms-submit {
+	background: #01916d;
+	color: white;
+	text-transform: uppercase;
+	padding: .5em 3em;
+	font-weight: 700;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-submit-container .wpforms-submit:hover {
+	background: white;
+	color: black;
+}
+
 .modal.newsletter-modal .modal-content {
 	background: white;
 	color: black;
@@ -2467,6 +2523,9 @@ section.widget {
 	.modal .modal-content {
 		padding: 2em;
 	}
+	.modal.agent-contact-modal .modal-content {
+		padding: 0;
+	}
 	.modal.product-modal .modal-content .bullets {
 		display: block;
 	}
@@ -2574,14 +2633,11 @@ section.widget {
 	.teasers .split:nth-child(odd) > div:last-child {
 		display: flex;
 	}
-	.teasers .split:nth-child(odd) > div:last-child > img {
-		margin-right: auto;
-	}
 	.teasers .split:nth-child(even) > div:last-child {
 		display: flex;
 	}
-	.teasers .split:nth-child(even) > div:last-child > img {
-		margin-left: auto;
+	.teasers .split img {
+		width: 100%;
 	}
 	.teasers .split > * {
 		/* spacing on text container*/
