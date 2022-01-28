@@ -2166,6 +2166,10 @@ section.widget {
 	display: none;
 }
 
+#page.products {
+	position: relative;
+}
+
 /* Modals */
 .modal {
 	position: fixed;
@@ -2284,11 +2288,20 @@ section.widget {
 	max-width: 100%;
 }
 
+.modal.product-modal {
+	position: absolute;
+	display: block;
+}
+
 .modal.product-modal .modal-content {
+	position: absolute;
 	background: #01916d;
 	background: radial-gradient(circle, #01916d 0%, black 82%);
 	color: white;
 	line-height: 1;
+	margin: 0;
+	transition: width 1s, max-height 2s;
+	overflow: hidden;
 }
 
 .modal.product-modal .modal-content > * {

@@ -163,7 +163,8 @@ class products{
 
 		echo "<div class='products-container-inner'>";
 		foreach($products as $key => $value){
-			echo '<div class="product" data-index="',$value->ID,'" entity-id="'.get_post_meta($value->ID, "entity_id", true).'">';
+			$oddeven = $key%2?"even":"odd";
+			echo '<div class="product ',$oddeven,'" data-index="',$value->ID,'" entity-id="'.get_post_meta($value->ID, "entity_id", true).'">';
 			//echo "<pre>";
 			//print_r($value);
 			//echo "</pre>";			
@@ -355,8 +356,34 @@ $_products = new products();
 	$('.product').click(function(){
 		var id = $(this).data('index');
 		var modal = $('.modal[data-index='+id+']');
+		var modalContent = modal.children('.modal-content');
+		var top = this.offsetTop;
+		var left = this.offsetLeft;		
+		var width = this.offsetWidth;		
+		var right = $(window).width() - (left + width);		
+		var height = this.offsetHeight;
+		var parent = this.closest(".products-container-inner");
+		var pwidth = parent.offsetWidth;		
 		modal.siblings().hide();
-		modal.show();		
+		modalContent.css('top',top);		
+		modalContent.css('width',width);
+		modalContent.css('max-height',height);
+		modalContent.css('overflow', 'hidden');					
+		if($(this).is('.odd')){
+			modalContent.css('left',left);
+		} else if ($(this).is('.even')) {			
+			modalContent.css('right',right);
+		}
+		modal.show();
+		modalContent.css('width',pwidth);
+		modalContent.css('max-height', '1000px');
+		setTimeout(function() {
+			modalContent.css('overflow', 'auto');
+		}, 1000);		
+	});
+
+	$( window ).resize(function() {
+	  $( ".modal" ).hide();
 	});
 
 })( jQuery );
