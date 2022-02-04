@@ -277,10 +277,12 @@ $_products = new products();
 		isset($post_meta['item_minimum_focusing_distance_in'][0]) && $post_meta['item_minimum_focusing_distance_in'][0] != "" ? 
 		$bullet1= "Minimum Focusing Distance: ".$post_meta['item_minimum_focusing_distance_in'][0]."in" : 
 		$bullet1= $post_meta['bullet_1'][0];
+		$bullet1= str_replace('[','<br>[',$bullet1);
 
 		isset($post_meta['item_corresponding_image_size_diagonal'][0]) && $post_meta['item_corresponding_image_size_diagonal'][0] != "" ? 
 		$bullet2= "Image Circle: ".$post_meta['item_corresponding_image_size_diagonal'][0] : 
 		$bullet2= $post_meta['bullet_2'][0];
+		$bullet2= str_replace('[','<br>[',$bullet2);
 
 		isset($post_meta['item_lens_weightlb'][0]) && $post_meta['item_lens_weightlb'][0] != "" ? 
 		$bullet3= "Weight: ".post_meta['item_lens_weightlb'][0] : 

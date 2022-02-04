@@ -2542,15 +2542,17 @@ section.widget {
 	.modal.agent-contact-modal .modal-content {
 		padding: 0;
 	}
-	.modal.product-modal .modal-content .bullets {
-		display: block;
-	}
-	.modal.product-modal .modal-content .bullets > .bullet {
-		display: inline;
-		white-space: nowrap;
-	}
-	.modal.product-modal .modal-content .bullets > .bullet:first-child {
-		padding-left: 0;
+	.modal.product-modal .modal-content {
+		/*.bullets{
+				display:block;
+				> .bullet{
+					display:inline;
+					white-space: nowrap;
+					&:first-child{
+						padding-left:0;
+					}
+				}
+			}*/
 	}
 	.modal.product-modal .modal-content .desktop-columns {
 		display: flex;
