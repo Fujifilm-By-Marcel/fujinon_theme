@@ -11,23 +11,22 @@ get_template_part( 'template-parts/content', 'hero' );
 	<?php
 	if( have_rows('tiles') ):
 	    while( have_rows('tiles') ) : the_row();?>
-        	<div class="home-tile" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;background-position: center;<?php the_sub_field('custom_style') ?>">
-        		<!--<div class="container" >-->
-	        		
-	        		<div class="container">
-	        			<h1><?php the_sub_field('title'); ?></h1>
-	        		</div>
-	        		
-	        		<div class="container">
-	        		<?php if(get_sub_field('image')){ ?>
-	        			<?php echo wp_get_attachment_image( get_sub_field('image'), 'full', false, array( 'style' => 'width:500px;' ) ); ?>
-	        		<?php } ?>
-	        		</div>
-	        		<div class="container">
-	        			<?php the_sub_field('text'); ?>
-	        		</div>
-	        	<!--</div>-->
+        
+        	<div class="home-tile" data-link="<?php the_sub_field('link') ?>" data-link-target="<?php the_sub_field('link_target') ?>" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;background-position: center;<?php the_sub_field('custom_style') ?>">        			        		
+        		<div class="container">
+        			<h1><?php the_sub_field('title'); ?></h1>
+        		</div>
+        		
+        		<div class="container">
+        		<?php if(get_sub_field('image')){ ?>
+        			<?php echo wp_get_attachment_image( get_sub_field('image'), 'full', false, array( 'style' => 'width:500px;' ) ); ?>
+        		<?php } ?>
+        		</div>
+        		<div class="container">
+        			<?php the_sub_field('text'); ?>
+        		</div>	        	
 	        </div>
+	    
 	    <?php
 	    endwhile;	
 	endif;
@@ -67,6 +66,20 @@ if ( isset($featured['content']) && $featured['content'] != "" ){ ?>
 </section>
 <?php } ?>
 <?php 
-get_template_part( 'template-parts/content', 'discover-block' ); 
+get_template_part( 'template-parts/content', 'discover-block' ); ?>
+<script>
+(function($) {
+	$(".home-tile").click(function (){
+		var url = $(this).data('link');
+		if( $(this).data('link-target') == "_blank" ){
+			window.open(url, '_blank').focus();	
+		} else {
+			location.href = url;
+		}
+		
+	});
+})( jQuery );
+</script>
+<?php
 get_sidebar();
 get_footer();
