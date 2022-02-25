@@ -10,7 +10,7 @@ $style = get_query_var ( "style" );
 	<div class="hero-overlay">
 		<div class="container">
 			<div class="left-half">				
-				<img src="<?php echo get_field('hero_logo', $id)['url']; ?>" alt="" width="<?php echo get_field('hero_logo', $id)['width']; ?>" height="<?php echo get_field('hero_logo', $id)['height']; ?>">
+				<?php if( get_field('hero_logo', $id) ) { ?><img src="<?php echo get_field('hero_logo', $id)['url']; ?>" alt="" width="<?php echo get_field('hero_logo', $id)['width']; ?>" height="<?php echo get_field('hero_logo', $id)['height']; ?>"><?php } ?>
 				<?php the_field('hero_text', $id); ?>
 			</div>
 			<div class="right-half">
