@@ -662,6 +662,9 @@ section{
 		.close{
 			color:white;
 		}
+		.wpforms-container{
+			margin:0;
+		}
 		.wpforms-head-container{
 			background: $color__accent;
 		    color: white;
@@ -689,7 +692,7 @@ section{
 			
 		}
 		.wpforms-submit-container{
-			padding: 0 2em;
+			padding: 0 2em 2em;
 			.wpforms-submit{
 				background: $color__accent;
 				color:white;
@@ -701,6 +704,13 @@ section{
 					color:black;
 				}
 			}
+		}
+		.wpforms-confirmation-container-full{
+			background: $color__accent;
+			color:white;
+			padding:2em;
+			border:none;
+			margin:0;
 		}
 	}
 
