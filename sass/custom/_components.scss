@@ -29,8 +29,7 @@ section{
 
 .home-tile{
 	/* add space between elements */
-	display: grid;
-	justify-content: space-between;
+	display: grid;	
 	gap: 1em;
 	grid-template-rows: auto 1fr 15em;
 
@@ -1126,6 +1125,10 @@ section{
 
 	/* align text on tiles */
 	.home-tile {
+		cursor:pointer;
+		&:hover{
+			filter: brightness(1.25);
+		}
 		&:nth-child(odd) :first-child{
 			text-align: left;
 		}
