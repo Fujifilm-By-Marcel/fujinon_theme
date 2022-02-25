@@ -2326,12 +2326,18 @@ section.widget {
 
 .modal.product-modal .modal-content .bullets > .bullet {
 	border-right: 2px solid #01916d;
-	text-align: center;
+	text-align: left;
 	padding: 0 1em;
+	line-height: 1.4;
+}
+
+.modal.product-modal .modal-content .bullets > .bullet:first-child {
+	padding-left: 0;
 }
 
 .modal.product-modal .modal-content .bullets > .bullet:last-child {
 	border-right: none;
+	padding-right: 0;
 }
 
 .modal.product-modal .modal-content .buttons {
@@ -2542,17 +2548,11 @@ section.widget {
 	.modal.agent-contact-modal .modal-content {
 		padding: 0;
 	}
-	.modal.product-modal .modal-content {
-		/*.bullets{
-				display:block;
-				> .bullet{
-					display:inline;
-					white-space: nowrap;
-					&:first-child{
-						padding-left:0;
-					}
-				}
-			}*/
+	.modal.product-modal .modal-content .bullets {
+		display: flex;
+	}
+	.modal.product-modal .modal-content .bullets > .bullet {
+		padding: 0 2em;
 	}
 	.modal.product-modal .modal-content .desktop-columns {
 		display: flex;
