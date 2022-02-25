@@ -2210,6 +2210,10 @@ section.widget {
 	color: white;
 }
 
+.modal.agent-contact-modal .modal-content .wpforms-container {
+	margin: 0;
+}
+
 .modal.agent-contact-modal .modal-content .wpforms-head-container {
 	background: #01916d;
 	color: white;
@@ -2241,7 +2245,7 @@ section.widget {
 }
 
 .modal.agent-contact-modal .modal-content .wpforms-submit-container {
-	padding: 0 2em;
+	padding: 0 2em 2em;
 }
 
 .modal.agent-contact-modal .modal-content .wpforms-submit-container .wpforms-submit {
@@ -2255,6 +2259,14 @@ section.widget {
 .modal.agent-contact-modal .modal-content .wpforms-submit-container .wpforms-submit:hover {
 	background: white;
 	color: black;
+}
+
+.modal.agent-contact-modal .modal-content .wpforms-confirmation-container-full {
+	background: #01916d;
+	color: white;
+	padding: 2em;
+	border: none;
+	margin: 0;
 }
 
 .modal.newsletter-modal .modal-content {
