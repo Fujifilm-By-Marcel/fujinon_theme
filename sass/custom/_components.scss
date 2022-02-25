@@ -759,13 +759,17 @@ section{
 			.bullets{
 				display:grid;
 				grid-template-columns:1fr 1fr 1fr;
-
 				> .bullet{
 					border-right:2px solid $color__accent;
-					text-align:center;
+					text-align:left;
 					padding:0 1em;
+					line-height:1.4;
+					&:first-child{
+						padding-left:0;
+					}
 					&:last-child{
 						border-right:none;
+						padding-right:0;
 					}
 				}
 			}
@@ -994,16 +998,12 @@ section{
 		}
 
 		&.product-modal .modal-content{			
-			/*.bullets{
-				display:block;
-				> .bullet{
-					display:inline;
-					white-space: nowrap;
-					&:first-child{
-						padding-left:0;
-					}
+			.bullets{
+				display:flex;
+				> .bullet{					
+					padding:0 2em;
 				}
-			}*/
+			}
 			.desktop-columns{
 				display:flex;
 				flex-direction:row;

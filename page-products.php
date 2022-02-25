@@ -270,27 +270,32 @@ $_products = new products();
 		echo "<pre>";
 		print_r($post_meta);
 		echo "</pre>";*/
-		$bullet1 = "";
-		$bullet2 = "";
-		$bullet3 = "";
+		$bullet = [];		
 
 		isset($post_meta['item_minimum_focusing_distance_in'][0]) && $post_meta['item_minimum_focusing_distance_in'][0] != "" ? 
-		$bullet1= "Minimum Focusing Distance: ".$post_meta['item_minimum_focusing_distance_in'][0]."in" : 
-		$bullet1= $post_meta['bullet_1'][0];
-		$bullet1= str_replace('[','<br>[',$bullet1);
+		$bullet[1]= "Minimum Focusing Distance: ".$post_meta['item_minimum_focusing_distance_in'][0]."in" : 
+		$bullet[1]= $post_meta['bullet_1'][0];		
 
 		isset($post_meta['item_corresponding_image_size_diagonal'][0]) && $post_meta['item_corresponding_image_size_diagonal'][0] != "" ? 
-		$bullet2= "Image Circle: ".$post_meta['item_corresponding_image_size_diagonal'][0] : 
-		$bullet2= $post_meta['bullet_2'][0];
-		$bullet2= str_replace('[','<br>[',$bullet2);
+		$bullet[2]= "Image Circle: ".$post_meta['item_corresponding_image_size_diagonal'][0] : 
+		$bullet[2]= $post_meta['bullet_2'][0];		
 
 		isset($post_meta['item_lens_weightlb'][0]) && $post_meta['item_lens_weightlb'][0] != "" ? 
-		$bullet3= "Weight: ".post_meta['item_lens_weightlb'][0] : 
-		$bullet3= $post_meta['bullet_3'][0];
+		$bullet[3]= "Weight: ".post_meta['item_lens_weightlb'][0] : 
+		$bullet[3]= $post_meta['bullet_3'][0];		
 
-		$bullet1 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet1);
-		$bullet2 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet2);
-		$bullet3 = preg_replace("/\.?\s*([^\.]+):/", "<strong>$1:</strong>", $bullet3);
+		
+		foreach ( $bullet as &$bulletval ){
+			if ( strpos($bulletval, '[') !== false) {
+				$bulletval = str_replace('[','<br>[', $bulletval );
+			} else {
+				$bulletval = substr_replace( $bulletval, ':<br>',  strpos($bulletval, ':'), 2);
+			}
+			//match all characters before colon - /\s*([^*]+):/
+			$bulletval = preg_replace("/\s*([^*]+):/", "<strong>$1:</strong>", $bulletval);
+		}
+		
+		
 
 		?>
 	<div class="modal product-modal" data-index="<?php echo $value->ID; ?>"  style="display:none;">
@@ -302,9 +307,9 @@ $_products = new products();
 			<div class="desktop-columns">
 				<div class="content">
 					<div class="bullets">
-						<div class="bullet"><?php echo $bullet1 ?></div>
-						<div class="bullet"><?php echo $bullet2 ?></div>
-						<div class="bullet"><?php echo $bullet3 ?></div>
+						<div class="bullet"><?php echo $bullet[1] ?></div>
+						<div class="bullet"><?php echo $bullet[2] ?></div>
+						<div class="bullet"><?php echo $bullet[3] ?></div>
 					</div>			
 					<p><?php echo $value->post_content ?></p>
 				</div>
