@@ -258,3 +258,107 @@ add_shortcode( 'make_button',    'make_button' );
 function make_button( $atts ) {    
     return '<a class="button" href="#'.str_replace(" ", "-", strtolower($atts['anchor']) ).'">Meet '.$atts['anchor'].'</a>';
 }
+    
+/**
+ * Output something after your form(s).
+ *
+ * @link  https://wpforms.com/developers/how-to-display-an-image-after-your-form/
+ */
+ /*
+function wpf_dev_frontend_output_after( $form_data, $form ) { 
+    //echo "<pre>";
+    //print_r($form_data['fields']);
+    //echo "</pre>";    
+    $key = array_search('form number', array_column($form_data['fields'], 'label'));
+    $form_number = array_values($form_data['fields'])[$key]['default_value'];    
+    ?>    
+    <div class="csrf-token-<?php echo $form->ID ?>" message=""></div>
+    <div class="session-<?php echo $form->ID ?>" session=""></div>
+    <script>
+	function get_tokens() {
+        jQuery.ajax({
+            url: "https://ffus-optics.com/get-token/<?php echo $form_number ?>/",
+            type: 'GET',
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                var obj = JSON.parse(data);
+                var response_code = obj['response'];
+                var message = obj['message'];
+                var session = obj['session'];
+                jQuery('.csrf-token-<?php echo $form->ID ?>').attr("message",message);
+                jQuery('.session-<?php echo $form->ID ?>').attr("session",session);
+                console.log(message);
+            }
+        });
+        return false;
+    }
+	get_tokens();
+	</script>
+    <?php
+ 
+}
+add_action( 'wpforms_frontend_output_after', 'wpf_dev_frontend_output_after', 10, 2 );
+*/
+
+/**
+ * Action that fires when an entry is saved to the database.
+ *
+ * @link  https://wpforms.com/developers/wpforms_process_entry_save/
+ *
+ * @param array  $fields    Sanitized entry field. values/properties.
+ * @param array  $entry     Original $_POST global.
+ * @param int    $form_id   Form ID. 
+ * @param array  $form_data Form data and settings.
+ */
+function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
+  	
+  	$key = array_search('form number', array_column($form_data['fields'], 'label'));
+    $form_number = array_values($form_data['fields'])[$key]['default_value'];
+  
+    // Example checking for the Yes value of a checkbox field and if yes, we'll then run our code
+    if( $form_number ) {
+         
+    	$json = file_get_contents("https://ffus-optics.com/get-token/".$form_number."/");    	
+    	$decoded = json_decode($json);
+    	$message = $decoded->message;
+    	$session = $decoded->session;
+    	$data = [];
+    	$data['csrf_token'] = $message;
+    	$data['session'] = $session;
+    	foreach($fields as $key => $value){			
+    		$data[$value['name']] = $value['value'];
+    	}
+
+    	$myfile = fopen(get_template_directory()."/data/form-logs.txt", "a") or die("Unable to open file!");
+		$txt = "";
+		//$txt .= "message: ".$message."\n\n";
+		//$txt .= "session: ".$session."\n\n";
+		//$txt .= "fields: ".json_encode($fields)."\n\n";
+		//$txt .= "entry: ".json_encode($entry)."\n\n";
+		$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." data: ".http_build_query($data)."\n";
+		$url = 'https://ffus-optics.com/submit/'.$form_number.'/';
+
+		// use key 'http' even if you send the request to https://...
+		$options = array(
+		    'http' => array(
+		        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+		        'method'  => 'POST',
+		        'content' => http_build_query($data)
+		    )
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+		if ($result === FALSE) { 
+			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Failed to submit data...\n";		
+		} else {
+			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Sucess...\n";		
+			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." result: ".json_encode($result)."\n";		
+		}	
+
+		fwrite($myfile, $txt);
+		fclose($myfile);
+		 
+    }
+}
+add_action( 'wpforms_process_entry_save', 'wpf_dev_process_entry_save', 10, 4 );
