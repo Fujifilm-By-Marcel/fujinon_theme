@@ -319,27 +319,29 @@ function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
     // Example checking for the Yes value of a checkbox field and if yes, we'll then run our code
     if( $form_number ) {
          
+    	//get message and session
     	$json = file_get_contents("https://ffus-optics.com/get-token/".$form_number."/");    	
     	$decoded = json_decode($json);
     	$message = $decoded->message;
     	$session = $decoded->session;
+
+    	//build data
     	$data = [];
     	$data['csrf_token'] = $message;
     	$data['session'] = $session;
     	foreach($fields as $key => $value){			
     		$data[$value['name']] = $value['value'];
     	}
-
-    	$myfile = fopen(get_template_directory()."/data/form-logs.txt", "a") or die("Unable to open file!");
+		
+		//start log file
+		$myfile = fopen(get_template_directory()."/data/form-logs.txt", "a") or die("Unable to open file!");
 		$txt = "";
-		//$txt .= "message: ".$message."\n\n";
-		//$txt .= "session: ".$session."\n\n";
-		//$txt .= "fields: ".json_encode($fields)."\n\n";
-		//$txt .= "entry: ".json_encode($entry)."\n\n";
 		$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." data: ".http_build_query($data)."\n";
+
+		//url for post request
 		$url = 'https://ffus-optics.com/submit/'.$form_number.'/';
 
-		// use key 'http' even if you send the request to https://...
+		//send post request
 		$options = array(
 		    'http' => array(
 		        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -349,6 +351,8 @@ function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
+
+		//log results
 		if ($result === FALSE) { 
 			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Failed to submit data...\n";		
 		} else {
@@ -356,6 +360,7 @@ function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
 			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." result: ".json_encode($result)."\n";		
 		}	
 
+		//close log file
 		fwrite($myfile, $txt);
 		fclose($myfile);
 		 
