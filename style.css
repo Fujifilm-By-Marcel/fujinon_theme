@@ -2268,6 +2268,10 @@ section.widget {
 	margin: 0;
 }
 
+.modal.agent-contact-modal .modal-content .wpforms-confirmation-container-full h3 {
+	margin: 0;
+}
+
 .modal.newsletter-modal .modal-content {
 	background: white;
 	color: black;
