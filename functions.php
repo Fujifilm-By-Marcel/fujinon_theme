@@ -334,9 +334,9 @@ function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
     	}
 		
 		//start log file
-		$myfile = fopen(get_template_directory()."/data/form-logs.txt", "a") or die("Unable to open file!");
-		$txt = "";
-		$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." data: ".http_build_query($data)."\n";
+		//$myfile = fopen(get_template_directory()."/data/form-logs.txt", "a") or die("Unable to open file!");
+		//$txt = "";
+		//$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." data: ".http_build_query($data)."\n";
 
 		//url for post request
 		$url = 'https://ffus-optics.com/submit/'.$form_number.'/';
@@ -353,16 +353,16 @@ function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
 		$result = file_get_contents($url, false, $context);
 
 		//log results
-		if ($result === FALSE) { 
-			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Failed to submit data...\n";		
-		} else {
-			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Sucess...\n";		
-			$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." result: ".json_encode($result)."\n";		
-		}	
+		//if ($result === FALSE) { 
+			//$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Failed to submit data...\n";		
+		//} else {
+			//$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." Sucess...\n";		
+			//$txt .= date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )." result: ".json_encode($result)."\n";		
+		//}	
 
 		//close log file
-		fwrite($myfile, $txt);
-		fclose($myfile);
+		//fwrite($myfile, $txt);
+		//fclose($myfile);
 		 
     }
 }
