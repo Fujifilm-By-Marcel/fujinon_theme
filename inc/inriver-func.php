@@ -6,6 +6,7 @@ class Inriver {
         add_action( 'buildProductData', array( $this, 'build_product_data' ) );
         add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 1 );
         add_action( 'addProduct', array( $this, 'add_product' ), 10, 1 );
+        //add_action( 'cleanDatabase', array( $this, 'clean_database' ) );
     }
 
 	private function curlInriver($isPost, $url, $postFields){
@@ -400,10 +401,121 @@ class Inriver {
 		fclose($myfile);
 	}
 
+	private function clean_database($taxonomies_array = false, $list = false, $parent_term_id = 0, $counter = 0){
+
+		//get list of terms
+		if(!$taxonomies_array){
+			$taxonomies = get_terms( array(
+			    'taxonomy' => 'inriver_categories',
+			    'hide_empty' => false
+			) );
+
+			//replace keys with term_id
+			$taxonomies_array = [];
+			foreach($taxonomies as $value){
+				$taxonomies_array[$value->term_id] = $value;
+			}			
+		}		
+
+
+		//get relevant taxonomies by matching parent
+		$relevant_taxonomies = [];
+		foreach($taxonomies_array as $value){
+			if($value->parent == $parent_term_id){
+				$relevant_taxonomies[$value->term_id] = $value;
+			}
+		}	
+
+		//echo "REL_TAX"." - ".$counter." - ".$parent_term_id;echo "<br>";echo "<pre>";print_r($relevant_taxonomies);echo "</pre>";echo "<br>";echo "<br>";
+		
+		//get products with term id
+		$args = array(			  
+		  'post_type'   => 'inriver_products',
+		  'tax_query' => array(
+			array (
+		            'taxonomy' => 'inriver_categories',
+		            'field' => 'id',
+		            'terms' => $parent_term_id,
+		            'include_children' => false
+		        )
+		    ),
+		);			 
+		$product_array = get_posts( $args );
+
+		//replace keys with term_id
+		if( $product_array ){	
+			$temp_product_array = [];
+			foreach($product_array as $value){
+				$temp_product_array[$value->ID] = $value;
+			}	
+			$product_array = $temp_product_array;
+		}
+		
+		//echo "PROD_BEFORE - "; print_r($taxonomies_array[$parent_term_id]->name); echo "<br>"; echo "<pre>"; print_r($product_array); echo "</pre>";	
+		
+		//get the list of current products and terms from inriver json file
+		if(!$list){
+			$list = json_decode(file_get_contents(get_template_directory()."/data/product-data.json"));
+		}
+
+		//iterate list
+		foreach($list as $value){
+			//remove products on list from arrays
+			if( $value->type == "ChannelNode"){
+				$postId = $this->get_term_id_from_entity_id( $value->entityId );			
+				unset($relevant_taxonomies[$postId]);
+				$this->clean_database($taxonomies_array, $value->children, $postId, $counter+=1);
+			}			
+			else if( $value->type == "Product" ){			
+				$postId = $this->get_post_id_from_entity_id( $value->entityId, 'inriver_products', 'publish' );				
+				unset($product_array[$postId]);
+			} 
+		}
+
+		//terms to remove
+		//echo "TAX - ";print_r($taxonomies_array[$parent_term_id]->name);echo "<br>";echo "<pre>";print_r($relevant_taxonomies);echo "</pre>";echo "<br>";echo "<br>";
+
+		//products to remove
+		//echo "PROD_AFTER - ";print_r($taxonomies_array[$parent_term_id]->name);echo "<br>";echo "<pre>";print_r($product_array);echo "</pre>";echo "<br>";echo "<br>";
+
+		//remove terms
+		foreach ($relevant_taxonomies as $value){
+			$pages = get_posts(array(
+			  'post_type' => 'inriver_products',
+			  'numberposts' => -1,
+			  'tax_query' => array(
+			    array(
+			      'taxonomy' => 'inriver_categories',
+			      'field' => 'term_id', 
+			      'terms' => $value->term_id,
+			      'include_children' => false
+			    )
+			  )
+			));
+			
+			//first remove term children
+			foreach($pages as $value){				
+				wp_delete_post( $value->ID );				
+			}
+
+			//then remove terms
+			wp_delete_term( $value->term_id, 'inriver_categories' );
+
+		}
+
+		//remove products
+		foreach($product_array as $value){
+			wp_delete_post( $value->ID );
+		}
+
+
+	}
+
 	public function build_product_data(){
 		$url = "https://apiuse.productmarketingcloud.com/api/v1.0.0/channels/content/6527";
 		$list = $this->recursively_build($url);
 		$this->save_data($list);
+		$this->clean_database();
 	}
 
 	public function get_product_data(){
