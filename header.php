@@ -19,6 +19,15 @@ $post_slug = $post->post_name;
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
+	<?php if( get_current_blog_id() == 1 ){ ?>
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-KVZN7P8');</script>
+	<!-- End Google Tag Manager -->
+	<?php } ?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
@@ -33,6 +42,14 @@ $post_slug = $post->post_name;
 </head>
 
 <body <?php body_class(); ?>>
+
+<?php if( get_current_blog_id() == 1 ){ ?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KVZN7P8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<?php } ?>
+
 <?php wp_body_open(); ?>
 <div id="page" class="site <?php echo $post_slug ?>">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'fujinon_theme' ); ?></a>
