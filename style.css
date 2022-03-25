@@ -1160,7 +1160,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 
 #masthead {
 	z-index: 100;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.95);
 	height: 71px;
 	/* center logo */
 	/* container */
@@ -1235,7 +1235,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 #masthead.sticky #site-navigation #primary-menu {
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.95);
 }
 
 #masthead #site-navigation.toggled #primary-menu {
@@ -1360,7 +1360,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 /* product nav */
 #product-nav {
 	z-index: 100;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.95);
 	padding: 1em 0;
 	height: 73.5px;
 	/* never hide when not sticky */
