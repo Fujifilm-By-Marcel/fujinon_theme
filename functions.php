@@ -256,7 +256,7 @@ if ( ! wp_next_scheduled( 'buildProductData' ) ) {
 add_shortcode( 'make_button',    'make_button' );
 
 function make_button( $atts ) {    
-    return '<a class="button" href="#'.str_replace(" ", "-", strtolower($atts['anchor']) ).'">Meet '.$atts['anchor'].'</a>';
+    return '<a class="button" href="#'.str_replace(" ", "-", strtolower($atts['anchor']) ).'">BOOK A CALL</a>';
 }
     
 /**
