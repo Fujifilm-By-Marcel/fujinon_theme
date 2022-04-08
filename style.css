@@ -2068,7 +2068,6 @@ section.widget {
 }
 
 .product-category-filter .buttons.underlined-category-filter .button:not(.active) {
-	color: #C6C6C6 !important;
 	border-bottom-color: #C6C6C6;
 }
 
