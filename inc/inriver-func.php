@@ -5,8 +5,9 @@ class Inriver {
 	public function __construct() {
         add_action( 'buildProductData', array( $this, 'build_product_data' ) );
         add_action( 'uploadImage', array( $this, 'upload_image' ), 10, 1 );
-        add_action( 'addProduct', array( $this, 'add_product' ), 10, 1 );
-        //add_action( 'cleanDatabase', array( $this, 'clean_database' ) );
+        add_action( 'addProduct', array( $this, 'add_product' ), 10, 1 );        
+        add_action( 'createAttachmentMetadata', array( $this, 'create_attachment_metadata' ), 10, 2 );        
+        
     }
 
 	private function curlInriver($isPost, $url, $postFields){
@@ -61,7 +62,7 @@ class Inriver {
 
 				//else - it is a product - assign product data
 				else{			
-					wp_schedule_single_event( time(), 'addProduct', array( $var[$i] ) );					
+					wp_schedule_single_event( time(), 'addProduct', array( $var[$i] ) );
 					//$this->add_product($var[$i]);
 				}
 				$i++;
@@ -194,7 +195,7 @@ class Inriver {
 		$var->bullet2 = $this->find_object_by_id($linksandfields->fields, "ProductShortBulletPoint2")[0]->en;				
 		$var->bullet3 = $this->find_object_by_id($linksandfields->fields, "ProductShortBulletPoint3")[0]->en;				
 
-		$var->catCopy = $this->find_object_by_id($linksandfields->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
+		//$var->catCopy = $this->find_object_by_id($linksandfields->fields, "ProductCinemaBroadcastSubCategoryDescription")[0]->en;
 		$var->catHeader = $this->find_object_by_id($linksandfields->fields, "ProductCinemaBroadcastSubCategory1")[0];
 
 		//get images
@@ -239,7 +240,7 @@ class Inriver {
 		  	'bullet_1' => $var->bullet1,
 		  	'bullet_2' => $var->bullet2,
 		  	'bullet_3' => $var->bullet3,
-		  	'cat_copy' => $var->catCopy,
+		  	//'cat_copy' => $var->catCopy,
 		  	'cat_header' => $var->catHeader,
 		  	'entity_id' => $var->entityId,
 		  	'path' => $var->path,
@@ -266,83 +267,169 @@ class Inriver {
 
 
 	public function upload_image($imageobject){
+
+		$myfile = fopen(get_template_directory()."/data/image-logs.txt", "a") or die("Unable to open file!");
+		$txt = "\n";
+		$txt = "******START******\n";
+		$txt .= "[".date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )."]\n";		
+		$txt .= "Starting upload_image function...\n";		
+		$txt .= "displayName: ".$imageobject->displayName."\n";
+		$txt .= "parentEntityId: ".$imageobject->parentEntityId."\n";
+		
 		$upload_dir = wp_upload_dir();
 		$image_data = file_get_contents($imageobject->resourceUrl);
-		$filename = basename($imageobject->displayName);
-		$title = $imageobject->displayName;
-		if(wp_mkdir_p($upload_dir['path']))
-		    $file = $upload_dir['path'] . '/' . $filename;
-		else
-		    $file = $upload_dir['basedir'] . '/' . $filename;
-		
+		$filename = basename($imageobject->displayName);		
+		$parent_post_id = $this->get_post_id_from_entity_id( $imageobject->parentEntityId, 'inriver_products', 'publish');
+		$current_thumbnail_id = $this->get_post_id_from_entity_id( $imageobject->entityId, 'attachment', 'inherit' );
 
-		$wp_filetype = wp_check_filetype($filename, null );
-		$attachment_data = array(
-		    'post_mime_type' => $wp_filetype['type'],
-		    'post_title' => sanitize_file_name($filename),
-		    'post_content' => '',
-		    'post_status' => 'inherit'
-		);
+		$txt .= "parent_post_id: ".$parent_post_id."\n";
 
-		// Does the attachment already exist ?
-		//get the post id of the attachment with the entity id
-		$postId = $this->get_post_id_from_entity_id( $imageobject->entityId, 'attachment', 'inherit' );						
-		if( $postId ){
-			//get the attachment data
-		  	$attachment = get_page( $postId, OBJECT, 'attachment');
+		$txt .= "\n";
 
+		fwrite($myfile, $txt);
+		$txt = "";
 
-		  //check if the files are identical
-		  $md5image1 = md5($image_data);
-		  $md5image2 = md5(file_get_contents(wp_get_attachment_url($postId)));
-		  //flag if images are not identical
-		  $md5image1 == $md5image2 ? $issame = true : $issame = false;
-		  
-		  //if the attachment exists and images are the same
-		  if( !empty( $attachment ) && $issame ){		  	
-		  	//set the id on the attachment data so that a new attachment is not created
-		    $attachment_data['ID'] = $attachment->ID;
-		  } 
-		  
-		  //if the images are different
-		  if ( !$issame ){ 
-		  	//delete the old attachment
-		  	wp_delete_attachment( $postId, true);
-
-		  	//add the new attachment
-		  	file_put_contents($file, $image_data);
-		  }
-
+		//getting entity id based on if it is a category image
+		if($imageobject->isCategoryImage){			
+			$term_id = get_the_terms( $parent_post_id, 'inriver_categories' )[0]->term_id;
+			$thumbnail_id = get_field( 'header_image', "term_".$term_id );						
 		} else {
-			//if the post id does not exist it means the file hasn't been uploaded - upload the file
-			file_put_contents($file, $image_data);
+			$thumbnail_id = get_post_thumbnail_id($parent_post_id);		
 		}
 
-		$attach_id = wp_insert_attachment( $attachment_data, $file );
+		if($thumbnail_id){			
+			$thumbnail_entity_id = get_field('entity_id', $thumbnail_id);
+		} else {
+			$thumbnail_entity_id = false;
+		}
+
+		//check if the header image needs to be updated by comparing entity ids
+		if( $thumbnail_entity_id != $imageobject->entityId ){	
+
+			$txt .= "Thumbnail ID doesn't match...\n";
+			$txt .= "Thumbnail EID: ".$thumbnail_entity_id."\n";
+			$txt .= "New Image EID: ".$imageobject->entityId."\n\n";
+
+			fwrite($myfile, $txt);
+			$txt = "";
+
+			//if image does not exist
+			if( !$current_thumbnail_id ){
+
+				$txt .= "Image doesn't exist, uploading new thumbnail...\n";
+
+				if(wp_mkdir_p($upload_dir['path']))
+				    $file = $upload_dir['path'] . '/' . $filename;
+				else
+				    $file = $upload_dir['basedir'] . '/' . $filename;			
+
+				//add the new attachment
+			  	$result = file_put_contents($file, $image_data);			
+			  	$txt .= "file_put_contents result: ".json_encode($result)."\n";
+			  	fwrite($myfile, $txt);
+				$txt = "";
+
+				$wp_filetype = wp_check_filetype($filename, null );
+				$attachment_data = array(
+					'guid' => $file,
+				    'post_mime_type' => $wp_filetype['type'],
+				    'post_title' => preg_replace( '/\.[^.]+$/', '', $filename ), //sanitize_file_name($filename),
+				    'post_content' => '',
+				    'post_status' => 'inherit'
+				);
+
+				//delete the old attachment
+			  	//$result = wp_delete_attachment( $current_thumbnail_id, true);
+			  	//$txt .= "wp_delete_attachment result: ".json_encode($result)."\n";		  				  	
+
+				$attach_id = wp_insert_attachment( $attachment_data, $file, $parent_post_id);
+				$txt .= "attach_id: ".json_encode($attach_id)."\n";
+			  	fwrite($myfile, $txt);
+			  	$txt = "";
+
+			  	//generate attachment metadata
+			  	wp_schedule_single_event( time(), 'createAttachmentMetadata', array($attach_id, $file) );				
+
+				if($imageobject->isCategoryImage){					
+					//set metadata for category					
+					$result = update_term_meta($term_id, 'header_image', $attach_id );
+					$txt .= "update_term_meta result: ".json_encode($result)."\n";
+			  		fwrite($myfile, $txt);
+					$txt = "";
+
+				} else {
+					//set thumbnail for post
+					$result = set_post_thumbnail( $parent_post_id, $attach_id  );
+					$txt .= "set_post_thumbnail result: ".json_encode($result)."\n";
+			  		fwrite($myfile, $txt);
+					$txt = "";
+
+				}
+
+				//add entity id as metadata
+				//$txt .= "attach_id: ".$attach_id."\n";
+				//$txt .= "imageobject->entityId: ".$imageobject->entityId."\n";
+				$result = update_post_meta($attach_id, 'entity_id', $imageobject->entityId);				
+				$txt .= "update_post_meta result: ".json_encode($result)."\n";
+				$txt .= "New thumbnail upload complete...\n";
+				$txt .= "******END******\n\n";
+
+				wp_set_object_terms( $attach_id, 'inriver', 'attachment_category', true );
+
+			} else {
+				//update post thumbnail to new thumbnail
+				$txt .= "image exists, changing thumbnail on post...\n";
+				//$txt .= "parent_post_id: ".$parent_post_id."\n";
+				//$txt .= "current_thumbnail_id: ".$current_thumbnail_id."\n";
+				$result = set_post_thumbnail( $parent_post_id, $current_thumbnail_id  );
+				//$txt .= "set_post_thumbnail result: ".json_encode($result)."\n";
+				$txt .= "Thumbnail updated on post...\n";
+				$txt .= "******END******\n\n";			
+
+			}
+			
+
+
+		} else { 
+			$txt .= "Thumbnail ID match, no action...\n";
+			$txt .= "******END******\n\n";
+			fwrite($myfile, $txt);
+			$txt = "";
+		}
+
+		fwrite($myfile, $txt);
+		fclose($myfile);
+	}
+
+	public function create_attachment_metadata($attach_id, $file){
+
+		$myfile = fopen(get_template_directory()."/data/image-logs.txt", "a") or die("Unable to open file!");
+		$txt = "\n";
+		$txt = "******START******\n";
+		$txt .= "Starting create_attachment_metadata function...\n";
+		$txt .= "parent_post_id: ".$attach_id."\n";
+		$txt .= "parent_post_id: ".$file."\n";
+		$txt .= "Starting create_attachment_metadata function...\n";		
+		$txt .= "[".date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) )."]\n";				
+
 		require_once(ABSPATH . 'wp-admin/includes/image.php');
+	  	$txt .= "Require Once Complete...\n";
+	  	fwrite($myfile, $txt);
+	  	$txt = "";
+
 		$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-		
-		//get the parent's post id
-		$parentPostId = $this->get_post_id_from_entity_id($imageobject->parentEntityId, 'inriver_products', 'publish');
+		$txt .= "attach_data: ".json_encode($attach_data)."\n";
+	  	fwrite($myfile, $txt);
+	  	$txt = "";
 
-		
-		if($imageobject->isCategoryImage){
-			//get the category 
-			$term_id = get_the_terms( $parentPostId, 'inriver_categories' )[0]->term_id;
-			//set metadata for category
-			update_term_meta($term_id, 'header_image', $attach_id );
+	  	$result = wp_update_attachment_metadata( $attach_id, $attach_data );
+		$txt .= "wp_update_attachment_metadata result: ".json_encode($result)."\n";
+		fwrite($myfile, $txt);
+		$txt = "";
 
-		} else {			
-
-			//attach to post
-			wp_update_attachment_metadata( $attach_id, $attach_data, $parentPostId );			
-
-			//set thumbnail for post
-			set_post_thumbnail( $parentPostId, $attach_id  );
-		}
-
-		//add entity id as metadata
-		update_post_meta($attach_id, 'entity_id', $imageobject->entityId);
+		$txt .= "******END******\n\n";	
+		fwrite($myfile, $txt);
+		fclose($myfile);
 	}
 
 	public function get_post_from_entity_id($value,$post_type,$post_status = ''){
