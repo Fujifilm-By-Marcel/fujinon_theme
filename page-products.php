@@ -68,6 +68,7 @@ class products{
 			'order'   => 'ASC',
 		);
 		$child_cats = get_categories($query_args);
+		$child_cats = array_values($child_cats);
 
 		//if there are query results results
 		if( count($child_cats) ){
