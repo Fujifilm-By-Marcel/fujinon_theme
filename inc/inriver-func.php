@@ -187,6 +187,17 @@ class Inriver {
 		//$var[$i]->displayDescription = $linksandfields->summary->displayDescription;
 		//$var[$i]->image = $linksandfields->summary->resourceUrl;
 
+		//check if product should be added 
+		$product_is_active = false;
+		foreach($linksandfields->outbound as $value){
+			if($value->linkTypeId == "ProductItem"){
+				if($value->fields[0]->value == "Active"){
+					$product_is_active = true;
+				}
+			}
+		}
+
+
 		$var->oneLineDescription = $this->find_object_by_id($linksandfields->fields, "ProductOneLineDescription")[0]->en;
 		$var->longDescription = $this->find_object_by_id($linksandfields->fields, "ProductLongDescription")[0]->en;
 		$var->pageURL = $this->find_object_by_id($linksandfields->fields, "ProductProductPageURL")[0];
@@ -224,7 +235,7 @@ class Inriver {
 
 		$var->images = $images;	
 
-		$postId = $this->get_post_id_from_entity_id( $var->entityId, 'inriver_products', 'publish' );
+		$postId = $this->get_post_id_from_entity_id( $var->entityId, 'inriver_products', array( 'publish', 'trash' ) );
 
 		// Create post object
 		$my_post = array(
@@ -233,7 +244,7 @@ class Inriver {
 		  'post_type'=> 'inriver_products',
 		  'post_content'  => $var->longDescription,
 		  'post_excerpt' => $var->oneLineDescription,
-		  'post_status'   => 'publish',
+		  'post_status'   => $product_is_active ? 'publish' : 'trash',
 		  'meta_input'   => array(
 		  	'page_url' => $var->pageURL,
 		  	'one_line_description' => $var->oneLineDescription,
@@ -279,7 +290,7 @@ class Inriver {
 		$upload_dir = wp_upload_dir();
 		$image_data = file_get_contents($imageobject->resourceUrl);
 		$filename = basename($imageobject->displayName);		
-		$parent_post_id = $this->get_post_id_from_entity_id( $imageobject->parentEntityId, 'inriver_products', 'publish');
+		$parent_post_id = $this->get_post_id_from_entity_id( $imageobject->parentEntityId, 'inriver_products', array( 'publish', 'trash' ) );
 		$current_thumbnail_id = $this->get_post_id_from_entity_id( $imageobject->entityId, 'attachment', 'inherit' );
 
 		$txt .= "parent_post_id: ".$parent_post_id."\n";
@@ -554,7 +565,7 @@ class Inriver {
 				$this->clean_database($taxonomies_array, $value->children, $postId, $counter+=1);
 			}			
 			else if( $value->type == "Product" ){			
-				$postId = $this->get_post_id_from_entity_id( $value->entityId, 'inriver_products', 'publish' );				
+				$postId = $this->get_post_id_from_entity_id( $value->entityId, 'inriver_products', array( 'publish', 'trash' ) );				
 				unset($product_array[$postId]);
 			} 
 		}
