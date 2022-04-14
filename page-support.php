@@ -42,7 +42,7 @@ $faq = get_field('faq');
 						<?php $k=0;foreach($value['qa'] as  $value) {  ?>
 							<div class="qa" >
 								<p class="q"><?php echo $value['q']; ?><i class='fas fa-caret-right' style="<?php echo !$k?"display:none":""; ?>"></i><i class='fas fa-caret-down' style="<?php echo $k?"display:none":""; ?>"></i></p>
-								<p class="a" style="<?php echo $k?"display:none":""; ?>"><?php echo $value['a']; ?></p>
+								<p class="a" style="<?php echo $k?"display:none":""; ?>"><span><?php echo $value['a']; ?></span></p>
 							</div>
 						<?php $k++;} ?>
 						</div>
