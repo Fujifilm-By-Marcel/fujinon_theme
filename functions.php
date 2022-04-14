@@ -367,3 +367,11 @@ function wpf_dev_process_entry_save( $fields, $entry, $form_id, $form_data ) {
     }
 }
 add_action( 'wpforms_process_entry_save', 'wpf_dev_process_entry_save', 10, 4 );
+
+/**
+ * Redirection Plugin Editor access
+ */
+add_filter( 'redirection_role', 'redirection_to_editor' );
+function redirection_to_editor() {
+    return 'edit_pages';
+}
