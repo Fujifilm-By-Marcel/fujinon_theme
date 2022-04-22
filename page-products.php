@@ -175,7 +175,7 @@ class products{
 			echo "</div>";
 			echo get_the_post_thumbnail($value->ID, 'large');
 			echo '<div class="info">';
-			echo "<h3 class='desktop-only'>",$category_name,"</h3>";
+			//echo "<h3 class='desktop-only'>",$category_name,"</h3>";
 			echo "<h3 class='desktop-only'>",$value->post_title,"</h3>";
 			echo "<p class='cta underline'>EXPLORE ></p>";
 			echo "</div>";
