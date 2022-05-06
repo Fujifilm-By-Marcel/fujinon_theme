@@ -375,3 +375,13 @@ add_filter( 'redirection_role', 'redirection_to_editor' );
 function redirection_to_editor() {
     return 'edit_pages';
 }
+
+function extend_editor_caps() {
+    // gets the editor role
+    $roleObject = get_role( 'editor' );
+    
+    if( !$roleObject->has_cap( 'edit_theme_options' ) ) {
+        $roleObject->add_cap( 'edit_theme_options' );
+    }
+}
+add_action( 'admin_init', 'extend_editor_caps');
