@@ -89,10 +89,17 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 <script>
 	(function($) {
 		$('.open-agent-contact-modal').click(function(){
-			$('.agent-contact-modal').show();
+			openAgentModal();
 			return false;
 		});
+
+
+
 	})( jQuery );
+	function openAgentModal(){
+		jQuery('.agent-contact-modal').show();		
+		return false;	
+	}
 </script>
 <?php
 get_sidebar();
