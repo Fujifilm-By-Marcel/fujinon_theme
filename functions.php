@@ -385,3 +385,10 @@ function extend_editor_caps() {
     }
 }
 add_action( 'admin_init', 'extend_editor_caps');
+
+// Allow editors to use ACF
+function my_acf_settings_capability( $capability ) {
+    return 'edit_pages';
+}
+add_filter('acf/settings/capability', __NAMESPACE__ . '\\my_acf_settings_capability');
+
