@@ -58,9 +58,11 @@ if ( isset($featured['content']) && $featured['content'] != "" ){ ?>
 	<div class="split container" style="">
 		<div class="content">
 			<?php echo $featured['content']; ?>
+			<?php echo wp_get_attachment_image( $featured['image'], 'large', false, array( 'class' => 'mobile-only' ) ); ?>
+			<?php echo $featured['content_part_2']; ?>
 		</div>
 		<div>
-			<?php echo wp_get_attachment_image( $featured['image'], 'large' ); ?>
+			<?php echo wp_get_attachment_image( $featured['image'], 'large', false, array( 'class' => 'desktop-only' ) ); ?>
 		</div>
 	</div>			
 </section>
