@@ -1068,7 +1068,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 }
 
 .desktop-only {
-	display: none;
+	display: none !important;
 }
 
 .loader {
@@ -1131,10 +1131,10 @@ a.cta:hover, a.cta:focus, a.cta:active {
 		flex-basis: 100%;
 	}
 	.mobile-only {
-		display: none;
+		display: none !important;
 	}
 	.desktop-only {
-		display: block;
+		display: block !important;
 	}
 }
 
