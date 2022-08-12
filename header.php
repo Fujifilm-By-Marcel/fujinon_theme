@@ -53,7 +53,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <?php } ?>
 
 <?php wp_body_open(); ?>
-<div id="page" class="site <?php echo $post_slug ?>">
+<div id="page" class="site <?php echo isset($post_slug) ? $post_slug : "" ?>">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'fujinon_theme' ); ?></a>
 
 	<header id="masthead" class="site-header">

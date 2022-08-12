@@ -42,7 +42,11 @@ get_header();
 
 			endwhile;
 			echo "</div>"; //close posts-container
-			the_posts_navigation();
+			
+			//no longer using default post navigation
+			//the_posts_navigation();
+
+			echo '<div class="lazy-pagination"><a class="button" id="more-posts-button" href="#" data-page="1" data-maxpage="'.$wp_query->max_num_pages.'" data-cat="'.get_query_var( 'cat' ).'">Show more posts</a><div class="loader"></div></div>';
 
 		else :
 
