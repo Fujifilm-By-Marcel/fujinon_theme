@@ -392,3 +392,54 @@ function my_acf_settings_capability( $capability ) {
 }
 add_filter('acf/settings/capability', __NAMESPACE__ . '\\my_acf_settings_capability');
 
+//lazy load pagination
+//More posts - first for logged in users, other for not logged in
+add_action('wp_ajax_ajax_next_posts', 'ajax_next_posts');
+add_action('wp_ajax_nopriv_ajax_next_posts', 'ajax_next_posts');
+
+
+function ajax_next_posts() {
+
+    //Build query
+    $args = array(
+        //All your query arguments
+        'cat' => $_GET['cat'],
+    );
+
+    //Get page
+    if( ! empty( $_GET['page'] ) ) {
+        $page = $_GET['page'];
+        $args['paged'] = $page;
+    }
+
+    $query_results = new WP_Query( $args );
+
+    //Results found
+    if ( $query_results->have_posts() ) {
+
+        //Start "saving" results' HTML
+        $results_html = '';
+        ob_start();
+
+        while ( $query_results->have_posts() ) { 
+
+            $query_results->the_post();
+
+            //Your single post HTML here
+            get_template_part( 'template-parts/content-blog', get_post_type() );
+        }    
+
+        //"Save" results' HTML as variable
+        $results_html = ob_get_clean();  
+    }
+
+    //Build ajax response
+    $response = array();
+
+    //1. value is HTML of new posts and 2. is total count of posts
+    array_push ( $response, $results_html, $page);
+    echo json_encode( $response );
+
+    //Always use die() in the end of ajax functions
+    die();  
+}

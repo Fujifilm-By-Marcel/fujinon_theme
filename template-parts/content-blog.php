@@ -9,7 +9,7 @@
 
 ?>
 <a class="article-link" href="<?php echo esc_url( get_permalink() ) ?>">
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article class="single-post" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<?php 
 	fujinon_theme_post_thumbnail(false);

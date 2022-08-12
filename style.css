@@ -2593,6 +2593,19 @@ section.widget {
 	float: right;
 }
 
+.lazy-pagination {
+	text-align: center;
+}
+
+.lazy-pagination .button.lock, .lazy-pagination .loader {
+	display: none;
+	margin: auto;
+}
+
+.lazy-pagination .button.lock + .loader {
+	display: block;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
 	/* Blog Styles */
