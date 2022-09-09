@@ -13,9 +13,48 @@
  */
 
 get_header();
+
+$category = get_category( get_query_var( 'cat' ) );
+$cat_id = $category->cat_ID;
+
 ?>
 
 	<main id="primary" class="site-main">
+
+		<!-- category links -->		
+		<div class="category-links">
+			<div class="container">
+				<span>FILTER BY:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<?php
+				//echo category links as buttons				
+				$categories = get_categories( array(
+					'orderby' => 'name',
+					'parent'  => 0
+				) );
+
+				foreach ( $categories as $category ) {
+
+					$tax_class = "";
+					if($cat_id == $category->term_id){
+						$tax_class = "active";
+					}
+
+					printf( '<a class="tax-button %3$s" href="%1$s">%2$s</a>&nbsp;&nbsp;&nbsp;&nbsp;',
+						esc_url( get_category_link( $category->term_id ) ),
+						esc_html( $category->name ),
+						$tax_class
+					);
+				}
+				
+
+				get_search_form();
+				?>
+
+
+			</div>
+		</div>
+		
+
 		<div class="container">
 		<?php
 		if ( have_posts() ) :
@@ -46,7 +85,7 @@ get_header();
 			//no longer using default post navigation
 			//the_posts_navigation();
 
-			echo '<div class="lazy-pagination"><a class="button" id="more-posts-button" href="#" data-page="1" data-maxpage="'.$wp_query->max_num_pages.'" data-cat="'.get_query_var( 'cat' ).'">Show more posts</a><div class="loader"></div></div>';
+			echo '<div class="lazy-pagination"><a class="button" id="more-posts-button" href="#" data-page="1" data-maxpage="'.$wp_query->max_num_pages.'" data-cat="'.get_query_var( 'cat' ).'">LOAD MORE</a><div class="loader"></div></div>';
 
 		else :
 
@@ -55,6 +94,7 @@ get_header();
 		endif;
 		?>
 		</div>
+		<?php get_template_part( 'template-parts/content', 'discover-block' ); ?>
 	</main><!-- #main -->
 
 <?php

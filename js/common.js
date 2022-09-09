@@ -62,7 +62,7 @@
 
 
 		        //Hide button if all posts are loaded		        
-		        if( response[1] == maxPageNumber ) {
+		        if( response[1] >= maxPageNumber ) {
 		            $( '#more-posts-button' ).hide();
 		        }
 
@@ -77,5 +77,21 @@
         });
 
     }
+
+    function init_next_posts_button() {
 	
+		//init show more posts button
+		//get new page number
+		var pageNumber = parseInt($("#more-posts-button").data("page"))+1;
+
+		//get max page number
+		var maxPageNumber = parseInt($("#more-posts-button").data("maxpage"));
+
+		if( pageNumber < maxPageNumber ) {
+			$("#more-posts-button").show();
+		}
+	}
+
+	init_next_posts_button();
+
 })( jQuery );

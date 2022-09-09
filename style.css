@@ -2593,17 +2593,43 @@ section.widget {
 	float: right;
 }
 
+.category-links {
+	border-bottom: 5px solid #01916d;
+	padding: 1em 0;
+	margin-bottom: 2em;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.category-links .tax-button {
+	background: #C6C6C6;
+	color: white;
+	text-decoration: none;
+	border-radius: 5px;
+	font-weight: bold;
+	padding: .25em 1.75em;
+	display: inline-block;
+}
+
+.category-links .tax-button.active {
+	background: #01916d;
+}
+
 .lazy-pagination {
 	text-align: center;
+	margin-bottom: 8em;
+}
+
+.lazy-pagination .button {
+	display: none;
 }
 
 .lazy-pagination .button.lock, .lazy-pagination .loader {
-	display: none;
+	display: none !important;
 	margin: auto;
 }
 
 .lazy-pagination .button.lock + .loader {
-	display: block;
+	display: block !important;
 }
 
 /* desktop styles */
