@@ -965,6 +965,12 @@ h5 {
 	font-size: 1rem;
 }
 
+h6 {
+	font-size: 1.25rem;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
 .button {
 	background: #01916d;
 	border: 1px solid #01916d;
@@ -2630,6 +2636,23 @@ section.widget {
 
 .lazy-pagination .button.lock + .loader {
 	display: block !important;
+}
+
+.post.type-post h1 {
+	margin: 1rem 0;
+}
+
+.post.type-post .entry-content {
+	margin: 0;
+}
+
+.post.type-post .entry-content h6 {
+	margin: 0 0 1rem;
+}
+
+.director-block {
+	background: #ECECEC;
+	padding: 1em;
 }
 
 /* desktop styles */

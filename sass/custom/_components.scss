@@ -1046,6 +1046,28 @@ section{
 
 }
 
+.post.type-post{
+	h1{
+		margin:1rem 0;
+	}
+	.entry-content {
+		
+		margin:0;
+
+		h6{
+			margin:0 0 1rem;
+		}
+
+		
+
+	}
+}
+
+.director-block{
+	background: $color__lightgrey;
+	padding:1em;
+}
+
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
