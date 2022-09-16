@@ -443,3 +443,52 @@ function ajax_next_posts() {
     //Always use die() in the end of ajax functions
     die();  
 }
+
+//add acf blocks for gutenburg
+add_action('acf/init', 'my_acf_init');
+function my_acf_init() {
+	
+	// check function exists
+	if( function_exists('acf_register_block') ) {
+		
+		
+		acf_register_block(array(
+			'name'				=> 'youtube-responsive',
+			'title'				=> __('Youtube Responsive'),
+			'description'		=> __(''),
+			'render_callback'	=> 'youtube_acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'youtube' ),
+		));
+
+
+		acf_register_block(array(
+			'name'				=> 'director',
+			'title'				=> __('Director'),
+			'description'		=> __(''),
+			'render_callback'	=> 'director_acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'youtube' ),
+		));
+	}
+}
+
+function youtube_acf_block_render_callback( $block ) {
+	
+	$slug = str_replace('acf/', '', $block['name']);
+	
+	if( file_exists( get_theme_file_path("/template-parts/block/content-{$slug}.php") ) ) {
+		include( get_theme_file_path("/template-parts/block/content-{$slug}.php") );
+	}
+}
+
+function director_acf_block_render_callback( $block ) {
+	
+	$slug = str_replace('acf/', '', $block['name']);
+	
+	if( file_exists( get_theme_file_path("/template-parts/block/content-{$slug}.php") ) ) {
+		include( get_theme_file_path("/template-parts/block/content-{$slug}.php") );
+	}
+}

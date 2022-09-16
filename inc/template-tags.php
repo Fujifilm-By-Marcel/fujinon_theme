@@ -41,15 +41,7 @@ if ( ! function_exists( 'fujinon_theme_posted_by' ) ) :
 	 * Prints HTML with meta information for the current author.
 	 */
 	function fujinon_theme_posted_by() {
-		/* COMMENT START
-		$byline = sprintf(
-			/* translators: %s: post author. *//* COMMENT START
-			esc_html_x( 'by %s', 'post author', 'fujinon_theme' ),
-			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
-		);
 
-		echo '<span class="byline"> ' . $byline . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		COMMENT END */
 	}
 endif;
 
@@ -58,60 +50,7 @@ if ( ! function_exists( 'fujinon_theme_entry_footer' ) ) :
 	 * Prints HTML with meta information for the categories, tags and comments.
 	 */
 	function fujinon_theme_entry_footer() {
-		/* COMMENT START
-		// Hide category and tag text for pages.
-		if ( 'post' === get_post_type() ) {
-			/* translators: used between list items, there is a space after the comma *//* COMMENT START
-			$categories_list = get_the_category_list( esc_html__( ', ', 'fujinon_theme' ) );
-			if ( $categories_list ) {
-				/* translators: 1: list of categories. *//* COMMENT START
-				printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'fujinon_theme' ) . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
 
-			/* translators: used between list items, there is a space after the comma *//* COMMENT START
-			$tags_list = get_the_tag_list( '', esc_html_x( ', ', 'list item separator', 'fujinon_theme' ) );
-			if ( $tags_list ) {
-				/* translators: 1: list of tags. *//* COMMENT START
-				printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'fujinon_theme' ) . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
-		}
-
-		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-			echo '<span class="comments-link">';
-			comments_popup_link(
-				sprintf(
-					wp_kses(
-						/* translators: %s: post title *//* COMMENT START
-						__( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'fujinon_theme' ),
-						array(
-							'span' => array(
-								'class' => array(),
-							),
-						)
-					),
-					wp_kses_post( get_the_title() )
-				)
-			);
-			echo '</span>';
-		}
-
-		edit_post_link(
-			sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers *//* COMMENT START
-					__( 'Edit <span class="screen-reader-text">%s</span>', 'fujinon_theme' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				wp_kses_post( get_the_title() )
-			),
-			'<span class="edit-link">',
-			'</span>'
-		);
-		COMMENT END */
 	}
 endif;
 
