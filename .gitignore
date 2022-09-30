@@ -1,5 +1,6 @@
 node_modules/
 vendor/
+/data/image-logs.txt
 /data/logs.txt
 /data/product-data.json
 /data/form-logs.txt
