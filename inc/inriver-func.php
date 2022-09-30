@@ -24,6 +24,10 @@ class Inriver {
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $postFields);
 		curl_setopt($curl, CURLOPT_POST, $isPost);
+		
+		//for local CACERT
+		//curl_setopt($curl, CURLOPT_CAINFO, "C:/Users/Marcel.Munevar/Local Sites/fujinon/app"."/cacert.pem");
+
 		$result = json_decode(curl_exec($curl));
 		curl_close($curl);
 		return $result;
