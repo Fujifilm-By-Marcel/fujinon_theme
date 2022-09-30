@@ -456,7 +456,7 @@ function my_acf_init() {
 			'name'				=> 'youtube-responsive',
 			'title'				=> __('Youtube Responsive'),
 			'description'		=> __(''),
-			'render_callback'	=> 'youtube_acf_block_render_callback',
+			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
 			'icon'				=> 'admin-comments',
 			'keywords'			=> array( 'youtube' ),
@@ -467,24 +467,46 @@ function my_acf_init() {
 			'name'				=> 'director',
 			'title'				=> __('Director'),
 			'description'		=> __(''),
-			'render_callback'	=> 'director_acf_block_render_callback',
+			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
 			'icon'				=> 'admin-comments',
-			'keywords'			=> array( 'youtube' ),
+			'keywords'			=> array( 'director' ),
 		));
+
+		acf_register_block(array(
+			'name'				=> 'quote',
+			'title'				=> __('Quote'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'quote' ),
+		));
+
+		acf_register_block(array(
+			'name'				=> 'director-multiple',
+			'title'				=> __('Director Multiple'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'director','multiple' ),
+		));
+
+		acf_register_block(array(
+			'name'				=> 'carousel',
+			'title'				=> __('Carousel'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'carousel' ),
+		));
+
 	}
 }
 
-function youtube_acf_block_render_callback( $block ) {
-	
-	$slug = str_replace('acf/', '', $block['name']);
-	
-	if( file_exists( get_theme_file_path("/template-parts/block/content-{$slug}.php") ) ) {
-		include( get_theme_file_path("/template-parts/block/content-{$slug}.php") );
-	}
-}
-
-function director_acf_block_render_callback( $block ) {
+function acf_block_render_callback( $block ) {
 	
 	$slug = str_replace('acf/', '', $block['name']);
 	

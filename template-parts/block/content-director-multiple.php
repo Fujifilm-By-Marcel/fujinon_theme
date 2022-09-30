@@ -1,18 +1,19 @@
 <?php
 /**
- * Block Name: Director
+ * Block Name: Director Multiple
  *
  * This is the template that displays the director block.
  */
 
 // create id attribute for specific styling
-$id = 'director-' . $block['id'];
+$id = 'director-multiple-' . $block['id'];
 $classname = isset($block['className']) ? $block['className'] : '';
-$director_pid = get_field('director')[0];
+$director_pids = get_field('director_multiple');
 
 //open container
-echo "<div id=".$id." class='director-single-block ".$classname." '>";
+echo "<div id=".$id." class='director-multiple-block ".$classname." '>";
 
+foreach ($director_pids as $director_pid){
 ?>
 <div class="director-block" >
     <img class="portrait" src="<?php echo get_field('portrait', $director_pid) ?>" alt="">
@@ -46,6 +47,9 @@ echo "<div id=".$id." class='director-single-block ".$classname." '>";
     </div>
 </div>
 
-<?php
-//close director-single container
+<?php 
+//close director_pids foreach loop
+}
+
+//close director-multiple container
 echo "</div>";
