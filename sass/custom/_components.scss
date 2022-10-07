@@ -1048,30 +1048,97 @@ section{
 
 .post.type-post{
 	h1{
-		margin:1rem 0;
+		margin:.75em 0 0;
 	}
-	.entry-content {
-		
+	h2{
+		margin-bottom:.25em;
+	}
+	.sub-heading{
+		margin-top:0;
+		text-transform: uppercase;
+	}
+	.entry-meta .posted-on{
+		border-bottom:2px solid $color__accent;
+		padding-bottom:.25em;
+	}
+	.entry-content {		
 		margin:0;
-
-		h6{
-			margin:0 0 1rem;
-		}
-
-		
-
 	}
 }
 
-.director-block{
-	background: $color__lightgrey;
-	padding:1em;
+.director-single-block  {
+	.director-block{
+		background: $color__lightgrey;
+		padding:0 1em 1em;	
+		text-align:center;
+		margin-top:50px;
+	}	
+
+	.content{
+		position:relative;
+		top:-50px;
+		margin-bottom:-20px;
+	}
+
+	.portrait{
+		margin:auto;
+		display: block;
+	}
+
+	.director-title{
+		margin:1em 0 0
+	}
+
+	.director-name{
+		margin-top:0;
+	}
+
+	.social {		
+		font-size:1.75rem;
+		a{
+			text-decoration:none;
+			color:black;
+		}
+		i{		
+			margin-bottom:6px;
+		}
+		> *{
+			margin-right:0.75em;
+		}
+		> :last-child{
+			margin-right:0;
+		}
+	}
 }
+
+.quote-block{
+	text-align:center;	
+	.fa-quote-left{
+		font-size:1.875rem;
+		color: $color__accent;
+	}
+	.quote{
+		font-size:1.875rem;
+		font-weight:bold;
+		margin:0;
+	}
+	.author{
+		font-size:1.25rem;
+		text-transform:uppercase;
+	}
+}
+
+
 
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
 
+	.director-single-block  {
+		.director-block{
+			margin-top:0;
+		}
+	}
 
 	/* Blog Styles */
 	.posts-container{
