@@ -2791,6 +2791,26 @@ section.widget {
 	border: 1px solid #000;
 }
 
+.toolbar {
+	background: #01916d;
+	padding: 5px 0;
+	margin-bottom: 3em;
+}
+
+.toolbar .share {
+	display: inline-block;
+	float: right;
+}
+
+.toolbar .back {
+	display: inline-block;
+}
+
+.toolbar a {
+	color: white;
+	font-size: 1.875rem;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
 	.director-multiple-block {

@@ -8,8 +8,15 @@
  */
 
 ?>
+<div class="toolbar">
+	<div class="container">
+		<div class="back"><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>"><i class="fal fa-arrow-left"></i></a></div>
+		<div class="share"><a href="#"><i class="fal fa-share-alt"></i></a></div>
+	</div>
+</div>
 <div class="container">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
 	<header class="entry-header">
 		<?php
 		if ( 'post' === get_post_type() ) :
