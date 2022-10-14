@@ -392,3 +392,125 @@ function my_acf_settings_capability( $capability ) {
 }
 add_filter('acf/settings/capability', __NAMESPACE__ . '\\my_acf_settings_capability');
 
+//lazy load pagination
+//More posts - first for logged in users, other for not logged in
+add_action('wp_ajax_ajax_next_posts', 'ajax_next_posts');
+add_action('wp_ajax_nopriv_ajax_next_posts', 'ajax_next_posts');
+
+
+function ajax_next_posts() {
+
+    //Build query
+    $args = array(
+        //All your query arguments
+        'cat' => $_GET['cat'],
+    );
+
+    //Get page
+    if( ! empty( $_GET['page'] ) ) {
+        $page = $_GET['page'];
+        $args['paged'] = $page;
+    }
+
+    $query_results = new WP_Query( $args );
+
+    //Results found
+    if ( $query_results->have_posts() ) {
+
+        //Start "saving" results' HTML
+        $results_html = '';
+        ob_start();
+
+        while ( $query_results->have_posts() ) { 
+
+            $query_results->the_post();
+
+            //Your single post HTML here
+            get_template_part( 'template-parts/content-blog', get_post_type() );
+        }    
+
+        //"Save" results' HTML as variable
+        $results_html = ob_get_clean();  
+    }
+
+    //Build ajax response
+    $response = array();
+
+    //1. value is HTML of new posts and 2. is total count of posts
+    array_push ( $response, $results_html, $page);
+    echo json_encode( $response );
+
+    //Always use die() in the end of ajax functions
+    die();  
+}
+
+//add acf blocks for gutenburg
+add_action('acf/init', 'my_acf_init');
+function my_acf_init() {
+	
+	// check function exists
+	if( function_exists('acf_register_block') ) {
+		
+		
+		acf_register_block(array(
+			'name'				=> 'youtube-responsive',
+			'title'				=> __('Youtube Responsive'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'youtube' ),
+		));
+
+
+		acf_register_block(array(
+			'name'				=> 'director',
+			'title'				=> __('Director'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'director' ),
+		));
+
+		acf_register_block(array(
+			'name'				=> 'quote',
+			'title'				=> __('Quote'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'quote' ),
+		));
+
+		acf_register_block(array(
+			'name'				=> 'director-multiple',
+			'title'				=> __('Director Multiple'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'director','multiple' ),
+		));
+
+		acf_register_block(array(
+			'name'				=> 'carousel',
+			'title'				=> __('Carousel'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'admin-comments',
+			'keywords'			=> array( 'carousel' ),
+		));
+
+	}
+}
+
+function acf_block_render_callback( $block ) {
+	
+	$slug = str_replace('acf/', '', $block['name']);
+	
+	if( file_exists( get_theme_file_path("/template-parts/block/content-{$slug}.php") ) ) {
+		include( get_theme_file_path("/template-parts/block/content-{$slug}.php") );
+	}
+}
