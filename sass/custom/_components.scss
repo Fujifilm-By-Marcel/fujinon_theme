@@ -1199,6 +1199,24 @@ section{
 }
 
 
+.toolbar{
+	background: $color__accent;
+	padding:5px 0;
+	margin-bottom:3em;
+
+	.share{
+		display:inline-block;
+		float:right;
+	}
+	.back{
+		display:inline-block;
+	}
+	a{
+		color:white;
+		font-size:1.875rem;
+	}
+}
+
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
