@@ -20,6 +20,9 @@ if(isset($category->cat_ID)){
 	$cat_id = $category->cat_ID;
 }
 
+set_query_var( 'hero-classes', '' );
+set_query_var( 'blog', '1' );
+get_template_part( 'template-parts/content', 'hero-mini' ); 
 ?>
 
 	<main id="primary" class="site-main">

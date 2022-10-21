@@ -11,7 +11,7 @@
 <div class="toolbar">
 	<div class="container">
 		<div class="back"><a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>"><i class="fal fa-arrow-left"></i></a></div>
-		<div class="share"><a href="#"><i class="fal fa-share-alt"></i></a></div>
+		<div class="share"><!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END --></div>
 	</div>
 </div>
 <div class="container">
