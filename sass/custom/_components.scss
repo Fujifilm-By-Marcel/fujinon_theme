@@ -1065,10 +1065,11 @@ section{
 		margin:0;
 	}
 	.wp-block-image{
-		figcaption{
-			text-align: right;
+		text-align: right;
+		margin-bottom:2em;
+		figcaption{			
 			margin:0;
-		}
+		}		
 	}
 }
 
@@ -1182,6 +1183,7 @@ section{
 
 .carousel-block {
 	text-align:right;
+	margin-bottom:2em;
 	p{
 		margin: 0;
 	}
@@ -1203,13 +1205,16 @@ section{
 	background: $color__accent;
 	padding:5px 0;
 	margin-bottom:3em;
-
+	.container{
+		display: flex;
+    	justify-content: space-between;
+    	align-items: center;
+	}
 	.share{
-		display:inline-block;
-		float:right;
+		
 	}
 	.back{
-		display:inline-block;
+
 	}
 	a{
 		color:white;

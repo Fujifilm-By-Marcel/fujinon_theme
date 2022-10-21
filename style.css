@@ -2660,8 +2660,12 @@ section.widget {
 	margin: 0;
 }
 
-.post.type-post .wp-block-image figcaption {
+.post.type-post .wp-block-image {
 	text-align: right;
+	margin-bottom: 2em;
+}
+
+.post.type-post .wp-block-image figcaption {
 	margin: 0;
 }
 
@@ -2775,6 +2779,7 @@ section.widget {
 
 .carousel-block {
 	text-align: right;
+	margin-bottom: 2em;
 }
 
 .carousel-block p {
@@ -2797,13 +2802,10 @@ section.widget {
 	margin-bottom: 3em;
 }
 
-.toolbar .share {
-	display: inline-block;
-	float: right;
-}
-
-.toolbar .back {
-	display: inline-block;
+.toolbar .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .toolbar a {
