@@ -458,7 +458,7 @@ function my_acf_init() {
 			'description'		=> __(''),
 			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
-			'icon'				=> 'admin-comments',
+			'icon'				=> 'youtube',
 			'keywords'			=> array( 'youtube' ),
 		));
 
@@ -469,17 +469,17 @@ function my_acf_init() {
 			'description'		=> __(''),
 			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
-			'icon'				=> 'admin-comments',
+			'icon'				=> 'format-video',
 			'keywords'			=> array( 'director' ),
 		));
 
 		acf_register_block(array(
 			'name'				=> 'quote',
-			'title'				=> __('Quote'),
+			'title'				=> __('Quote Custom'),
 			'description'		=> __(''),
 			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
-			'icon'				=> 'admin-comments',
+			'icon'				=> 'format-quote',
 			'keywords'			=> array( 'quote' ),
 		));
 
@@ -489,7 +489,7 @@ function my_acf_init() {
 			'description'		=> __(''),
 			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
-			'icon'				=> 'admin-comments',
+			'icon'				=> 'format-video',
 			'keywords'			=> array( 'director','multiple' ),
 		));
 
@@ -499,10 +499,19 @@ function my_acf_init() {
 			'description'		=> __(''),
 			'render_callback'	=> 'acf_block_render_callback',
 			'category'			=> 'formatting',
-			'icon'				=> 'admin-comments',
+			'icon'				=> 'format-gallery',
 			'keywords'			=> array( 'carousel' ),
 		));
 
+		acf_register_block(array(
+			'name'				=> 'featured-product',
+			'title'				=> __('Featured Product'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'database',
+			'keywords'			=> array( 'featured', 'product' ),
+		));
 	}
 }
 

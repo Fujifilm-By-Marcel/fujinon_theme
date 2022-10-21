@@ -2979,8 +2979,50 @@ section.widget {
 	border: 1px solid #000;
 }
 
+.product-block {
+	background: #01916d;
+	background: radial-gradient(circle, #01916d 0%, black 82%);
+	color: white;
+	line-height: 1;
+	margin: 0;
+	padding: 2em;
+}
+
+.product-block .category {
+	margin: 0 0 1em;
+	font-weight: bold;
+}
+
+.product-block img {
+	padding: 1em;
+	margin: 0 auto 2rem;
+	display: block;
+}
+
+.product-block .buttons .cta {
+	font-size: .75rem;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
+	.product-block img {
+		margin-bottom: 0;
+	}
+	.product-block .category {
+		margin-bottom: 0;
+	}
+	.product-block .desktop-columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2em;
+		align-items: center;
+	}
+	.product-block .desktop-columns > :last-child {
+		order: 0;
+	}
+	.product-block .desktop-columns > :first-child {
+		order: 1;
+	}
 	.director-multiple-block {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
