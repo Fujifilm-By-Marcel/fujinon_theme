@@ -18,7 +18,7 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 			<?php //the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 		</header>--><!-- .entry-header -->
 	
-		<?php fujinon_theme_post_thumbnail(); ?>
+		<?php //fujinon_theme_post_thumbnail(); ?>
 	
 		<div class="entry-content">
 			<?php
