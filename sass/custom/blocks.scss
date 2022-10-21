@@ -1,0 +1,164 @@
+.director-single-block, .director-multiple-block  {
+	.director-block{
+		text-align:center;
+		margin-bottom:1em;
+	}
+
+	.director-title{
+		margin:1em 0 0
+	}
+
+	.director-name{
+		margin-top:0;
+	}
+
+	.blurb{
+		line-height:1.25;
+	}
+
+	.social {		
+		font-size:1.75rem;
+		a{
+			text-decoration:none;
+			color:black;
+		}
+		i{		
+			margin-bottom:6px;
+		}
+		> *{
+			margin-right:0.75em;
+		}
+		> :last-child{
+			margin-right:0;
+		}
+	}
+}
+
+.director-single-block  {
+	.director-block{
+		background: $color__lightgrey;
+		padding:0 1em 1em;	
+		text-align:center;
+		margin-top:50px;
+	}	
+
+	.content{
+		position:relative;
+		top:-50px;
+		margin-bottom:-30px;
+	}
+
+}
+
+
+.director-multiple-block{
+	margin-bottom:1em;
+	.director-block{
+		position:relative;
+		padding-bottom:2em;
+		margin-bottom:2.5em;
+
+	}
+
+	.director-block:after {
+		content: "";
+	    border-bottom: $color__accent 2px solid;
+	    position: absolute;
+	    bottom: 0;
+	    left: 50%;
+	    height: 1px;
+	    width: 60%;
+	    display: block;
+	    transform: translateX(-50%);
+	}
+
+	.director-block:last-child:after{
+		display:none;
+	}
+
+	.director-name{
+		margin:0;
+	}
+	.blurb{
+		margin-top:0;
+	}
+
+}
+
+.quote-block{
+	text-align:center;	
+	margin-bottom:1em;
+	line-height:1.25;
+	.fa-quote-left{
+		font-size:1.875rem;
+		color: $color__accent;
+		margin-bottom:.5em;
+	}
+	.quote{
+		font-size:1.875rem;
+		font-weight:bold;
+		margin:0;		
+	}
+	.author{
+		font-size:1.25rem;
+		text-transform:uppercase;
+	}
+}
+
+.carousel-block {
+	text-align:right;
+	margin-bottom:2em;
+	p{
+		margin: 0;
+	}
+	.owl-theme .owl-dots .owl-dot{	
+		span{
+			background:white;
+			border:1px solid #000;
+		}	
+		&.active span{
+			background: $color__accent;
+			border:1px solid #000;
+		}
+	
+	}
+}
+
+/* desktop styles */
+@media(min-width:$breakpoint_mobile){
+
+	.director-multiple-block{
+		display:grid;
+		grid-template-columns:1fr 1fr 1fr;
+		
+		.director-block{
+			position:relative;
+			padding-bottom:0;
+			margin-bottom:0;
+			padding:3em;
+		}
+
+		.director-block:after {
+			content: "";
+		    border-bottom: 0 none;
+		    border-right: $color__accent 2px solid;
+		    position: absolute;
+		    left:unset;
+		    right: 0;		    
+		    bottom:unset;
+		    top: 50%;		    
+		    width: 1px;
+		    height: 40%;
+		    display: block;
+		    transform: translate(0,-50%);
+		}
+
+	}
+
+	.director-single-block  {
+		.director-block{
+			margin-top:0;
+		}
+	}
+	
+}
