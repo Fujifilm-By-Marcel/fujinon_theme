@@ -41,12 +41,14 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 				foreach ( $categories as $category ) {
 
 					$tax_class = "";
+					$cat_url = esc_url( get_category_link( $category->term_id ) );
 					if($cat_id == $category->term_id){
 						$tax_class = "active";
+						$cat_url = get_permalink( get_option( 'page_for_posts' ) );
 					}
 
 					printf( '<a class="tax-button %3$s" href="%1$s">%2$s</a>&nbsp;&nbsp;&nbsp;&nbsp;',
-						esc_url( get_category_link( $category->term_id ) ),
+						$cat_url,
 						esc_html( $category->name ),
 						$tax_class
 					);
