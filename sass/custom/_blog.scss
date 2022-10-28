@@ -3,11 +3,18 @@
 	.article-link{
 		color:white;
 		text-decoration: none;
+		&:first-child{			
+			margin-left: -6%;
+    		margin-right: -6%;
+    		display: block;
+
+		}
 	}
+
 	article{
 		position: relative;	
 		overflow: hidden;
-		margin:0;
+		margin:0 0 2em;
 	}
 	.overlay{
 		position: absolute;
@@ -46,7 +53,7 @@
 
 .category-links{
 	border-bottom:5px solid $color__accent;
-	padding:1em 0;
+	padding:.75em 0;
 	margin-bottom:2em;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 	.tax-button{
@@ -57,6 +64,7 @@
 		font-weight:bold;
 		padding:.25em 1.75em;
 		display:inline-block;		
+		margin:.25em 0;
 		&.active{
 			background: $color__accent;
 		}
@@ -139,6 +147,15 @@
 		grid-template-columns:1fr 1fr;
 		gap:2em;
 
+		article{
+			margin-bottom:0;
+			display:inline;
+		}
+
+		.article-link:first-child{
+			grid-column: span 2;
+    		margin:0;
+		}
 	}
 
 }
