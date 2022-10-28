@@ -82,7 +82,7 @@
 	
 		//init show more posts button
 		//get new page number
-		var pageNumber = parseInt($("#more-posts-button").data("page"))+1;
+		var pageNumber = parseInt($("#more-posts-button").data("page"));
 
 		//get max page number
 		var maxPageNumber = parseInt($("#more-posts-button").data("maxpage"));
