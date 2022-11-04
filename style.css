@@ -2724,6 +2724,17 @@ section.widget {
 	margin: 0 0 2em;
 }
 
+.posts-container .aspect-ratio {
+	aspect-ratio: 20 / 9;
+	overflow: hidden;
+}
+
+.posts-container .aspect-ratio img {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
 .posts-container .overlay, .posts-container .overlay-split {
 	position: absolute;
 	left: 0;

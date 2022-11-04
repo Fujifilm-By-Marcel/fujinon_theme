@@ -17,6 +17,16 @@
 		margin:0 0 2em;
 	}
 
+	.aspect-ratio{
+		aspect-ratio: 20 / 9;
+		overflow: hidden;
+		img{
+			position: relative;
+    		top: 50%;
+    		transform: translateY(-50%);
+		}
+	}
+
 	.overlay, .overlay-split{
 		position: absolute;
     	left: 0;

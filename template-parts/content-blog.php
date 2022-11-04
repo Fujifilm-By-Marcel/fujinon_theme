@@ -12,24 +12,25 @@
 <article class="single-post" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 <?php if( $wp_query->current_post == 0 && !is_paged() ) : ?>
-	<?php fujinon_theme_post_thumbnail(false); ?>
-	<div class="overlay-split">
-		<div>
-			<div class="category">
-				<?php fujinon_theme_category_list(); ?>			
+	<div class="aspect-ratio">
+		<?php fujinon_theme_post_thumbnail(false); ?>	
+		<div class="overlay-split">
+			<div>
+				<div class="category">
+					<?php fujinon_theme_category_list(); ?>			
+				</div>
+				<div class="article-content">
+					<?php
+					the_title( '<h3>', '</h3>' );
+					the_excerpt();
+					?>
+				</div>
 			</div>
-			<div class="article-content">
-				<?php
-				the_title( '<h3>', '</h3>' );
-				the_excerpt();
-				?>
+			<div>
+				<div class="cta"><span>EXPLORE&nbsp;></span></div>
 			</div>
-		</div>
-		<div>
-			<div class="cta"><span>EXPLORE&nbsp;></span></div>
 		</div>
 	</div>
-
 <?php else : ?>
 
 	<?php 
