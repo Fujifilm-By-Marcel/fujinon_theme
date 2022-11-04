@@ -16,7 +16,8 @@
 		overflow: hidden;
 		margin:0 0 2em;
 	}
-	.overlay{
+
+	.overlay, .overlay-split{
 		position: absolute;
     	left: 0;
     	top: 0;
@@ -24,13 +25,28 @@
     	background:rgba(0,0,0,.5);
     	width: 100%;
     	height:100%;
+    	&:hover{
+			background:rgba(0,0,0,.4);
+		}
+	}
+	.overlay{		
     	display: flex;
     	flex-direction: column;
     	justify-content: space-between;
 	}
-	.overlay:hover{
-		background:rgba(0,0,0,.4);
-	}
+	.overlay-split{
+		display: flex;
+    	flex-direction: row;
+    	justify-content: space-between;
+    	gap:1em;
+    	>*{
+    		display:flex;
+    		flex-direction: column;
+    		justify-content: end;
+    		gap:1.5em;
+    		margin-bottom:1em;
+    	}
+	}			
 	.post-thumbnail img{
 		display: block;
 	}

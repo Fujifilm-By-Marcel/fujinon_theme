@@ -2724,7 +2724,7 @@ section.widget {
 	margin: 0 0 2em;
 }
 
-.posts-container .overlay {
+.posts-container .overlay, .posts-container .overlay-split {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -2732,13 +2732,31 @@ section.widget {
 	background: rgba(0, 0, 0, 0.5);
 	width: 100%;
 	height: 100%;
+}
+
+.posts-container .overlay:hover, .posts-container .overlay-split:hover {
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.posts-container .overlay {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
-.posts-container .overlay:hover {
-	background: rgba(0, 0, 0, 0.4);
+.posts-container .overlay-split {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 1em;
+}
+
+.posts-container .overlay-split > * {
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	gap: 1.5em;
+	margin-bottom: 1em;
 }
 
 .posts-container .post-thumbnail img {
