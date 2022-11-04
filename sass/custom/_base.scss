@@ -144,6 +144,9 @@ a.cta:hover, a.cta:focus, a.cta:active{
   animation: btnWiggle 5s infinite;
 }
 
+.text-align-right{
+	text-align:right;
+}
 
 @media (min-width:$breakpoint_mobile) {
 	html{
