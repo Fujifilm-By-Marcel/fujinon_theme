@@ -124,6 +124,7 @@
 	.sub-heading{
 		margin-top:0;
 		text-transform: uppercase;
+		line-height:1;
 	}
 	.entry-meta .posted-on{
 		border-bottom:2px solid $color__accent;
@@ -156,7 +157,40 @@
 }
 
 
+.featured-product-anchor{
+	text-align:center;	
+    a{
+    	color: inherit;	
+    	text-decoration: none;
+    }
+    p{
+    	font-size: 1.125rem;        
+    	font-weight: 700;
+    	padding-bottom: 4px;
+    	border-bottom:2px solid $color__accent;
+    	line-height:1;
+    	margin-bottom:0;
+    }
+}
 
+.featured-product-wrapper-mobile{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 2em;
+	>*{
+		display:flex;		
+		align-items: flex-end;
+	}
+}
+
+.featured-product-wrapper-desktop{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 2em;
+	align-items:center;
+}
 
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){

@@ -17,20 +17,48 @@
 <div class="container">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header class="entry-header">
+	<header class="entry-header" style="margin-bottom:2em;overflow:hidden;">
 		<?php
 		if ( 'post' === get_post_type() ) :
 			?>
-			<div class="entry-meta">
+			<div class="featured-product-wrapper-mobile" >
+				<div class="entry-meta">
+					<?php
+					fujinon_theme_posted_on();
+					fujinon_theme_posted_by();
+					?>
+				</div><!-- .entry-meta -->			
 				<?php
-				fujinon_theme_posted_on();
-				fujinon_theme_posted_by();
-				?>
-			</div><!-- .entry-meta -->
+				$featured_product = get_field('featured_product');
+				if( $featured_product ): ?>    
+				<div class="featured-product-anchor mobile-only" style="text-align: center;">
+			    	<a href="<?php echo esc_url( $featured_product['href'] ); ?>"><img style="display:block;margin:auto;" src="<?php echo esc_url( $featured_product['image'] ); ?>"  />
+			        	<p><?php echo $featured_product['label']; ?></p>
+			    	</a>
+		        	
+				</div>    
+				<?php endif; ?>				
+			</div>
 		<?php endif;
 
 		if ( is_singular() ) :
+			echo '<div class="featured-product-wrapper-desktop" >';
+			echo '<div>';
 			the_title( '<h1 class="entry-title">', '</h1>' );
+			echo get_field('subheader') ? '<p class="sub-heading" style="font-size:1.875em">'.get_field('subheader')."</p>" : '';
+			echo '</div>';
+			echo '<div>';
+			if( $featured_product ): ?>    
+				<div class="featured-product-anchor desktop-only" style="text-align: center;">
+			    	<a href="<?php echo esc_url( $featured_product['href'] ); ?>"><img style="display:block;margin:auto;" src="<?php echo esc_url( $featured_product['image'] ); ?>"  />
+			        	<p><?php echo $featured_product['label']; ?></p>
+			    	</a>
+		        	
+				</div>    
+			<?php 
+			endif;
+			echo '</div>';
+			echo '</div>';
 		else :
 			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
 		endif;
