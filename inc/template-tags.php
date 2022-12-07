@@ -27,7 +27,7 @@ if ( ! function_exists( 'fujinon_theme_posted_on' ) ) :
 
 		$posted_on = sprintf(
 			/* translators: %s: post date. */
-			esc_html_x( 'Poblished %s', 'post date', 'fujinon_theme' ),
+			esc_html_x( 'Published %s', 'post date', 'fujinon_theme' ),
 			$time_string
 		);
 
