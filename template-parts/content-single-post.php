@@ -14,7 +14,7 @@
 		<div class="share"><!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END --></div>
 	</div>
 </div>
-<div class="container">
+<div class="container-65">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<header class="entry-header" style="margin-bottom:2em;overflow:hidden;">

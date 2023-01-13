@@ -9,9 +9,10 @@
 $id = 'director-multiple-' . $block['id'];
 $classname = isset($block['className']) ? $block['className'] : '';
 $director_pids = get_field('director_multiple');
+$columns = "columns-".get_field('columns');
 
 //open container
-echo "<div id=".$id." class='director-multiple-block ".$classname." '>";
+echo "<div id=".$id." class='director-multiple-block ".$classname." ".$columns." '>";
 
 foreach ($director_pids as $director_pid){
 ?>

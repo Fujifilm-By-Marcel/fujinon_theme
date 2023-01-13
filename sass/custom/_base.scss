@@ -87,7 +87,7 @@ a.cta:hover, a.cta:focus, a.cta:active{
 .color-darkgrey{
 	color: $color__darkgrey;
 }
-.container{
+.container, .container-65{
 	width: 90%;
 	margin:auto;
 }
@@ -163,5 +163,9 @@ a.cta:hover, a.cta:focus, a.cta:active{
 	}
 	.desktop-only{
 		display: block !important;
+	}
+	.container-65{
+		width: 65%;
+		margin:auto;
 	}
 }

@@ -1043,7 +1043,7 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	color: #C6C6C6;
 }
 
-.container {
+.container, .container-65 {
 	width: 90%;
 	margin: auto;
 }
@@ -1145,6 +1145,10 @@ a.cta:hover, a.cta:focus, a.cta:active {
 	}
 	.desktop-only {
 		display: block !important;
+	}
+	.container-65 {
+		width: 65%;
+		margin: auto;
 	}
 }
 
@@ -3063,6 +3067,7 @@ section.widget {
 	color: white;
 	line-height: 1;
 	padding: 2em;
+	margin-bottom: 2em;
 }
 
 .product-block .category {
@@ -3102,13 +3107,21 @@ section.widget {
 	}
 	.director-multiple-block {
 		display: grid;
+	}
+	.director-multiple-block.columns-3 {
 		grid-template-columns: 1fr 1fr 1fr;
+	}
+	.director-multiple-block.columns-2 {
+		grid-template-columns: 1fr 1fr;
+	}
+	.director-multiple-block.columns-1 {
+		grid-template-columns: 1fr;
 	}
 	.director-multiple-block .director-block {
 		position: relative;
 		padding-bottom: 0;
-		margin-bottom: 0;
-		padding: 3em;
+		margin-bottom: 2em;
+		padding: 0 3em 0 3em;
 	}
 	.director-multiple-block .director-block:after {
 		content: "";
