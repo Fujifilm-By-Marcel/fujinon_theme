@@ -27,7 +27,7 @@ $post_meta = get_post_meta($value->ID);
 			<div>
 				<h3 class="title"><?php echo $value->post_title; ?></h3>
 				<div class="content">				
-					<p><?php echo $value->post_content ?></p>
+					<p><?php echo $value->post_excerpt ?></p>
 				</div>
 				<div class="buttons">
 					<a href="<?php echo $post_meta['page_url'][0] ?>" target="_blank" class="button reduced-padding">LEARN MORE</a>
