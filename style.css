@@ -2847,6 +2847,11 @@ section.widget {
 	margin-bottom: .25em;
 }
 
+.post.type-post .entry-header {
+	margin-bottom: 6em;
+	overflow: hidden;
+}
+
 .post.type-post .sub-heading {
 	margin-top: 0;
 	text-transform: uppercase;
@@ -2985,14 +2990,9 @@ section.widget {
 	margin-bottom: -30px;
 }
 
-.director-multiple-block {
-	margin-bottom: 1em;
-}
-
 .director-multiple-block .director-block {
 	position: relative;
-	padding-bottom: 2em;
-	margin-bottom: 2.5em;
+	margin-bottom: 6em;
 }
 
 .director-multiple-block .director-block:after {
@@ -3021,7 +3021,7 @@ section.widget {
 
 .quote-block {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 6em;
 	line-height: 1.25;
 }
 
@@ -3044,7 +3044,7 @@ section.widget {
 
 .carousel-block {
 	text-align: right;
-	margin-bottom: 2em;
+	margin-bottom: 6em;
 }
 
 .carousel-block p {
@@ -3066,8 +3066,8 @@ section.widget {
 	background: radial-gradient(circle, #01916d 0%, black 82%);
 	color: white;
 	line-height: 1;
-	padding: 2em;
-	margin-bottom: 2em;
+	padding: 3em 4em;
+	margin-bottom: 6em;
 }
 
 .product-block .category {
@@ -3085,8 +3085,13 @@ section.widget {
 	font-size: .75rem;
 }
 
+.youtube-responsive-block {
+	margin-bottom: 6em;
+}
+
 /* desktop styles */
 @media (min-width: 50em) {
+	padding: 2em;
 	.product-block img {
 		margin-bottom: 0;
 	}
@@ -3095,7 +3100,7 @@ section.widget {
 	}
 	.product-block .desktop-columns {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 2fr 1fr;
 		gap: 2em;
 		align-items: center;
 	}
@@ -3120,7 +3125,7 @@ section.widget {
 	.director-multiple-block .director-block {
 		position: relative;
 		padding-bottom: 0;
-		margin-bottom: 2em;
+		margin-bottom: 6em;
 		padding: 0 3em 0 3em;
 	}
 	.director-multiple-block .director-block:after {

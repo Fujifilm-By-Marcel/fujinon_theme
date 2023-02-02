@@ -121,6 +121,10 @@
 	h2{
 		margin-bottom:.25em;
 	}
+	.entry-header{
+		margin-bottom:$spacing__blog;
+		overflow:hidden;
+	}
 	.sub-heading{
 		margin-top:0;
 		text-transform: uppercase;

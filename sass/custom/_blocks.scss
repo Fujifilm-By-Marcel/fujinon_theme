@@ -52,11 +52,9 @@
 
 
 .director-multiple-block{
-	margin-bottom:1em;
 	.director-block{
-		position:relative;
-		padding-bottom:2em;
-		margin-bottom:2.5em;
+		position:relative;		
+		margin-bottom:$spacing__blog;
 
 	}
 
@@ -87,7 +85,7 @@
 
 .quote-block{
 	text-align:center;	
-	margin-bottom:1em;
+	margin-bottom:$spacing__blog;
 	line-height:1.25;
 	.fa-quote-left{
 		font-size:1.875rem;
@@ -107,7 +105,7 @@
 
 .carousel-block {
 	text-align:right;
-	margin-bottom:2em;
+	margin-bottom:$spacing__blog;
 	p{
 		margin: 0;
 	}
@@ -129,8 +127,8 @@
 	background: radial-gradient(circle, rgba(1,145,109,1) 0%, rgba(0,0,0,1) 82%);	
 	color:white;
 	line-height:1;	
-	padding:2em;
-	margin-bottom:2em;
+	padding:3em 4em;
+	margin-bottom:$spacing__blog;
 
 	.category{
 		margin:0 0 1em;
@@ -148,9 +146,13 @@
 	}
 }
 
+.youtube-responsive-block{
+	margin-bottom:$spacing__blog;
+}
+
 /* desktop styles */
 @media(min-width:$breakpoint_mobile){
-
+	padding:2em;
 	.product-block {
 		img{
 			margin-bottom:0;
@@ -160,7 +162,7 @@
 		}
 		.desktop-columns{
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: 2fr 1fr;
 			gap:2em;
 			align-items:center;
 			>:last-child{
@@ -188,7 +190,7 @@
 		.director-block{
 			position:relative;
 			padding-bottom:0;
-			margin-bottom:2em;
+			margin-bottom:$spacing__blog;
 			padding:0 3em 0 3em;
 		}
 
