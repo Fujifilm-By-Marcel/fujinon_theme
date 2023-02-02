@@ -17,7 +17,7 @@
 <div class="container-65">
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<header class="entry-header" style="margin-bottom:2em;overflow:hidden;">
+	<header class="entry-header">
 		<?php
 		if ( 'post' === get_post_type() ) :
 			?>
