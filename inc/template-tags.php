@@ -102,11 +102,8 @@ if ( ! function_exists( 'fujinon_theme_post_thumbnail' ) ) :
 					the_post_thumbnail(
 						'post-thumbnail',
 						array(
-							'alt' => the_title_attribute(
-								array(
-									'echo' => false,
-								)
-							),
+							'alt' => the_title_attribute( array( 'echo' => false, )	),
+							'class' => 'cover',
 						)
 					);
 				?>

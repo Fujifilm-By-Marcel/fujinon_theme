@@ -2735,12 +2735,11 @@ section.widget {
 .posts-container .aspect-ratio {
 	aspect-ratio: 20 / 9;
 	overflow: hidden;
-}
-
-.posts-container .aspect-ratio img {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+	/*img{
+			position: relative;
+    		top: 50%;
+    		transform: translateY(-50%);
+		}*/
 }
 
 .posts-container .overlay, .posts-container .overlay-split {
@@ -2775,7 +2774,6 @@ section.widget {
 	flex-direction: column;
 	justify-content: end;
 	gap: 1.5em;
-	margin-bottom: 1em;
 }
 
 .posts-container .post-thumbnail img {
@@ -2936,6 +2934,9 @@ section.widget {
 	.posts-container .article-link:first-child {
 		grid-column: span 2;
 		margin: 0;
+	}
+	.posts-container .overlay, .posts-container .overlay-split {
+		padding: 2em;
 	}
 }
 

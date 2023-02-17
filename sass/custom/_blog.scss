@@ -20,11 +20,11 @@
 	.aspect-ratio{
 		aspect-ratio: 20 / 9;
 		overflow: hidden;
-		img{
+		/*img{
 			position: relative;
     		top: 50%;
     		transform: translateY(-50%);
-		}
+		}*/
 	}
 
 	.overlay, .overlay-split{
@@ -54,7 +54,6 @@
     		flex-direction: column;
     		justify-content: end;
     		gap:1.5em;
-    		margin-bottom:1em;
     	}
 	}			
 	.post-thumbnail img{
@@ -212,6 +211,10 @@
 		.article-link:first-child{
 			grid-column: span 2;
     		margin:0;
+		}
+
+		.overlay, .overlay-split{
+			padding:2em;			
 		}
 	}
 
