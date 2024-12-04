@@ -1,0 +1,151 @@
+{
+    "key": "group_613b87b1e3c31",
+    "title": "Hero - Basic",
+    "fields": [
+        {
+            "key": "field_614247983fdb4",
+            "label": "hero video",
+            "name": "hero_video",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "This video will be the background for the hero section. You can use this instead of 'hero bg' if you want to set a video instead of an image.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_613b881fba90f",
+            "label": "hero bg",
+            "name": "hero_bg",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "This image will be the background for the hero section. You can use this instead of 'hero video' if you want to set a image instead of an video.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_614247a73fdb5",
+            "label": "hero logo",
+            "name": "hero_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "This image will appear over the bottom left of the hero section. It can be stacked above 'hero text'.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_613b8827ba910",
+            "label": "hero text",
+            "name": "hero_text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "This image will appear over the bottom left of the hero section. It can be stacked below 'hero logo'.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_614247ba3fdb6",
+            "label": "hero credit",
+            "name": "hero_credit",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This text will appear over the bottom right of the hero section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "10"
+            }
+        ],
+        [
+            {
+                "param": "page",
+                "operator": "==",
+                "value": "86"
+            }
+        ],
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "inriver_categories"
+            }
+        ]
+    ],
+    "menu_order": -100,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "the_content"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1697708410
+}

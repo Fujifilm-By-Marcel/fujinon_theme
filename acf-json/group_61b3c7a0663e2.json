@@ -1,0 +1,69 @@
+{
+    "key": "group_61b3c7a0663e2",
+    "title": "CPT - Products",
+    "fields": [
+        {
+            "key": "field_61b3c7e4142c8",
+            "label": "menu order",
+            "name": "menu_order",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Product data is pulled from Inriver and must be edited there. Product data will be updated daily via cron. For all other fields go to products->categories and find the category you want to edit.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
+            "key": "field_65816b891ee63",
+            "label": "Page URL",
+            "name": "page_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "inriver_products"
+            }
+        ]
+    ],
+    "menu_order": -10,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [
+        "discussion"
+    ],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1702980498
+}

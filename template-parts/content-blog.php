@@ -21,8 +21,15 @@
 				</div>
 				<div class="article-content">
 					<?php
-					the_title( '<h3>', '</h3>' );
-					the_excerpt();
+					the_title( '<h3>', '</h3>' ); 
+					$query = get_post(get_the_ID());
+					$content = apply_filters('the_content', $query->post_content); 
+					preg_match('/<p class="sub-heading">(.*?)<\/p>/s', $content, $match);
+					if( isset($match[0] ) ){
+						echo $match[0];
+					}else{
+						the_excerpt();
+					}  
 					?>
 				</div>
 			</div>

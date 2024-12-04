@@ -170,7 +170,7 @@ class products{
 			//print_r($value);
 			//echo "</pre>";			
 			echo '<div class="info mobile-only">';
-			echo "<h3>",$category_name,"</h3>";
+//			echo "<h3>",$category_name,"</h3>";
 			echo "<h3>",$value->post_title,"</h3>";
 			echo "</div>";
 			echo get_the_post_thumbnail($value->ID, 'large');

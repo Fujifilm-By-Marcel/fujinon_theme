@@ -29,7 +29,7 @@
 					<?php $logo = get_field('logo', 'option'); ?>
 					<div>
 						<img class="logo" src="<?php echo $logo['url']; ?>" alt="" width="<?php echo $logo['width']; ?>" height="<?php echo $logo['height']; ?>">				
-						<span><?php the_field('footer_text', 'option'); ?></span>
+						<span><?= get_field('footer_text', 'option'); ?></span>
 					</div>
 					<!-- MENU -->
 					<div>
@@ -48,7 +48,7 @@
 		<div class="modal newsletter-modal"  style="display:none;">			
 			<div class="modal-content container">
 				<div class="close"><i class="fal fa-times"></i></div>
-				<?php the_field('newsletter_modal', 'option'); ?>
+				<?= get_field('newsletter_modal', 'option'); ?>
 			</div>		
 		</div>
 	</footer><!-- #colophon -->

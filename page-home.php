@@ -12,9 +12,9 @@ get_template_part( 'template-parts/content', 'hero' );
 	if( have_rows('tiles') ):
 	    while( have_rows('tiles') ) : the_row();?>
         
-        	<div class="home-tile" data-link="<?php the_sub_field('link') ?>" data-link-target="<?php the_sub_field('link_target') ?>" style="background:black;background-image: url('<?php the_sub_field('background_image') ?>');background-size:cover;background-position: center;<?php the_sub_field('custom_style') ?>">        			        		
+        	<div class="home-tile" data-link="<?= get_sub_field('link') ?>" data-link-target="<?= get_sub_field('link_target') ?>" style="background:black;background-image: url('<?= get_sub_field('background_image') ?>');background-size:cover;background-position: center;<?= get_sub_field('custom_style') ?>">        			        		
         		<div class="container">
-        			<h1><?php the_sub_field('title'); ?></h1>
+        			<h1><?= get_sub_field('title'); ?></h1>
         		</div>
         		
         		<div class="container">
@@ -23,7 +23,7 @@ get_template_part( 'template-parts/content', 'hero' );
         		<?php } ?>
         		</div>
         		<div class="container">
-        			<?php the_sub_field('text'); ?>
+        			<?= get_sub_field('text'); ?>
         		</div>	        	
 	        </div>
 	    
@@ -39,7 +39,7 @@ get_template_part( 'template-parts/content', 'hero' );
 	    	<div class="split column-reverse">
 	    		<div>
 	    			<div class="container">
-	    				<?php the_sub_field('text'); ?>
+	    				<?= get_sub_field('text'); ?>
 	    			</div>
 	    		</div>
 	    		<div>

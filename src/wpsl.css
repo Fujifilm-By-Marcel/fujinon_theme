@@ -1,0 +1,388 @@
+#wpsl-wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/* Hide start marker */
+#wpsl-gmap img[src*="red@2x"] {
+	display: none !important;
+}
+
+
+/* Search section */
+#wpsl-wrap #wpsl-search-result-list {
+	flex-grow: 1;
+	flex-shrink: 1;
+	width: 100%;
+	flex-basis: 350px;
+	display: flex;
+	flex-direction: column;
+	padding: 20px 0;
+}
+
+#wpsl-wrap #wpsl-gmap {
+	height: unset !important;
+	min-height: 400px;
+	margin-bottom: 0;
+	width: 60%;
+	flex-grow: 3;
+	aspect-ratio: 16 / 9;
+}
+
+#wpsl-search-input::placeholder {
+	font-size: 14px;
+}
+
+#wpsl-search-input {
+	padding: 0 30px 0 10px !important;
+	position: relative;
+}
+
+#wpsl-wrap .wpsl-icon-direction,
+#wpsl-wrap .user-location-button {
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	width: 20px;
+	height: 20px;
+	opacity: 0.8;
+	cursor: pointer;
+	padding: 0;
+	transform: translateY(-50%);
+}
+
+#wpsl-wrap .wpsl-icon-direction span {
+	height: unset;
+	width: unset;
+	font-size: 20px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #000000;
+	transition: ease 0.2s;
+}
+
+#wpsl-wrap .wpsl-icon-direction span:hover {
+	color: #737373;
+}
+
+.wpsl-search *:focus {
+	outline: none !important;
+}
+
+.wpsl-search p.label,
+.wpsl-search label[for="wpsl-search-input"],
+.wpsl-search label[for="wpsl-radius-dropdown"] {
+	color: #01916D !important;
+	font-weight: 700;
+	margin-bottom: 1em;
+}
+
+.wpsl-search p.label,
+.wpsl-search label {
+	font-size: 14px;
+}
+
+.distance-label {
+	margin-top: 2em;
+}
+
+.wpsl-search {
+	background: unset;
+	margin-bottom: 0 !important;
+}
+
+.wpsl-search,
+#wpsl-result-list {
+	padding: 0 !important;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+}
+
+#wpsl-result-list {
+	flex-grow: 1;
+	display: flex;
+}
+
+#wpsl-wrap #wpsl-stores {
+	/* height: unset !important; */
+	/* min-height: 350px; */
+	flex-grow: 1;
+}
+
+.wpsl-search * {
+	float: none !important;
+	box-sizing: border-box;
+}
+
+.wpsl-search [hidden] {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+#wpsl-search-result-list {
+	background-color: black;
+	color: white;
+}
+
+.wpsl-dropdown .wpsl-selected-item,
+.wpsl-dropdown li, .wpsl-selected-item {
+	font-size: 14px;
+}
+
+#wpsl-checkbox-filter,
+.wpsl-custom-checkboxes {
+	display: flex !important;
+	flex-wrap: wrap;
+	row-gap: 1em;
+	flex-direction: row-reverse;
+}
+
+#wpsl-checkbox-filter li,
+.wpsl-custom-checkboxes li {
+	line-height: 1;
+}
+
+#wpsl-search-btn,
+#wpsl-search-wrap #wpsl-radius,
+#wpsl-search-wrap #wpsl-results,
+#wpsl-search-wrap .wpsl-input input,
+#wpsl-search-wrap .wpsl-input label {
+	display: block;
+}
+
+#wpsl-search-wrap {
+	padding-bottom: 25px;
+	border-bottom: 4px solid #01916D;
+	margin-bottom: 25px;
+}
+
+#wpsl-search-wrap .wpsl-input,
+#wpsl-search-wrap .wpsl-select-wrap {
+	display: block;
+	float: none;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+}
+
+.wpsl-distance-fields {
+	display: flex;
+	column-gap: 12px;
+	margin-right: 0 !important;
+}
+
+#wpsl-search-btn,
+#wpsl-search-wrap div {
+	margin-right: 0 !important;
+}
+
+.wpsl-distance-fields > .wpsl-input {
+	flex-basis: 100%;
+}
+
+.wpsl-distance-fields > .wpsl-select-wrap {
+	flex-grow: 0;
+	flex-shrink: 1;
+	flex-basis: 25%;
+}
+
+#wpsl-search-input,
+#wpsl-radius-dropdown {
+	height: 35px;
+	width: 100% !important;
+}
+
+#wpsl-radius,
+#wpsl-results {
+	width: unset;
+	margin-right: 0 !important;
+}
+
+.wpsl-dropdown {
+	max-height: 35px;
+}
+
+#wpsl-radius-dropdown {
+	font-size: 14px;
+}
+
+#wpsl-search-btn {
+	background: none;
+	background-color: #01916D;
+	color: #ffffff;
+	border: none !important;
+	font-size: 14px;
+}
+
+
+
+
+/*  Store Listing Section  */
+div#wpsl-stores::-webkit-scrollbar {
+	background: #000000;
+	width: 10px;
+}
+
+div#wpsl-stores::-webkit-scrollbar-thumb {
+	background-color: #01916D;    /* color of the scroll thumb */
+}
+
+
+li.wpsl-store-list-item p {
+	margin: 0 !important;
+	text-transform: uppercase;
+	font-size: 14px;
+}
+
+li.wpsl-store-list-item {
+	cursor: pointer;
+}
+
+
+li.wpsl-store-list-item a {
+	text-decoration: none !important;
+}
+
+#wpsl-wrap #wpsl-result-list li {
+	border: none !important;
+}
+
+#wpsl-wrap #wpsl-result-list li.wpsl-store-list-item * {
+	color: #ffffff;
+}
+
+.gm-fullscreen-control {
+	display: none !important;
+}
+
+
+
+
+
+/*  Info Windows  */
+#wpsl-gmap div[role="dialog"] {
+	padding: 16px !important;
+}
+
+#wpsl-gmap div[role="dialog"] > div {
+	overflow: auto !important;
+}
+
+.wpsl-info-window {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 20px;
+}
+
+.wpsl-info-window * {
+	font-family: 'Urbanist', sans-serif;
+}
+
+.wpsl-info-window a {
+	text-decoration: none;
+	color: #000000;
+}
+
+.wpsl-info-window a:focus {
+	outline: none !important;
+}
+
+.wpsl-info-window strong {
+	font-weight: bold;
+}
+
+.wpsl-info-window p {
+	font-size: 16px;
+}
+
+.wpsl-info-window .info-column {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+
+@media only screen and (min-width: 500px) {
+	#wpsl-gmap .wpsl-info-window {
+		min-width: 325px !important;
+	}
+
+	.wpsl-info-window .info-column.column-one {
+		flex-basis: 50%;
+		margin-right: 4%;
+		align-items: flex-start;
+	}
+
+	.wpsl-info-window .info-column.column-two {
+		flex-basis: 46%;
+		align-items: stretch;
+		flex-grow: 2;
+	}
+}
+
+
+.wpsl-info-window .info-column.column-two {
+	.button.open-agent-contact-modal-map {
+		padding: .25em 2.75em;
+		font-size: .75rem;
+	}
+}
+
+.wpsl-info-window h3.store-name {
+	margin-top: 0;
+	text-transform: uppercase;
+	margin-bottom: 0.25em;
+}
+
+.wpsl-info-window p.store-address {
+	margin-bottom: 30px !important;
+	font-size: 16px;
+}
+
+.wpsl-info-window p.phone,
+.wpsl-info-window p.website {
+	font-size: 16px;
+}
+
+.wpsl-info-window p.website {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	-ms-word-break: break-all;
+	word-break: break-all;
+	word-break: break-word;
+	margin-bottom: 0 !important;
+}
+
+.wpsl-info-window .store-thumb {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.wpsl-info-window .store-thumb img {
+	object-fit: cover;
+	width: 100px;
+	height: 100px;
+}
+
+
+.wpsl-info-window h5.support-heading {
+	margin: 1em 0;
+	text-transform: uppercase;
+}
+
+.wpsl-info-window .name {
+	margin: 0 0 8px 0;
+	text-transform: uppercase;
+}
+
+
+

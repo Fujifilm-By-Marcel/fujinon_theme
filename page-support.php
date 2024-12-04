@@ -7,7 +7,7 @@ get_template_part( 'template-parts/content', 'hero-mini' );
 <section class="faq-header-block">
 	<div class="container">
 		<div class="header-block">
-			<?php the_field('header_block') ?>
+			<?= get_field('header_block') ?>
 		</div>
 	</div>
 </section>

@@ -15,7 +15,7 @@ get_template_part( 'template-parts/content', 'hero' );
 
 <section class="history standard-spacing-margin">
 	<div class="container header-block" style="">
-		<?php the_field('carousel_header_text') ?>
+		<?= get_field('carousel_header_text') ?>
 	</div>
 	<div class="timeline-carousel">
 		<div class="container" style="max-width:90em;">
@@ -24,16 +24,16 @@ get_template_part( 'template-parts/content', 'hero' );
 			    <?php while( have_rows('carousel') ): the_row(); 
 			        $image = get_sub_field('image');
 			        ?>
-			        <div class="owl-content" data-dot='<span></span><p><?php the_sub_field('year'); ?></p>'>
+			        <div class="owl-content" data-dot='<span></span><p><?= get_sub_field('year'); ?></p>'>
 			            <div class="split" style="max-width:70em;margin:auto;">			         
 				            <div>
-					            <h3 class="underline"><?php the_sub_field('year'); ?></h3>
-					            <p><?php the_sub_field('text'); ?></p>
+					            <h3 class="underline"><?= get_sub_field('year'); ?></h3>
+					            <p><?= get_sub_field('text'); ?></p>
 					        </div>
 					        <div>
 					        	<div>
 						            <?php echo wp_get_attachment_image( $image, 'full' ); ?>
-						            <?php the_sub_field('embed'); ?>
+						            <?= get_sub_field('embed'); ?>
 						        </div>
 					        </div>
 					    </div>
@@ -59,7 +59,7 @@ get_template_part( 'template-parts/content', 'hero' );
 	        <div class="split">
 	        	<div>
 	        		<div class="container">
-	        			<?php the_sub_field('text'); ?>		
+	        			<?= get_sub_field('text'); ?>		
 	        		</div>	        			
 	        	</div>	        	
 	        	<div>

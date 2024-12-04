@@ -12,7 +12,7 @@ if(get_query_var('blog')){
 	<div class="hero-overlay">
 		<div class="container">			
 			<div class="header-block">
-				<?php the_field('hero_text', $pid); ?>
+				<?= get_field('hero_text', $pid); ?>
 			</div>			
 		</div>
 	</div>

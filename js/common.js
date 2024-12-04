@@ -52,6 +52,8 @@
 
             //Ajax call is successful
             success: function ( response ) {
+				console.log({response})
+
 
                 //Add new posts
                 $( '.posts-container' ).append( response[0] );

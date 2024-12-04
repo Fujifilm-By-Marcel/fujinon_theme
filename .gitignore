@@ -4,5 +4,3 @@ vendor/
 /data/logs.txt
 /data/product-data.json
 /data/form-logs.txt
-sftp-config.json
-sftp-config-alt.json

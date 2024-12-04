@@ -13,6 +13,6 @@ $classname = isset($block['className']) ? $block['className'] : '';
 ?>
 <div id="<?php echo $id; ?>" class="quote-block <?php echo $classname ?>" >
     <i class="fas fa-quote-left"></i>
-	<p class="quote"><?php the_field('quote'); ?></p>
-	<p class="author">- <?php the_field('author'); ?> -</p>
+	<p class="quote"><?= get_field('quote'); ?></p>
+	<p class="author">- <?= get_field('author'); ?> -</p>
 </div>

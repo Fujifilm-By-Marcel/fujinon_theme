@@ -164,7 +164,9 @@ add_action( 'widgets_init', 'fujinon_theme_widgets_init' );
  */
 function fujinon_theme_scripts() {
 	wp_enqueue_style( 'fujinon_theme-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_style_add_data( 'fujinon_theme-style', 'rtl', 'replace' );
+    wp_style_add_data( 'fujinon_theme-style', 'rtl', 'replace' );
+
+	wp_enqueue_style( 'fujinon_wpsl', get_template_directory_uri() . '/src/wpsl.css' );
 
 	wp_enqueue_script( 'fujinon_theme-common', get_template_directory_uri() . '/js/common.js', array( 'jquery' ), _S_VERSION, true );
 	wp_enqueue_script( 'fujinon_theme-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );	
@@ -174,6 +176,26 @@ function fujinon_theme_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+
+    if ( is_page_template( 'templates/promotions.php' ) ) {
+        wp_enqueue_style('promotions', get_stylesheet_directory_uri() . '/src/promotions-assets/promotions.css', array(), false);
+        wp_enqueue_style('bootstrap-grid', get_stylesheet_directory_uri().'/src/promotions-assets/css/bootstrap-grid.min.css', array(),'5.3.2');
+        wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), false);
+
+
+        wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), false, true );
+        wp_enqueue_script( 'filterizr', get_template_directory_uri() . '/src/promotions-assets/js/filterizr.min.js', array( 'jquery' ), null, true );
+        wp_enqueue_script( 'promotions-tabs', get_template_directory_uri() . '/src/promotions-assets/js/tabs.js', array( 'jquery' ), false, true );
+        wp_enqueue_script( 'promotions-main', get_template_directory_uri() . '/src/promotions-assets/js/main.js', array( 'jquery' ), false, true );
+    }
+
+    if ( is_page( 'lens-services' ) ) {
+        wp_enqueue_style( 'nanoscroller-css', get_template_directory_uri() . '/src/nanoscroller.css' );
+        wp_enqueue_script( 'nanoscroller-js', get_template_directory_uri() . '/src/nanoscroller.js', array('jquery'), false, true );
+    }
+
+
 }
 add_action( 'wp_enqueue_scripts', 'fujinon_theme_scripts' );
 
@@ -196,6 +218,12 @@ require get_template_directory() . '/inc/template-functions.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+
+/**
+ * Register Custom Post Types.
+ */
+require get_template_directory() . '/inc/post-types.php';
 
 /**
  * Load Jetpack compatibility file.
@@ -236,7 +264,7 @@ function my_social() { ?>
     <?php if( have_rows('social', 'option') ) { ?>        
         <div class="social">
             <?php while( have_rows('social' , 'option') ) : the_row(); ?>
-            	<a href="<?php the_sub_field('link') ?>" target="_blank"><?php the_sub_field('fa_icon') ?></a>
+            	<a href="<?= get_sub_field('link') ?>" target="_blank"><?= get_sub_field('fa_icon') ?></a>
             <?php endwhile; ?>
         </div>
     <?php } 
@@ -404,6 +432,7 @@ function ajax_next_posts() {
     $args = array(
         //All your query arguments
         'cat' => $_GET['cat'],
+		'post_status' => 'publish'
     );
 
     //Get page
@@ -460,6 +489,16 @@ function my_acf_init() {
 			'category'			=> 'formatting',
 			'icon'				=> 'youtube',
 			'keywords'			=> array( 'youtube' ),
+		));
+
+		acf_register_block(array(
+			'name'				=> 'vimeo-responsive',
+			'title'				=> __('Vimeo Responsive'),
+			'description'		=> __(''),
+			'render_callback'	=> 'acf_block_render_callback',
+			'category'			=> 'formatting',
+			'icon'				=> 'vimeo',
+			'keywords'			=> array( 'vimeo' ),
 		));
 
 
@@ -523,3 +562,71 @@ function acf_block_render_callback( $block ) {
 		include( get_theme_file_path("/template-parts/block/content-{$slug}.php") );
 	}
 }
+
+
+
+
+
+// Custom functions
+function check_in_range( $start_date, $end_date, $date_from_user ) {
+    // Convert to timestamp
+    $start_ts   =   strtotime( $start_date );
+    $end_ts     =   strtotime( $end_date );
+    $user_ts    =   strtotime( $date_from_user );
+
+    // Check that user date is between start & end
+    return ( ( $user_ts >= $start_ts ) && ( $user_ts <= $end_ts ) );
+}
+
+
+function check_out_range($start_date, $end_date, $date_from_user){
+    // Convert to timestamp
+    $start_ts = strtotime($start_date);
+    $end_ts = strtotime($end_date);
+    $user_ts = strtotime($date_from_user);
+
+    // Check that user date is between start & end
+    return (($user_ts > $start_ts) && ($user_ts < $end_ts));
+}
+
+// Add custom content security policy
+function add_content_security_policy() {
+
+	$reliableUrls = array(
+		'https://ka-p.fontawesome.com',
+		'https://stage.fujinon.com',
+		'https://www.fujinon.com',
+		'https://fujinon.com',
+		'https://kit.fontawesome.com',
+		'https://www.googletagmanager.com',
+		'https://www.google-analytics.com',
+		'https://connect.facebook.net',
+		'https://*.googleapis.com',
+		'https://*.gstatic.com',
+		'https://facebook.com',
+		'https://*.cloudfront.net',
+		'https://www.facebook.com',
+		'https://www.youtube.com',
+        'https://maps.google.com'
+	);
+
+    $csp = "Content-Security-Policy: default-src 'self'; ";
+	$csp .= "connect-src 'self' " . implode(' ', $reliableUrls) . "; ";
+    $csp .= "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: " . implode(' ', $reliableUrls) . "; ";
+    $csp .= "style-src 'self' 'unsafe-inline' " . implode(' ', $reliableUrls) . "; ";
+    $csp .= "img-src 'self' data: " . implode(' ', $reliableUrls) . "; ";
+    $csp .= "font-src 'self' " . implode(' ', $reliableUrls) . "; ";
+	$csp .= "frame-src 'self' " . implode(' ', $reliableUrls) . "; ";
+    header($csp);
+}
+add_action('send_headers', 'add_content_security_policy');
+
+
+// Remove Author info from RSS Feed using custom RSS Template to prevent scraping
+function create_my_custom_feed() {  
+    load_template( TEMPLATEPATH . '/feed-rss2.php');  
+}  
+add_feed('rss2', 'create_my_custom_feed');
+
+
+require_once(__DIR__ . '/inc/wpsl.php');
